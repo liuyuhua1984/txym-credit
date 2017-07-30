@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>借款人注册</title>
+		<link rel="stylesheet" href="_CSS_/layout.css" />
+		<link href="_CSS_/mui.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a href="javascript:history.go(-1)" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">借款人注册</h1>
+		</header>
+		<div class="mui-content reg">
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>手机号：</label>
+					<input id="phone_rj" type="number" class="mui-input-clear mui-input" placeholder="请输入账号">
+				</div>
+				<div class="mui-input-row">
+					<label>密码：</label>
+					<input id='password_rj' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+				</div>
+				<div class="mui-input-row">
+					<label>确认密码：</label>
+					<input id='repassword_rj' type="password" class="mui-input-clear mui-input" placeholder="请确认密码">
+				</div>
+				
+				<div class="mui-input-row">
+					<label>邮箱</label>
+					<input id='email_rj' type="email" class="mui-input-clear mui-input" placeholder="请输入邮箱">
+				</div>
+				
+				<div class="mui-row">
+					<div class="mui-col-xs-6">
+						<div class="mui-input-row">
+							<label style="padding-right: 0;width: 40%;">名字：</label>
+							<input id="name_rj" style="width: 60%;" type="text" class="mui-input-clear mui-input" placeholder="请输入姓名">
+						</div>
+					</div>
+					<div class="mui-col-xs-3">
+						<div class="mui-input-row mui-radio ">
+						    <label>男</label>
+						    <input name="sex" type="radio" checked>
+						</div>
+					</div>
+					<div class="mui-col-xs-3">
+						<div class="mui-input-row mui-radio ">
+						    <label>女</label>
+						    <input name="sex" type="radio">
+						</div>
+					</div>
+				</div>
+				
+				<div class="textarea">
+					<label>住址：</label>
+					<textarea id="address_rj" name="" rows="2" cols="2"></textarea>
+				</div>
+				
+				<div class="mui-card contact">
+					<div class="mui-card-header">常用联系人1</div>
+					<div class="mui-card-content">
+						<div class="mui-card-content-inner">
+							<div class="mui-input-row">
+								<label>姓名：</label>
+							    <input id="" type="text" class="mui-input" placeholder="">
+							</div>
+							<div class="mui-input-row">
+								<label>电话：</label>
+							    <input id="" type="number" class="mui-input" placeholder="">
+							</div>
+							<div class="mui-input-row">
+							    <label>关系：</label>
+							    <input type="text" class="mui-input" placeholder="">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mui-card contact">
+					<div class="mui-card-header">常用联系人2</div>
+					<div class="mui-card-content">
+						<div class="mui-card-content-inner">
+							<div class="mui-input-row">
+								<label>姓名：</label>
+							    <input type="text" class="mui-input" placeholder="">
+							</div>
+							<div class="mui-input-row">
+								<label>电话：</label>
+							    <input type="number" class="mui-input" placeholder="">
+							</div>
+							<div class="mui-input-row">
+							    <label>关系：</label>
+							    <input type="text" class="mui-input" placeholder="">
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="mui-row">
+					<div class="mui-col-xs-6" style="padding: 7px 15px;font-size: 14px;">
+					    有无房产：
+					</div>
+					<div class="mui-col-xs-3">
+						<div class="mui-input-row mui-radio ">
+						    <label>有</label>
+						    <input name="build" type="radio" checked>
+						</div>
+					</div>
+					<div class="mui-col-xs-3">
+						<div class="mui-input-row mui-radio ">
+						    <label>无</label>
+						    <input name="build" type="radio" checked>
+						</div>
+					</div>
+					<div class="mui-col-xs-6" style="padding: 7px 15px;font-size: 14px;">
+					    有无车辆：
+					</div>
+					<div class="mui-col-xs-3">
+						<div class="mui-input-row mui-radio ">
+						    <label>有</label>
+						    <input name="car" type="radio" checked>
+						</div>
+					</div>
+					<div class="mui-col-xs-3">
+						<div class="mui-input-row mui-radio ">
+						    <label>无</label>
+						    <input name="car" type="radio" checked>
+						</div>
+					</div>
+				</div>
+				<div class="mui-content-padded">
+					<button id='reg-j' class="mui-btn mui-btn-block mui-btn-primary">提交</button>
+				</div>
+			</form>
+			
+		</div>
+		<script type="text/javascript" src="_JS_/jquery-3.2.1.min.js" ></script>
+		<script src="_JS_/mui.js"></script>
+		<script type="text/javascript">
+			function checkMobile(ph)
+			{
+				var reg = /^1[3|4|5|7|8][0-9]{9}$/
+				return reg.test(ph);
+			}
+		
+			function checkPassword(mm)
+			{
+				var reg = /^(\w){6,10}$/
+				return reg.test(mm);
+			}
+			function checkEmail(yx)
+			{
+				var reg = /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/
+				return reg.test(yx);
+			}
+		        
+		    	$("#reg-j").on('click', function () {
+		    		var arr = [
+						{ id: "phone_rj", msg: "请输入正确的手机号码!", cb: checkMobile },
+						{ id: "name_rj", msg: "请输入正确的姓名!", cb: null },
+						{ id: "address_rj", msg: "请输入正确的地址!", cb: null },
+						{ id: "password_rj", msg: "请输入正确的密码!", cb: checkPassword },
+						{ id: "email_rj", msg: "请输入正确的邮箱!", cb: checkEmail }
+		    		];
+		
+		    		for (var i = 0; i < arr.length; i++) {
+		    			var obj = arr[i];
+		    			var str = $("#" + obj.id).val();
+		    			if (obj.cb != null) {
+		    				if (!obj.cb(str)) {
+		    					alert(obj.msg);
+		    					document.getElementById(obj.id).focus()
+								return;
+		    				}
+		    			} else {
+		    				if (str.length <= 0) {
+		    					alert(obj.msg);
+		    					document.getElementById(obj.id).focus()
+		    					return;
+		    				}
+		    			}
+		    		}
+					
+		    		var phone_rc = $("#phone_rc").val();		//手机号码
+		    		var password_rc = $("#password_rc").val();	//密码
+		    		var name_rc = $("#name_rc").val();		    //姓名
+		    		var address_rc = $("#address_rc").val();    //地址
+		            var sex=$("input[name='sex'][checked]").siblings('label').text();  //性别
+		            var sex=$("input[name='build'][checked]").siblings('label').text();  //房产
+		            var sex=$("input[name='car'][checked]").siblings('label').text();  //车子
+		    	});
+		
+		</script> 
+	</body>
+
+</html>

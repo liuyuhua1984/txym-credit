@@ -9,6 +9,8 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
+define("GAME_ROOT",dirname($_SERVER['SCRIPT_NAME']));
+
 return [
     // +----------------------------------------------------------------------
     // | 应用设置
@@ -17,7 +19,7 @@ return [
     // 应用命名空间
     'app_namespace'          => 'credit',
     // 应用调试模式
-    'app_debug'              => false,
+    'app_debug'              => true,
     // 应用Trace
     'app_trace'              => false,
     // 应用模式状态
@@ -140,8 +142,7 @@ return [
         'taglib_end'   => '}',
     ],
 
-    // 视图输出字符串内容替换
-    'view_replace_str'       => [],
+
     // 默认跳转页面对应的模板文件
     'dispatch_success_tmpl'  => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
     'dispatch_error_tmpl'    => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
@@ -237,5 +238,12 @@ return [
         'type'      => 'bootstrap',
         'var_page'  => 'page',
         'list_rows' => 15,
+    ],
+    // 视图输出字符串内容替换
+    'view_replace_str'       => [
+        '_CSS_'=>GAME_ROOT.'/static/css',
+        '_JS_'=>GAME_ROOT.'/static/js',
+        '_IMG_'=>GAME_ROOT.'/static/images',
+
     ],
 ];

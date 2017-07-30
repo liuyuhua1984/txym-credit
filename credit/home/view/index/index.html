@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>首页</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="_CSS_/layout.css" />
+	<link href="_CSS_/mui.css" rel="stylesheet" />
+	<script src="_JS_/mui.js"></script>
+	<script type="text/javascript" src="_JS_/jquery-3.2.1.min.js" ></script>
+</head>
+
+<body>
+	<!--header-->
+	<header id="header" class="mui-bar mui-bar-nav">
+		<h1 class="mui-title">公司名称</h1>
+		<a id="menu1"  href="#topPopover1" class="mui-btn-link mui-pull-right">登录</a>
+		<a id="menu2"  href="#topPopover2" class="mui-btn-link mui-pull-right">注册&nbsp;/&nbsp;</a>
+		<!--登陆成功后显示个人中心，去掉hide类就可以了-->
+		<a href="user.html" class="mui-btn-link mui-pull-right hide">个人中心</a>
+	</header>
+	<div class="mui-content">
+		<!--贷款推荐-->
+	    <div class="mui-card">
+			<div class="mui-card-header">贷款推荐1</div>
+			<div class="mui-card-content">
+				<div class="mui-card-content-inner">
+					<span>
+						贷款推荐1的文字描述
+						贷款推荐1的文字描述
+						贷款推荐1的文字描述
+						贷款推荐1的文字描述
+						贷款推荐1的文字描述
+					</span>
+					<p class="magin5">要求：</p>
+					<p>
+						要求的内容要求的内容要求的内容要求的内容要求的内容要求的内容要求的内容
+						要求的内容要求的内容要求的内容要求的内容要求的内容要求的内容要求的内容
+					</p>
+				</div>
+			</div>
+			<div class="mui-card-footer">
+				<a class="mui-card-link"></a>
+				<a id='promptBtn' type="button" class="mui-card-link mui-btn mui-btn-blue mui-btn-outlined  mui-btn-block-mini">申请借贷</a>
+			</div>
+		</div>
+		
+	    <div class="mui-card">
+			<div class="mui-card-header">贷款推荐2</div>
+			<div class="mui-card-content">
+				<div class="mui-card-content-inner">
+					<span>
+						贷款推荐2的文字描述
+						贷款推荐2的文字描述
+						贷款推荐2的文字描述
+						贷款推荐2的文字描述
+						贷款推荐2的文字描述
+					</span>
+					<p class="magin5">要求：</p>
+					<p>
+						要求的内容要求的内容要求的内容要求的内容要求的内容要求的内容要求的内容
+						要求的内容要求的内容要求的内容要求的内容要求的内容要求的内容要求的内容
+					</p>
+				</div>
+			</div>
+			<div class="mui-card-footer">
+				<a class="mui-card-link"></a>
+				<a id='promptBtn' type="button" class="mui-card-link mui-btn mui-btn-blue mui-btn-outlined  mui-btn-block-mini">申请借贷</a>
+			</div>
+		</div>
+	</div>
+	<!--右上角弹出菜单-->
+	<div id="topPopover1" class="mui-popover">
+		<div class="mui-popover-arrow"></div>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell"><a href="login-c.html">出借人登录</a></li>
+				<li class="mui-table-view-cell"><a href="login-j.html">借款人登录</a></li>
+			</ul>
+        </div>
+	</div>
+	<div id="topPopover2" class="mui-popover">
+		<div class="mui-popover-arrow"></div>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell"><a href="reg-c.html">出借人注册</a></li>
+				<li class="mui-table-view-cell"><a href="reg-j.html">借款人注册</a></li>
+			</ul>
+        </div>
+	</div>
+<script type="text/javascript" charset="utf-8">
+	mui.init({
+		swipeBack: true
+	});
+	//已登录弹出借贷信息
+	document.getElementById("promptBtn").addEventListener('tap', function(e) {
+		e.detail.gesture.preventDefault(); //修复iOS 8.x平台存在的bug，使用plus.nativeUI.prompt会造成输入法闪一下又没了
+		var btnArray = ['取消', '确定'];
+		mui.prompt('请输入您借贷的信息', '', '', btnArray, function(e) {
+			if (e.index == 1) {
+//				info.innerText = '输出内容：' + $('#input1').val()+$('#input2').val();
+			} else {
+//				info.innerText = '你点了取消按钮';
+			}
+		})
+	});
+	//登录注册弹出菜单
+	mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		mui('.mui-scroll-wrapper').scroll();
+		mui('body').on('shown', '.mui-popover', function(e) {
+			//console.log('shown', e.detail.id);//detail为当前popover元素
+		});
+		mui('body').on('hidden', '.mui-popover', function(e) {
+			//console.log('hidden', e.detail.id);//detail为当前popover元素
+		});
+</script>    
+</body>
+</html>
