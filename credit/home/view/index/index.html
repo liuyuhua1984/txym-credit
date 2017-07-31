@@ -17,7 +17,7 @@
 		<a id="menu1"  href="#topPopover1" class="mui-btn-link mui-pull-right">登录</a>
 		<a id="menu2"  href="#topPopover2" class="mui-btn-link mui-pull-right">注册&nbsp;/&nbsp;</a>
 		<!--登陆成功后显示个人中心，去掉hide类就可以了-->
-		<a href=" {:url('txym-credit/credit/Login/userCenter')}" class="mui-btn-link mui-pull-right hide">个人中心</a>
+		<a href="__ROOT__/home/Login/userCenter" class="mui-btn-link mui-pull-right hide">个人中心</a>
 	</header>
 
 	<div class="mui-content">
@@ -59,16 +59,16 @@
 	<div id="topPopover1" class="mui-popover">
 		<div class="mui-popover-arrow"></div>
 			<ul class="mui-table-view">
-				<li class="mui-table-view-cell"><a href="/txym-credit/public/Login/openLoanerLogin">出借人登录</a></li>
-				<li class="mui-table-view-cell"><a href="{:url('txym-credit/credit/Login/openBorrowLogin/')}">借款人登录</a></li>
+				<li class="mui-table-view-cell"><a href="__ROOT__/home/Login/openLoanerLogin">出借人登录</a></li>
+				<li class="mui-table-view-cell"><a href="__ROOT__/home/Login/openBorrowLogin">借款人登录</a></li>
 			</ul>
         </div>
 	</div>
 	<div id="topPopover2" class="mui-popover">
 		<div class="mui-popover-arrow"></div>
 			<ul class="mui-table-view">
-				<li class="mui-table-view-cell"><a href="{:url('txym-credit/credit/Register/openLoanerRegister/')}">出借人注册</a></li>
-				<li class="mui-table-view-cell"><a href="{:url('txym-credit/credit/Register/openBorrowRegister/')}">借款人注册</a></li>
+				<li class="mui-table-view-cell"><a href="__ROOT__/home/Register/openLoanerRegister">出借人注册</a></li>
+				<li class="mui-table-view-cell"><a href="__ROOT__/home/Register/openBorrowRegister">借款人注册</a></li>
 			</ul>
         </div>
 	</div>

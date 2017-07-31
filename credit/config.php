@@ -17,7 +17,7 @@ return [
     // +----------------------------------------------------------------------
 
     // 应用命名空间
-    'app_namespace'          => 'credit',
+    'app_namespace'          => 'app',
     // 应用调试模式
     'app_debug'              => true,
     // 应用Trace, 开启应用Trace调试
