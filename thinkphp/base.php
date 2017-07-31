@@ -61,3 +61,8 @@ if (is_file(ROOT_PATH . '.env')) {
 
 // 加载惯例配置文件
 \think\Config::set(include THINK_PATH . 'convention' . EXT);
+
+//\think\Log::init([
+//              'type'  =>  'File',
+//              'path'  =>  APP_PATH.'logs/'
+//          ]);

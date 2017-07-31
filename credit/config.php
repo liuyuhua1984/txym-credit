@@ -20,8 +20,8 @@ return [
     'app_namespace'          => 'credit',
     // 应用调试模式
     'app_debug'              => true,
-    // 应用Trace
-    'app_trace'              => false,
+    // 应用Trace, 开启应用Trace调试
+    'app_trace'              => true,
     // 应用模式状态
     'app_status'             => '',
     // 是否支持多模块
@@ -157,7 +157,7 @@ return [
     // 错误显示信息,非调试模式有效
     'error_message'          => '页面错误！请稍后再试～',
     // 显示错误信息
-    'show_error_msg'         => false,
+    'show_error_msg'         => true,
     // 异常处理handle类 留空使用 \think\exception\Handle
     'exception_handle'       => '',
 
@@ -171,7 +171,15 @@ return [
         // 日志保存目录
         'path'  => LOG_PATH,
         // 日志记录级别
-        'level' => [],
+        'level' => ['error','info'],
+        // error和sql日志单独记录
+        'apart_level'   =>  ['error','sql'],
+        //单个日志文件的大小限制，超过后会自动记录到第二个文件
+        'file_size'     =>2097152,
+        //日志的时间格式，默认是` c `
+        'time_format'   =>'c',
+        // 授权只有202.12.36.89 才能记录日志
+      //  'allow_key' =>  ['202.12.36.89'],
     ],
 
     // +----------------------------------------------------------------------
@@ -218,7 +226,7 @@ return [
     // +----------------------------------------------------------------------
     'cookie'                 => [
         // cookie 名称前缀
-        'prefix'    => '',
+        'prefix'    => 'think',
         // cookie 保存时间
         'expire'    => 0,
         // cookie 保存路径

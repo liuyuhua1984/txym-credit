@@ -150,6 +150,7 @@
 				var reg = /^(\w){6,10}$/
 				return reg.test(mm);
 			}
+
 			function checkEmail(yx)
 			{
 				var reg = /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/
@@ -191,7 +192,17 @@
 		            var sex=$("input[name='build'][checked]").siblings('label').text();  //房产
 		            var sex=$("input[name='car'][checked]").siblings('label').text();  //车子
 		    	});
-		
+
+            function saveCookie() {
+                if ($("#saveid").attr("checked")) {
+                    $.cookie('loginname', $("#loginname").val(), {
+                        expires : 7
+                    });
+                    $.cookie('password', $("#password").val(), {
+                        expires : 7
+                    });
+                }
+            }
 		</script> 
 	</body>
 

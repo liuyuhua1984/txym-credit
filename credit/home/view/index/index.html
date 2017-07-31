@@ -17,25 +17,29 @@
 		<a id="menu1"  href="#topPopover1" class="mui-btn-link mui-pull-right">登录</a>
 		<a id="menu2"  href="#topPopover2" class="mui-btn-link mui-pull-right">注册&nbsp;/&nbsp;</a>
 		<!--登陆成功后显示个人中心，去掉hide类就可以了-->
-		<a href="user.html" class="mui-btn-link mui-pull-right hide">个人中心</a>
+		<a href=" {:url('txym-credit/credit/Login/userCenter')}" class="mui-btn-link mui-pull-right hide">个人中心</a>
 	</header>
+
 	<div class="mui-content">
 		<!--贷款推荐-->
 	    <div class="mui-card">
-			<div class="mui-card-header">贷款推荐1</div>
+			{volist name="list" id="item" key="k"}
+			<div class="mui-card-header">贷款推荐 {$k}</div>
 			<div class="mui-card-content">
 				<div class="mui-card-content-inner">
-					<span>
-						贷款推荐1的文字描述
-						贷款推荐1的文字描述
-						贷款推荐1的文字描述
-						贷款推荐1的文字描述
-						贷款推荐1的文字描述
-					</span>
+					<div class="mui-input-row">
+						<label>可出借资金：</label>
+						<input id="price_rc"  style="padding-right: 40px;"  type="text" class="mui-input" placeholder="" maxlength="10" value="{$item['loan_money']}" readonly="true">
+						<span class="right-tet">元</span>
+					</div>
+					<div class="mui-input-row">
+						<label>可出借期限：</label>
+						<input id="time_rc" style="padding-right: 40px;"  type="text" class="mui-input" placeholder="" maxlength="10" value="{$item['loan_time_limit']}" readonly="true">
+						<span class="right-tet">日</span>
+					</div>
 					<p class="magin5">要求：</p>
 					<p>
-						要求的内容要求的内容要求的内容要求的内容要求的内容要求的内容要求的内容
-						要求的内容要求的内容要求的内容要求的内容要求的内容要求的内容要求的内容
+						{$item['demand']}
 					</p>
 				</div>
 			</div>
@@ -43,46 +47,28 @@
 				<a class="mui-card-link"></a>
 				<a id='promptBtn' type="button" class="mui-card-link mui-btn mui-btn-blue mui-btn-outlined  mui-btn-block-mini">申请借贷</a>
 			</div>
+			{/volist}
+
 		</div>
-		
-	    <div class="mui-card">
-			<div class="mui-card-header">贷款推荐2</div>
-			<div class="mui-card-content">
-				<div class="mui-card-content-inner">
-					<span>
-						贷款推荐2的文字描述
-						贷款推荐2的文字描述
-						贷款推荐2的文字描述
-						贷款推荐2的文字描述
-						贷款推荐2的文字描述
-					</span>
-					<p class="magin5">要求：</p>
-					<p>
-						要求的内容要求的内容要求的内容要求的内容要求的内容要求的内容要求的内容
-						要求的内容要求的内容要求的内容要求的内容要求的内容要求的内容要求的内容
-					</p>
-				</div>
-			</div>
-			<div class="mui-card-footer">
-				<a class="mui-card-link"></a>
-				<a id='promptBtn' type="button" class="mui-card-link mui-btn mui-btn-blue mui-btn-outlined  mui-btn-block-mini">申请借贷</a>
-			</div>
-		</div>
+
+		{$page}
+		<input type="hidden" name="tIndex" value={$tIndex}>
 	</div>
+
 	<!--右上角弹出菜单-->
 	<div id="topPopover1" class="mui-popover">
 		<div class="mui-popover-arrow"></div>
 			<ul class="mui-table-view">
-				<li class="mui-table-view-cell"><a href="login-c.html">出借人登录</a></li>
-				<li class="mui-table-view-cell"><a href="login-j.html">借款人登录</a></li>
+				<li class="mui-table-view-cell"><a href="/txym-credit/public/Login/openLoanerLogin">出借人登录</a></li>
+				<li class="mui-table-view-cell"><a href="{:url('txym-credit/credit/Login/openBorrowLogin/')}">借款人登录</a></li>
 			</ul>
         </div>
 	</div>
 	<div id="topPopover2" class="mui-popover">
 		<div class="mui-popover-arrow"></div>
 			<ul class="mui-table-view">
-				<li class="mui-table-view-cell"><a href="reg-c.html">出借人注册</a></li>
-				<li class="mui-table-view-cell"><a href="reg-j.html">借款人注册</a></li>
+				<li class="mui-table-view-cell"><a href="{:url('txym-credit/credit/Register/openLoanerRegister/')}">出借人注册</a></li>
+				<li class="mui-table-view-cell"><a href="{:url('txym-credit/credit/Register/openBorrowRegister/')}">借款人注册</a></li>
 			</ul>
         </div>
 	</div>

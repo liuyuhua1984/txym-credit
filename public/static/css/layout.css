@@ -1,0 +1,136 @@
+/*首页*/
+.magin5{
+	margin: 5px 0;
+}
+.tipinput.mui-input-row label{
+	padding: 0!important;
+	font-size: 14px;
+	height: 26px;
+	line-height: 26px;
+	margin-top: 15px;
+}
+.tipinput.mui-input-row input{
+	border: #dadada solid 1px;
+}
+/*登录*/
+.ui-page-login{
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+.mui-content{height: 100%;}
+.area {
+	margin: 20px auto 0px auto;
+}
+
+.mui-input-group {
+	margin-top: 10px;
+}
+
+.mui-input-group:first-child {
+	margin-top: 20px;
+}
+
+.mui-input-group label {
+	width: 22%;
+}
+
+.mui-input-row label~input,
+.mui-input-row label~select,
+.mui-input-row label~textarea {
+	width: 78%;
+}
+
+.mui-checkbox input[type=checkbox],
+.mui-radio input[type=radio] {
+	top: 6px;
+}
+
+.mui-content-padded {
+	margin-top: 25px;
+}
+
+.mui-btn {
+	padding: 10px;
+}
+
+.link-area {
+	display: block;
+	margin-top: 25px;
+	text-align: center;
+}
+.copy p{
+	text-align: center;
+	margin-bottom:0;
+
+}
+.copy{
+	width: 100%;
+	position:fixed;
+	bottom: 0px;
+}
+/*利息计算*/
+.interest div[class^=mui-col-xs-]
+{
+	padding:10px;
+}
+.interest .mui-col-xs-7{
+	padding:5px 0!important;
+}
+.interest
+{
+	line-height: 28px!important;
+}
+.interest .mui-col-xs-7 input{
+	margin-bottom: 0;
+	font-size: 14px;
+}
+.red-text{color: #ff4545;}
+/*个人中心*/
+.user .mui-btn-block{
+	width: 40%;
+	margin: 10% 30%;
+}
+.hide{
+	display: none;
+}
+/*注册*/
+.area {
+	margin: 20px auto 0px auto;
+}
+.mui-input-group:first-child {
+	margin-top: 20px;
+}
+
+.mui-checkbox input[type=checkbox],
+.mui-radio input[type=radio] {
+	top: 6px;
+}
+.mui-content-padded {
+	margin-top: 25px;
+}
+.mui-btn {
+	padding: 10px;
+}
+.contact.mui-card{
+	background-color: #f1f1f1;
+}
+.textarea{
+	margin-top: 15px;
+	padding: 0 15px;
+	padding-bottom: 15px;
+	font-size: 14px;
+}	
+.textarea textarea{
+	font-size: 14px;
+}	
+.mui-radio.mui-input-row:after{
+	background:none!important;
+}
+.right-tet{
+	position: absolute;right:15px;
+	top: 10px;
+	font-size: 14px;
+}
+

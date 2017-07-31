@@ -128,8 +128,19 @@
 		    		var time_rc = $("#time_rc").val();			//出借期限
 		    		var require_rc = $("#require_rc").val();	//出借要求
 		            var sex=$("input[type=radio][checked]").siblings('label').text();  //性别
+
 		    	});
-		
+
+        function saveCookie() {
+            if ($("#saveid").attr("checked")) {
+                $.cookie('loginname', $("#loginname").val(), {
+                    expires : 7
+                });
+                $.cookie('password', $("#password").val(), {
+                    expires : 7
+                });
+            }
+        }
 		</script> 
 	</body>
 
