@@ -4,8 +4,8 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title>借款人注册</title>
-		<link rel="stylesheet" href="css/layout.css" />
-		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="_CSS_/layout.css" />
+		<link href="_CSS_/mui.css" rel="stylesheet" />
 	</head>
 
 	<body>
@@ -14,7 +14,7 @@
 			<h1 class="mui-title">借款人注册</h1>
 		</header>
 		<div class="mui-content reg">
-			<form class="mui-input-group">
+			<form class="mui-input-group" onsubmit="return false;">
 				<div class="mui-input-row">
 					<label>手机号：</label>
 					<input id="phone_rj" type="number" class="mui-input-clear mui-input" placeholder="请输入账号">
@@ -43,13 +43,13 @@
 					<div class="mui-col-xs-3">
 						<div class="mui-input-row mui-radio ">
 						    <label>男</label>
-						    <input name="sex" type="radio" checked>
+						    <input name="sex" type="radio" checked value="1">
 						</div>
 					</div>
 					<div class="mui-col-xs-3">
 						<div class="mui-input-row mui-radio ">
 						    <label>女</label>
-						    <input name="sex" type="radio">
+						    <input name="sex" type="radio" value="2">
 						</div>
 					</div>
 				</div>
@@ -83,15 +83,15 @@
 						<div class="mui-card-content-inner">
 							<div class="mui-input-row">
 								<label>姓名：</label>
-							    <input id="" type="text" class="mui-input" placeholder="">
+							    <input id="name_1" type="text" class="mui-input" placeholder="">
 							</div>
 							<div class="mui-input-row">
 								<label>电话：</label>
-							    <input id="" type="number" class="mui-input" placeholder="">
+							    <input id="phone_1" type="number" class="mui-input" placeholder="">
 							</div>
 							<div class="mui-input-row">
 							    <label>关系：</label>
-							    <input type="text" class="mui-input" placeholder="">
+							    <input id="contact_1" type="text" class="mui-input" placeholder="">
 							</div>
 						</div>
 					</div>
@@ -102,15 +102,15 @@
 						<div class="mui-card-content-inner">
 							<div class="mui-input-row">
 								<label>姓名：</label>
-							    <input type="text" class="mui-input" placeholder="">
+							    <input id="name_2" type="text" class="mui-input" placeholder="">
 							</div>
 							<div class="mui-input-row">
 								<label>电话：</label>
-							    <input type="number" class="mui-input" placeholder="">
+							    <input id="phone_2" type="number" class="mui-input" placeholder="">
 							</div>
 							<div class="mui-input-row">
 							    <label>关系：</label>
-							    <input type="text" class="mui-input" placeholder="">
+							    <input id="contact_2" type="text" class="mui-input" placeholder="">
 							</div>
 						</div>
 					</div>
@@ -123,13 +123,13 @@
 					<div class="mui-col-xs-3">
 						<div class="mui-input-row mui-radio ">
 						    <label>有</label>
-						    <input name="build" type="radio" checked>
+						    <input name="build" type="radio" checked value="1">
 						</div>
 					</div>
 					<div class="mui-col-xs-3">
 						<div class="mui-input-row mui-radio ">
 						    <label>无</label>
-						    <input name="build" type="radio" checked>
+						    <input name="build" type="radio" value="2">
 						</div>
 					</div>
 					<div class="mui-col-xs-6" style="padding: 7px 15px;font-size: 14px;">
@@ -138,13 +138,13 @@
 					<div class="mui-col-xs-3">
 						<div class="mui-input-row mui-radio ">
 						    <label>有</label>
-						    <input name="car" type="radio" checked>
+						    <input name="car" type="radio" checked value="1">
 						</div>
 					</div>
 					<div class="mui-col-xs-3">
 						<div class="mui-input-row mui-radio ">
 						    <label>无</label>
-						    <input name="car" type="radio" checked>
+						    <input name="car" type="radio" value="2">
 						</div>
 					</div>
 				</div>
@@ -154,8 +154,8 @@
 			</form>
 			
 		</div>
-		<script type="text/javascript" src="js/jquery-3.2.1.min.js" ></script>
-		<script src="js/mui.js"></script>
+		<script type="text/javascript" src="_JS_/jquery-1.12.4.js" ></script>
+		<script src="_JS_/mui.js"></script>
 		<script type="text/javascript">
 			function checkMobile(ph)
 			{
@@ -180,7 +180,13 @@
 						{ id: "name_rj", msg: "请输入正确的姓名!", cb: null },
 						{ id: "address_rj", msg: "请输入正确的地址!", cb: null },
 						{ id: "password_rj", msg: "请输入正确的密码!", cb: checkPassword },
-						{ id: "email_rj", msg: "请输入正确的邮箱!", cb: checkEmail }
+						{ id: "email_rj", msg: "请输入正确的邮箱!", cb: checkEmail },
+						{ id:"phone_1",msg:"联系人1,请输入正确的手机号码", cb: checkMobile},
+                        { id:"phone_2",msg:"联系人2,请输入正确的手机号码", cb: checkMobile},
+                        { id: "name_1", msg: "联系人1,请输入正确的姓名!", cb: null },
+                        { id: "name_2", msg: "联系人2,请输入正确的姓名!", cb: null },
+                        { id: "contact_1", msg: "联系人1,请输入正确的关系!", cb: null },
+                        { id: "contact_2", msg: "联系人2,请输入正确的关系!", cb: null },
 		    		];
 		
 		    		for (var i = 0; i < arr.length; i++) {
@@ -201,13 +207,73 @@
 		    			}
 		    		}
 					
-		    		var phone_rc = $("#phone_rc").val();		//手机号码
-		    		var password_rc = $("#password_rc").val();	//密码
-		    		var name_rc = $("#name_rc").val();		    //姓名
-		    		var address_rc = $("#address_rc").val();    //地址
-		            var sex=$("input[name='sex'][checked]").siblings('label').text();  //性别
-		            var sex=$("input[name='build'][checked]").siblings('label').text();  //房产
-		            var sex=$("input[name='car'][checked]").siblings('label').text();  //车子
+		    		var phone_rj = $("#phone_rj").val();		//手机号码
+		    		var password_rj = $("#password_rj").val();	//密码
+		    		var name_rj = $("#name_rj").val();		    //姓名
+		    		var address_rj = $("#address_rj").val();    //地址
+
+                    var email_rj = $("#email_rj").val();//邮箱
+
+                    var phone_1 = $("#phone_1").val();//联系人1电话
+                    var name_1 = $("#name_1").val();//联系人1姓名
+					var contact_1 = $("#contact_1").val();//联系人1关系
+
+                    var phone_2 = $("#phone_2").val();//联系人2电话
+                    var name_2 = $("#name_2").val();//联系人2姓名
+                    var contact_2 = $("#contact_2").val();//联系人2关系
+
+		            //var hourse=$("input[name='build'][checked]").siblings('label').text();  //房产
+					var hourse = $("input[name='build']:checked").val();
+		          //  var car=$("input[name='car'][checked]").siblings('label').text();  //车子
+					var car = $("input[name='car']:checked").val();
+
+					var id_card =['imgShow_WU_FILE_0','imgShow_WU_FILE_1'];
+                    if (phone_rc.length < 11 || phone_rc.length > 11){
+                        alert("手机号位数不对!");
+                        return ;
+                    }
+
+                    var sex =$("input[name='sex']:checked").val();
+
+                    $.ajaxFileUpload(
+                        {
+                            url : "__ROOT__/home/Register/borrowerRegister", //用于文件上传的服务器端请求地址
+                            type : 'POST',
+                            secureuri : false, //是否需要安全协议，一般设置为false
+                            fileElementId : id_card, //文件上传域的ID
+                            dataType : 'json', //返回值类型 一般设置为json
+                            data : {
+                                title : title,
+                                wid : wid,
+                                appid : appid
+                                //请求参数
+
+                            },
+                            success : function(data, status) //服务器成功响应处理函数
+                            {
+
+                                //data是服务器返回的数据
+                                if (data.res == '1') {
+                                    console.log("进入这进而::"+"__ROOT__");
+                                    window.location.href="__ROOT__";
+                                }else{
+                                    alert("上传有问题");
+                                }
+
+
+                            },
+                            error : function(data, status, e) //服务器响应失败处理函数
+                            {
+
+                                //data是服务器返回的数据
+                                console("e::"+e);
+                                alert("超时或者系统异常..." + data.responseText);
+
+
+                            }
+                        }
+                    );
+
 		    	});
 		
     //上传图片
@@ -300,6 +366,8 @@ function file_click(){
 	}
 }
 window.onload = file_click;
+
+
 </script> 
 </body>
 
