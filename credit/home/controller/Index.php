@@ -19,7 +19,7 @@ class Index extends Controller
         $arr['page'] = $tIndex;
 
         // 查询状态为1的用户数据 并且每页显示10条数据 总记录数为
-        $list = Loaner::where('is_show',1)->paginate(10,true,$arr);
+        $list = Loaner::where('is_show','=',1)->paginate(10,true,$arr);
       //  var_dump($list);
         // 获取分页显示
         $page = $list->render();
@@ -35,3 +35,4 @@ class Index extends Controller
         return $this->fetch();
     }
 }
+?>

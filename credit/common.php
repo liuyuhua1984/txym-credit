@@ -11,3 +11,13 @@
 
 // 应用公共文件
 
+/**
+ * @param $now
+ *time()转换为Y-m-d h:i:s
+ * @return false|string
+ */
+ function convertDate($now){
+    return date("Y-m-d h:i:s", $now);
+}
+
+?>

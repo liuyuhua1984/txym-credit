@@ -14,7 +14,7 @@
 			<h1 class="mui-title">借款人注册</h1>
 		</header>
 		<div class="mui-content reg">
-			<form class="mui-input-group">
+			<form class="mui-input-group" onsubmit="return false;" >
 				<div class="mui-input-row">
 					<label>手机号：</label>
 					<input id="phone_rj" type="number" class="mui-input-clear mui-input" placeholder="请输入账号">
@@ -43,13 +43,13 @@
 					<div class="mui-col-xs-3">
 						<div class="mui-input-row mui-radio ">
 						    <label>男</label>
-						    <input name="sex" type="radio" checked>
+						    <input name="sex" type="radio" checked value="1">
 						</div>
 					</div>
 					<div class="mui-col-xs-3">
 						<div class="mui-input-row mui-radio ">
 						    <label>女</label>
-						    <input name="sex" type="radio">
+						    <input name="sex" type="radio" value="2">
 						</div>
 					</div>
 				</div>
@@ -65,15 +65,15 @@
 						<div class="mui-card-content-inner">
 							<div class="mui-input-row">
 								<label>姓名：</label>
-							    <input id="" type="text" class="mui-input" placeholder="">
+							    <input id="name-1" type="text" class="mui-input" placeholder="姓名">
 							</div>
 							<div class="mui-input-row">
 								<label>电话：</label>
-							    <input id="" type="number" class="mui-input" placeholder="">
+							    <input id="phone-1" type="number" class="mui-input" placeholder="11位电话号码">
 							</div>
 							<div class="mui-input-row">
 							    <label>关系：</label>
-							    <input type="text" class="mui-input" placeholder="">
+							    <input  id="contact-1" type="text" class="mui-input" placeholder="父子" >
 							</div>
 						</div>
 					</div>
@@ -84,15 +84,15 @@
 						<div class="mui-card-content-inner">
 							<div class="mui-input-row">
 								<label>姓名：</label>
-							    <input type="text" class="mui-input" placeholder="">
+							    <input id="name-2" type="text" class="mui-input" placeholder="姓名">
 							</div>
 							<div class="mui-input-row">
 								<label>电话：</label>
-							    <input type="number" class="mui-input" placeholder="">
+							    <input id="phone-2" type="number" class="mui-input" placeholder="11们电话号码">
 							</div>
 							<div class="mui-input-row">
 							    <label>关系：</label>
-							    <input type="text" class="mui-input" placeholder="">
+							    <input id="contact-2" type="text" class="mui-input" placeholder="母子">
 							</div>
 						</div>
 					</div>
@@ -136,7 +136,7 @@
 			</form>
 			
 		</div>
-		<script type="text/javascript" src="_JS_/jquery-3.2.1.min.js" ></script>
+		<script type="text/javascript" src="_JS_/jquery-1.12.4.js" ></script>
 		<script src="_JS_/mui.js"></script>
 		<script type="text/javascript">
 			function checkMobile(ph)
@@ -191,18 +191,11 @@
 		            var sex=$("input[name='sex'][checked]").siblings('label').text();  //性别
 		            var sex=$("input[name='build'][checked]").siblings('label').text();  //房产
 		            var sex=$("input[name='car'][checked]").siblings('label').text();  //车子
+
+
 		    	});
 
-            function saveCookie() {
-                if ($("#saveid").attr("checked")) {
-                    $.cookie('loginname', $("#loginname").val(), {
-                        expires : 7
-                    });
-                    $.cookie('password', $("#password").val(), {
-                        expires : 7
-                    });
-                }
-            }
+
 		</script> 
 	</body>
 
