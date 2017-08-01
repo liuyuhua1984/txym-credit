@@ -11,6 +11,7 @@ namespace app\home\controller;
 use think\Controller;
 use app\home\model\Loaner;
 use app\home\model\Borrower;
+use think\Session;
 
 class Login extends Controller
 {
@@ -26,6 +27,14 @@ class Login extends Controller
     public function openBorrowLogin(){
         return $this->fetch('login-j');
     }
+
+    public function exitCredit(){
+        Session::delete('name');
+        //重定向到News模块的Category操作
+        $this->redirect('index/index');
+       // return $this->fetch('index/index');
+    }
+
     /**
      *借出者登录
      */

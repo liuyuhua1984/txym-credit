@@ -10,7 +10,7 @@
 namespace app\home\controller;
 use app\home\model\Loaner;
 use app\home\model\Borrower;
-
+use think\Session;
 use function convertDate;
 use think\Controller;
 use function time;
@@ -61,6 +61,8 @@ class Register extends Controller
                         'loan_time_limit'=>$time_rc,'address'=>$address_rcc,'demand'=>$require_rc,'create_time'=> convertDate(time())]);
         $_Loaner->save();
 
+        Session::set("name",$name_rc);
+
         //具体看返回的Json 格式 xxx => xxxx
         return ["res" => 1];
 
@@ -70,7 +72,7 @@ class Register extends Controller
      *借入者注册
      */
     public  function borrowerRegister(){
-        //enctype="multipart/form-data" method="post" onsubmit="return false;" 
+        //enctype="multipart/form-data" method="post" onsubmit="return false;"
     }
 }
 

@@ -14,10 +14,19 @@
 	<!--header-->
 	<header id="header" class="mui-bar mui-bar-nav">
 		<h1 class="mui-title">公司名称</h1>
-		<a id="menu1"  href="#topPopover1" class="mui-btn-link mui-pull-right">登录</a>
-		<a id="menu2"  href="#topPopover2" class="mui-btn-link mui-pull-right">注册&nbsp;/&nbsp;</a>
+		{if condition="$Think.session.name neq null "}
+
+			<a href="__ROOT__/home/Login/exitCredit" class="mui-btn-link mui-pull-right">退出</a>
+		<a href="#" class="mui-btn-link mui-pull-right ">{$Think.session.name}&nbsp;/&nbsp; </a>
+		{else /}
+			<a id="menu1"  href="#topPopover1" class="mui-btn-link mui-pull-right">登录</a>
+			<a id="menu2"  href="#topPopover2" class="mui-btn-link mui-pull-right">注册&nbsp;/&nbsp;</a>
+		{/if}
+
+		{$Think.session.name}
+
 		<!--登陆成功后显示个人中心，去掉hide类就可以了-->
-		<a href="__ROOT__/home/Login/userCenter" class="mui-btn-link mui-pull-right hide">个人中心</a>
+
 	</header>
 
 	<div class="mui-content">
@@ -99,6 +108,7 @@
 		mui('body').on('hidden', '.mui-popover', function(e) {
 			//console.log('hidden', e.detail.id);//detail为当前popover元素
 		});
+
 </script>    
 </body>
 </html>
