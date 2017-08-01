@@ -14,7 +14,7 @@
 			<h1 class="mui-title">借款人注册</h1>
 		</header>
 		<div class="mui-content reg">
-			<form class="mui-input-group" onsubmit="return false;" >
+			<form class="mui-input-group" enctype="multipart/form-data" method="post" onsubmit="return false;" >
 				<div class="mui-input-row">
 					<label>手机号：</label>
 					<input id="phone_rj" type="number" class="mui-input-clear mui-input" placeholder="请输入账号">
@@ -131,7 +131,8 @@
 					</div>
 				</div>
 				<div class="mui-content-padded">
-					<button id='reg-j' class="mui-btn mui-btn-block mui-btn-primary">提交</button>
+					<input class="mui-btn mui-btn-block mui-btn-primary" type="submit" value="提交"/>
+					<!--<button id='reg-j' class="mui-btn mui-btn-block mui-btn-primary">提交</button>-->
 				</div>
 			</form>
 			
@@ -156,44 +157,47 @@
 				var reg = /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/
 				return reg.test(yx);
 			}
-		        
-		    	$("#reg-j").on('click', function () {
-		    		var arr = [
-						{ id: "phone_rj", msg: "请输入正确的手机号码!", cb: checkMobile },
-						{ id: "name_rj", msg: "请输入正确的姓名!", cb: null },
-						{ id: "address_rj", msg: "请输入正确的地址!", cb: null },
-						{ id: "password_rj", msg: "请输入正确的密码!", cb: checkPassword },
-						{ id: "email_rj", msg: "请输入正确的邮箱!", cb: checkEmail }
-		    		];
-		
-		    		for (var i = 0; i < arr.length; i++) {
-		    			var obj = arr[i];
-		    			var str = $("#" + obj.id).val();
-		    			if (obj.cb != null) {
-		    				if (!obj.cb(str)) {
-		    					alert(obj.msg);
-		    					document.getElementById(obj.id).focus()
-								return;
-		    				}
-		    			} else {
-		    				if (str.length <= 0) {
-		    					alert(obj.msg);
-		    					document.getElementById(obj.id).focus()
-		    					return;
-		    				}
-		    			}
-		    		}
-					
-		    		var phone_rc = $("#phone_rc").val();		//手机号码
-		    		var password_rc = $("#password_rc").val();	//密码
-		    		var name_rc = $("#name_rc").val();		    //姓名
-		    		var address_rc = $("#address_rc").val();    //地址
-		            var sex=$("input[name='sex'][checked]").siblings('label').text();  //性别
-		            var sex=$("input[name='build'][checked]").siblings('label').text();  //房产
-		            var sex=$("input[name='car'][checked]").siblings('label').text();  //车子
 
+			function sendForm()
+            {
 
-		    	});
+                    var arr = [
+                        {id: "phone_rj", msg: "请输入正确的手机号码!", cb: checkMobile},
+                        {id: "name_rj", msg: "请输入正确的姓名!", cb: null},
+                        {id: "address_rj", msg: "请输入正确的地址!", cb: null},
+                        {id: "password_rj", msg: "请输入正确的密码!", cb: checkPassword},
+                        {id: "email_rj", msg: "请输入正确的邮箱!", cb: checkEmail}
+                    ];
+
+                    for (var i = 0; i < arr.length; i++) {
+                        var obj = arr[i];
+                        var str = $("#" + obj.id).val();
+                        if (obj.cb != null) {
+                            if (!obj.cb(str)) {
+                                alert(obj.msg);
+                                document.getElementById(obj.id).focus()
+                                return false;
+                            }
+                        } else {
+                            if (str.length <= 0) {
+                                alert(obj.msg);
+                                document.getElementById(obj.id).focus()
+                                return false;
+                            }
+                        }
+                    }
+
+                    var phone_rc = $("#phone_rc").val();		//手机号码
+                    var password_rc = $("#password_rc").val();	//密码
+                    var name_rc = $("#name_rc").val();		    //姓名
+                    var address_rc = $("#address_rc").val();    //地址
+                    var sex = $("input[name='sex'][checked]").siblings('label').text();  //性别
+                    var sex = $("input[name='build'][checked]").siblings('label').text();  //房产
+                    var sex = $("input[name='car'][checked]").siblings('label').text();  //车子
+
+					return true;
+
+            }
 
 
 		</script> 

@@ -70,7 +70,7 @@ class Register extends Controller
      *借入者注册
      */
     public  function borrowerRegister(){
-        //
+        //enctype="multipart/form-data" method="post" onsubmit="return false;" 
     }
 }
 
