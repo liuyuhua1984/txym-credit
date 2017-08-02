@@ -1238,11 +1238,13 @@ class Request
     public function isAjax($ajax = false)
     {
         $value  = $this->server('HTTP_X_REQUESTED_WITH', '', 'strtolower');
-        Log::error("HTTP_X_REQUESTED_WITH::".$value);
+
         $result = ('xmlhttprequest' == $value) ? true : false;
         if (true === $ajax) {
+
             return $result;
         } else {
+            Log::error("HTTP_X_REQUESTED_WITH::".$this->param(Config::get('var_ajax')));
             return $this->param(Config::get('var_ajax')) ? true : $result;
         }
     }
