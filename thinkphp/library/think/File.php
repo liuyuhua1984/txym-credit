@@ -296,10 +296,13 @@ class File extends SplFileObject
             return false;
         }
 
+
         // 验证上传
         if (!$this->check()) {
+            Log::error("文件::".$this->error);
             return false;
         }
+
         $path = rtrim($path, DS) . DS;
         // 文件保存命名规则
         $saveName = $this->buildSaveName($savename);
@@ -323,6 +326,7 @@ class File extends SplFileObject
             $this->error = '文件上传保存错误！';
             return false;
         }
+
         // 返回 File对象实例
         $file = new self($filename);
         $file->setSaveName($saveName);

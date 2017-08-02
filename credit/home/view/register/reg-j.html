@@ -1,374 +1,415 @@
 <!DOCTYPE html>
 <html class="ui-page-login">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<title>借款人注册</title>
-		<link rel="stylesheet" href="_CSS_/layout.css" />
-		<link href="_CSS_/mui.css" rel="stylesheet" />
-	</head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>借款人注册</title>
+    <link rel="stylesheet" href="_CSS_/layout.css"/>
+    <link href="_CSS_/mui.css" rel="stylesheet"/>
+</head>
 
-	<body>
-		<header class="mui-bar mui-bar-nav">
-			<a href="javascript:history.go(-1)" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">借款人注册</h1>
-		</header>
-		<div class="mui-content reg">
-			<form class="mui-input-group" onsubmit="return false;">
-				<div class="mui-input-row">
-					<label>手机号：</label>
-					<input id="phone_rj" type="number" class="mui-input-clear mui-input" placeholder="请输入账号">
-				</div>
-				<div class="mui-input-row">
-					<label>密码：</label>
-					<input id='password_rj' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
-				</div>
-				<div class="mui-input-row">
-					<label>确认密码：</label>
-					<input id='repassword_rj' type="password" class="mui-input-clear mui-input" placeholder="请确认密码">
-				</div>
-				
-				<div class="mui-input-row">
-					<label>邮箱</label>
-					<input id='email_rj' type="email" class="mui-input-clear mui-input" placeholder="请输入邮箱">
-				</div>
-				
-				<div class="mui-row">
-					<div class="mui-col-xs-6">
-						<div class="mui-input-row">
-							<label style="padding-right: 0;width: 40%;">名字：</label>
-							<input id="name_rj" style="width: 60%;" type="text" class="mui-input-clear mui-input" placeholder="请输入姓名">
-						</div>
-					</div>
-					<div class="mui-col-xs-3">
-						<div class="mui-input-row mui-radio ">
-						    <label>男</label>
-						    <input name="sex" type="radio" checked value="1">
-						</div>
-					</div>
-					<div class="mui-col-xs-3">
-						<div class="mui-input-row mui-radio ">
-						    <label>女</label>
-						    <input name="sex" type="radio" value="2">
-						</div>
-					</div>
-				</div>
-				
-				<div class="textarea">
-					<label>住址：</label>
-					<textarea id="address_rj" name="" rows="2" cols="2"></textarea>
-				</div>
-				
-				<div class="mui-row" id="warp">
-					<div class="mui-col-xs-3">
-						身份证：
-					</div>
-					<div class="mui-col-xs-5 ID-card">
-						<p><img id="imgShow_WU_FILE_0" width="90" height="50" /></p>
-						<div class="a-upload">
-							<input type="file" id="up_img_WU_FILE_0" />上传正面
-						</div>
-					</div>
-					<div class="mui-col-xs-4 ID-card">
-						 <p><img id="imgShow_WU_FILE_1" width="90" height="50" /></p>
-						<div class="a-upload">
-							<input type="file" id="up_img_WU_FILE_1"/>上传反面
-						</div>
-					</div>
-				</div>
-				
-				<div class="mui-card contact">
-					<div class="mui-card-header">常用联系人1</div>
-					<div class="mui-card-content">
-						<div class="mui-card-content-inner">
-							<div class="mui-input-row">
-								<label>姓名：</label>
-							    <input id="name_1" type="text" class="mui-input" placeholder="">
-							</div>
-							<div class="mui-input-row">
-								<label>电话：</label>
-							    <input id="phone_1" type="number" class="mui-input" placeholder="">
-							</div>
-							<div class="mui-input-row">
-							    <label>关系：</label>
-							    <input id="contact_1" type="text" class="mui-input" placeholder="">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="mui-card contact">
-					<div class="mui-card-header">常用联系人2</div>
-					<div class="mui-card-content">
-						<div class="mui-card-content-inner">
-							<div class="mui-input-row">
-								<label>姓名：</label>
-							    <input id="name_2" type="text" class="mui-input" placeholder="">
-							</div>
-							<div class="mui-input-row">
-								<label>电话：</label>
-							    <input id="phone_2" type="number" class="mui-input" placeholder="">
-							</div>
-							<div class="mui-input-row">
-							    <label>关系：</label>
-							    <input id="contact_2" type="text" class="mui-input" placeholder="">
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="mui-row">
-					<div class="mui-col-xs-6" style="padding: 7px 15px;font-size: 14px;">
-					    有无房产：
-					</div>
-					<div class="mui-col-xs-3">
-						<div class="mui-input-row mui-radio ">
-						    <label>有</label>
-						    <input name="build" type="radio" checked value="1">
-						</div>
-					</div>
-					<div class="mui-col-xs-3">
-						<div class="mui-input-row mui-radio ">
-						    <label>无</label>
-						    <input name="build" type="radio" value="2">
-						</div>
-					</div>
-					<div class="mui-col-xs-6" style="padding: 7px 15px;font-size: 14px;">
-					    有无车辆：
-					</div>
-					<div class="mui-col-xs-3">
-						<div class="mui-input-row mui-radio ">
-						    <label>有</label>
-						    <input name="car" type="radio" checked value="1">
-						</div>
-					</div>
-					<div class="mui-col-xs-3">
-						<div class="mui-input-row mui-radio ">
-						    <label>无</label>
-						    <input name="car" type="radio" value="2">
-						</div>
-					</div>
-				</div>
-				<div class="mui-content-padded">
-					<button id='reg-j' class="mui-btn mui-btn-block mui-btn-primary">提交</button>
-				</div>
-			</form>
-			
-		</div>
-		<script type="text/javascript" src="_JS_/jquery-1.12.4.js" ></script>
-		<script src="_JS_/mui.js"></script>
-		<script type="text/javascript">
-			function checkMobile(ph)
-			{
-				var reg = /^1[3|4|5|7|8][0-9]{9}$/
-				return reg.test(ph);
-			}
-		
-			function checkPassword(mm)
-			{
-				var reg = /^(\w){6,10}$/
-				return reg.test(mm);
-			}
-			function checkEmail(yx)
-			{
-				var reg = /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/
-				return reg.test(yx);
-			}
-		        
-		    	$("#reg-j").on('click', function () {
-		    		var arr = [
-						{ id: "phone_rj", msg: "请输入正确的手机号码!", cb: checkMobile },
-						{ id: "name_rj", msg: "请输入正确的姓名!", cb: null },
-						{ id: "address_rj", msg: "请输入正确的地址!", cb: null },
-						{ id: "password_rj", msg: "请输入正确的密码!", cb: checkPassword },
-						{ id: "email_rj", msg: "请输入正确的邮箱!", cb: checkEmail },
-						{ id:"phone_1",msg:"联系人1,请输入正确的手机号码", cb: checkMobile},
-                        { id:"phone_2",msg:"联系人2,请输入正确的手机号码", cb: checkMobile},
-                        { id: "name_1", msg: "联系人1,请输入正确的姓名!", cb: null },
-                        { id: "name_2", msg: "联系人2,请输入正确的姓名!", cb: null },
-                        { id: "contact_1", msg: "联系人1,请输入正确的关系!", cb: null },
-                        { id: "contact_2", msg: "联系人2,请输入正确的关系!", cb: null },
-		    		];
-		
-		    		for (var i = 0; i < arr.length; i++) {
-		    			var obj = arr[i];
-		    			var str = $("#" + obj.id).val();
-		    			if (obj.cb != null) {
-		    				if (!obj.cb(str)) {
-		    					alert(obj.msg);
-		    					document.getElementById(obj.id).focus()
-								return;
-		    				}
-		    			} else {
-		    				if (str.length <= 0) {
-		    					alert(obj.msg);
-		    					document.getElementById(obj.id).focus()
-		    					return;
-		    				}
-		    			}
-		    		}
-					
-		    		var phone_rj = $("#phone_rj").val();		//手机号码
-		    		var password_rj = $("#password_rj").val();	//密码
-		    		var name_rj = $("#name_rj").val();		    //姓名
-		    		var address_rj = $("#address_rj").val();    //地址
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a href="javascript:history.go(-1)" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">借款人注册</h1>
+</header>
+<div class="mui-content reg">
+    <form id="from_rj" class="mui-input-group" onsubmit="return false;">
+        <div class="mui-input-row">
+            <label>手机号：</label>
+            <input id="phone_rj" type="number" class="mui-input-clear mui-input" placeholder="请输入账号" maxlength="10">
+        </div>
+        <div class="mui-input-row">
+            <label>密码：</label>
+            <input id='password_rj' type="password" class="mui-input-clear mui-input" placeholder="请输入密码" maxlength="10">
+        </div>
+        <div class="mui-input-row">
+            <label>确认密码：</label>
+            <input id='repassword_rj' type="password" class="mui-input-clear mui-input" placeholder="请确认密码" maxlength="10">
+        </div>
 
-                    var email_rj = $("#email_rj").val();//邮箱
+        <div class="mui-input-row">
+            <label>邮箱</label>
+            <input id='email_rj' type="email" class="mui-input-clear mui-input" placeholder="请输入邮箱">
+        </div>
 
-                    var phone_1 = $("#phone_1").val();//联系人1电话
-                    var name_1 = $("#name_1").val();//联系人1姓名
-					var contact_1 = $("#contact_1").val();//联系人1关系
+        <div class="mui-row">
+            <div class="mui-col-xs-6">
+                <div class="mui-input-row">
+                    <label style="padding-right: 0;width: 40%;">名字：</label>
+                    <input id="name_rj" style="width: 60%;" type="text" class="mui-input-clear mui-input" placeholder="请输入姓名" maxlength="10">
+                </div>
+            </div>
+            <div class="mui-col-xs-3">
+                <div class="mui-input-row mui-radio ">
+                    <label>男</label>
+                    <input name="sex" type="radio" checked value="1">
+                </div>
+            </div>
+            <div class="mui-col-xs-3">
+                <div class="mui-input-row mui-radio ">
+                    <label>女</label>
+                    <input name="sex" type="radio" value="2">
+                </div>
+            </div>
+        </div>
 
-                    var phone_2 = $("#phone_2").val();//联系人2电话
-                    var name_2 = $("#name_2").val();//联系人2姓名
-                    var contact_2 = $("#contact_2").val();//联系人2关系
+        <div class="textarea">
+            <label>住址：</label>
+            <textarea id="address_rj" name="" rows="2" cols="2"></textarea>
+        </div>
 
-		            //var hourse=$("input[name='build'][checked]").siblings('label').text();  //房产
-					var hourse = $("input[name='build']:checked").val();
-		          //  var car=$("input[name='car'][checked]").siblings('label').text();  //车子
-					var car = $("input[name='car']:checked").val();
+        <div class="mui-row" id="warp">
+            <div class="mui-col-xs-3">
+                身份证：
+            </div>
+            <div class="mui-col-xs-5 ID-card">
+                <p><img id="imgShow_WU_FILE_0" width="90" height="50"/></p>
+                <div class="a-upload">
+                    <input type="file" id="up_img_WU_FILE_0" name="up_img_WU_FILE_0"/>上传正面
+                </div>
+            </div>
+            <div class="mui-col-xs-4 ID-card">
+                <p><img id="imgShow_WU_FILE_1" width="90" height="50"/></p>
+                <div class="a-upload">
+                    <input type="file" id="up_img_WU_FILE_1" name="up_img_WU_FILE_1"/>上传反面
+                </div>
+            </div>
+        </div>
 
-					var id_card =['imgShow_WU_FILE_0','imgShow_WU_FILE_1'];
-                    if (phone_rc.length < 11 || phone_rc.length > 11){
-                        alert("手机号位数不对!");
-                        return ;
+        <div class="mui-card contact">
+            <div class="mui-card-header">常用联系人1</div>
+            <div class="mui-card-content">
+                <div class="mui-card-content-inner">
+                    <div class="mui-input-row">
+                        <label>姓名：</label>
+                        <input id="name_1" type="text" class="mui-input" placeholder="" maxlength="10">
+                    </div>
+                    <div class="mui-input-row">
+                        <label>电话：</label>
+                        <input id="phone_1" type="number" class="mui-input" placeholder="">
+                    </div>
+                    <div class="mui-input-row">
+                        <label>关系：</label>
+                        <input id="contact_1" type="text" class="mui-input" placeholder="" maxlength="10">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mui-card contact">
+            <div class="mui-card-header">常用联系人2</div>
+            <div class="mui-card-content">
+                <div class="mui-card-content-inner">
+                    <div class="mui-input-row">
+                        <label>姓名：</label>
+                        <input id="name_2" type="text" class="mui-input" placeholder="" maxlength="10">
+                    </div>
+                    <div class="mui-input-row">
+                        <label>电话：</label>
+                        <input id="phone_2" type="number" class="mui-input" placeholder="">
+                    </div>
+                    <div class="mui-input-row">
+                        <label>关系：</label>
+                        <input id="contact_2" type="text" class="mui-input" placeholder="" maxlength="10">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mui-row">
+            <div class="mui-col-xs-6" style="padding: 7px 15px;font-size: 14px;">
+                有无房产：
+            </div>
+            <div class="mui-col-xs-3">
+                <div class="mui-input-row mui-radio ">
+                    <label>有</label>
+                    <input name="build" type="radio" checked value="1">
+                </div>
+            </div>
+            <div class="mui-col-xs-3">
+                <div class="mui-input-row mui-radio ">
+                    <label>无</label>
+                    <input name="build" type="radio" value="2">
+                </div>
+            </div>
+            <div class="mui-col-xs-6" style="padding: 7px 15px;font-size: 14px;">
+                有无车辆：
+            </div>
+            <div class="mui-col-xs-3">
+                <div class="mui-input-row mui-radio ">
+                    <label>有</label>
+                    <input name="car" type="radio" checked value="1">
+                </div>
+            </div>
+            <div class="mui-col-xs-3">
+                <div class="mui-input-row mui-radio ">
+                    <label>无</label>
+                    <input name="car" type="radio" value="2">
+                </div>
+            </div>
+        </div>
+        <div class="mui-content-padded">
+            <button id='reg-j' class="mui-btn mui-btn-block mui-btn-primary">提交</button>
+        </div>
+    </form>
+
+</div>
+<script type="text/javascript" src="_JS_/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="_JS_/ajaxfileupload.js"></script>
+
+<script type="text/javascript" src="_JS_/mui.js"></script>
+<script type="text/javascript">
+    function checkMobile(ph) {
+        var reg = /^1[3|4|5|7|8][0-9]{9}$/
+        return reg.test(ph);
+    }
+
+    function checkPassword(mm) {
+        if ($("#repassword_rj").val() != mm) {
+            return false;
+        }
+        var reg = /^(\w){6,10}$/
+        return reg.test(mm);
+    }
+
+    function checkEmail(yx) {
+        var reg = /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/
+        return reg.test(yx);
+    }
+
+    $("#reg-j").on('click', function () {
+        var arr = [
+            {id: "phone_rj", msg: "请输入正确的手机号码!", cb: checkMobile},
+            {id: "name_rj", msg: "请输入正确的姓名!", cb: null},
+            {id: "address_rj", msg: "请输入正确的地址!", cb: null},
+            {id: "password_rj", msg: "请输入正确的密码!", cb: checkPassword},
+            {id: "email_rj", msg: "请输入正确的邮箱!", cb: checkEmail},
+            {id: "phone_1", msg: "联系人1,请输入正确的手机号码", cb: checkMobile},
+            {id: "phone_2", msg: "联系人2,请输入正确的手机号码", cb: checkMobile},
+            {id: "name_1", msg: "联系人1,请输入正确的姓名!", cb: null},
+            {id: "name_2", msg: "联系人2,请输入正确的姓名!", cb: null},
+            {id: "contact_1", msg: "联系人1,请输入正确的关系!", cb: null},
+            {id: "contact_2", msg: "联系人2,请输入正确的关系!", cb: null},
+        ];
+
+        for (var i = 0; i < arr.length; i++) {
+            var obj = arr[i];
+            var str = $("#" + obj.id).val();
+            if (obj.cb != null) {
+                if (!obj.cb(str)) {
+                    alert(obj.msg);
+                    document.getElementById(obj.id).focus()
+                    return;
+                }
+            } else {
+                if (str.length <= 0) {
+                    alert(obj.msg);
+                    document.getElementById(obj.id).focus()
+                    return;
+                }
+            }
+        }
+
+        var phone_rj = $("#phone_rj").val();		//手机号码
+
+        var password_rj = $("#password_rj").val();	//密码
+        var name_rj = $("#name_rj").val();		    //姓名
+        var address_rj = $("#address_rj").val();    //地址
+
+        var email_rj = $("#email_rj").val();//邮箱
+
+        var phone_1 = $("#phone_1").val();//联系人1电话
+        var name_1 = $("#name_1").val();//联系人1姓名
+        var contact_1 = $("#contact_1").val();//联系人1关系
+
+        var phone_2 = $("#phone_2").val();//联系人2电话
+        var name_2 = $("#name_2").val();//联系人2姓名
+        var contact_2 = $("#contact_2").val();//联系人2关系
+
+        var sex = $("input[name='sex']:checked").val();
+        //var hourse=$("input[name='build'][checked]").siblings('label').text();  //房产
+        var house = $("input[name='build']:checked").val();
+        //  var car=$("input[name='car'][checked]").siblings('label').text();  //车子
+        var car = $("input[name='car']:checked").val();
+
+        var id_card = ['up_img_WU_FILE_0', 'up_img_WU_FILE_1'];
+
+        if (phone_rj.length < 11 || phone_rj.length > 11) {
+            alert("手机号位数不对!");
+            return;
+        }
+
+        if (phone_1.length < 11 || phone_1.length > 11) {
+            alert("联系人1,手机号位数不对!");
+            return;
+        }
+        if (phone_2.length < 11 || phone_2.length > 11) {
+            alert("联系人2,手机号位数不对!");
+            return;
+        }
+
+        if (phone_1 == phone_2){
+            alert("联系人2与联系1,手机号不能相同!");
+            return;
+        }
+        if (name_2 == name_1){
+            alert("联系人2与联系1,姓名不能相同!");
+            return;
+        }
+
+
+
+        $.ajax(
+            {
+                url: "__ROOT__/home/Register/borrowerRegister", //用于文件上传的服务器端请求地址
+                type: 'POST',
+                secureuri : false, //是否需要安全协议，一般设置为false
+                fileElementId : id_card, //文件上传域的ID
+                dataType: 'txt', //返回值类型 一般设置为json
+                data:
+                    {
+
+                    phone_rj: phone_rj,
+                    password_rj: password_rj,
+                    name_rj: name_rj,
+                    address_rj: address_rj,
+                    email_rj: email_rj,
+                    phone_1: phone_1,
+                    name_1: name_1,
+                    contact_1: contact_1,
+                    phone_2: phone_2,
+                    name_2: name_2,
+                    contact_2: contact_2,
+                    sex: sex,
+                    house: house,
+                    car: car,
+                },
+                success: function (data, status) //服务器成功响应处理函数
+                {
+                    var tjson =  JSON.parse(data);
+                    //data是服务器返回的数据
+                    if (tjson.res == '1') {
+                        console.log("进入这进而::" + "__ROOT__");
+                        window.location.href = "__ROOT__";
+                    } else if (tjson.res == '-1') {
+                        alert("手机号已注册,请更换");
+                    }
+                    else {
+                        alert("上传有问题");
                     }
 
-                    var sex =$("input[name='sex']:checked").val();
+                },
 
-                    $.ajaxFileUpload(
-                        {
-                            url : "__ROOT__/home/Register/borrowerRegister", //用于文件上传的服务器端请求地址
-                            type : 'POST',
-                            secureuri : false, //是否需要安全协议，一般设置为false
-                            fileElementId : id_card, //文件上传域的ID
-                            dataType : 'json', //返回值类型 一般设置为json
-                            data : {
-                                title : title,
-                                wid : wid,
-                                appid : appid
-                                //请求参数
+                error: function (data, status, e) //服务器响应失败处理函数
+                {
 
-                            },
-                            success : function(data, status) //服务器成功响应处理函数
-                            {
-
-                                //data是服务器返回的数据
-                                if (data.res == '1') {
-                                    console.log("进入这进而::"+"__ROOT__");
-                                    window.location.href="__ROOT__";
-                                }else{
-                                    alert("上传有问题");
-                                }
+                    //data是服务器返回的数据
+                    alert("超时或者系统异常..." + data.responseText);
 
 
-                            },
-                            error : function(data, status, e) //服务器响应失败处理函数
-                            {
+                }
+            }
+        );
 
-                                //data是服务器返回的数据
-                                console("e::"+e);
-                                alert("超时或者系统异常..." + data.responseText);
+    });
 
-
-                            }
-                        }
-                    );
-
-		    	});
-		
     //上传图片
-    
-var uploadPreview = function(setting) {
-    var _self = this;
-    _self.IsNull = function(value) {
-        if (typeof (value) == "function") { return false; }
-        if (value == undefined || value == null || value == "" || value.length == 0) {
-            return true;
+
+    var uploadPreview = function (setting) {
+        var _self = this;
+        _self.IsNull = function (value) {
+            if (typeof (value) == "function") {
+                return false;
+            }
+            if (value == undefined || value == null || value == "" || value.length == 0) {
+                return true;
+            }
+            return false;
         }
-        return false;
+
+        _self.DefautlSetting = {
+            UpBtn: "",
+            DivShow: "",
+            ImgShow: "",
+            Width: 90,
+            Height: 50,
+            ImgType: ["gif", "jpeg", "jpg", "bmp", "png"],
+            ErrMsg: "选择文件错误,图片类型必须是(gif,jpeg,jpg,bmp,png)中的一种",
+            callback: function () {
+            }
+        };
+
+        _self.Setting = {
+            UpBtn: _self.IsNull(setting.UpBtn) ? _self.DefautlSetting.UpBtn : setting.UpBtn,
+            DivShow: _self.IsNull(setting.DivShow) ? _self.DefautlSetting.DivShow : setting.DivShow,
+            ImgShow: _self.IsNull(setting.ImgShow) ? _self.DefautlSetting.ImgShow : setting.ImgShow,
+            Width: _self.IsNull(setting.Width) ? _self.DefautlSetting.Width : setting.Width,
+            Height: _self.IsNull(setting.Height) ? _self.DefautlSetting.Height : setting.Height,
+            ImgType: _self.IsNull(setting.ImgType) ? _self.DefautlSetting.ImgType : setting.ImgType,
+            ErrMsg: _self.IsNull(setting.ErrMsg) ? _self.DefautlSetting.ErrMsg : setting.ErrMsg,
+            callback: _self.IsNull(setting.callback) ? _self.DefautlSetting.callback : setting.callback
+        };
+
+        _self.getObjectURL = function (file) {
+            var url = null;
+            if (window.createObjectURL != undefined) {
+                url = window.createObjectURL(file);
+            } else if (window.URL != undefined) {
+                url = window.URL.createObjectURL(file);
+            } else if (window.webkitURL != undefined) {
+                url = window.webkitURL.createObjectURL(file);
+            }
+            return url;
+        }
+
+        _self.Bind = function () {
+
+            document.getElementById(_self.Setting.UpBtn).onchange = function () {
+                if (this.value) {
+                    if (!RegExp("\.(" + _self.Setting.ImgType.join("|") + ")$", "i").test(this.value.toLowerCase())) {
+                        alert(_self.Setting.ErrMsg);
+                        this.value = "";
+                        return false;
+                    }
+                    if (navigator.userAgent.indexOf("MSIE") > -1) {
+                        try {
+                            document.getElementById(_self.Setting.ImgShow).src = _self.getObjectURL(this.files[0]);
+                        } catch (e) {
+                            var div = document.getElementById(_self.Setting.DivShow);
+                            this.select();
+                            top.parent.document.body.focus();
+                            var src = document.selection.createRange().text;
+                            document.selection.empty();
+                            document.getElementById(_self.Setting.ImgShow).style.display = "none";
+                            div.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                            div.style.width = _self.Setting.Width + "px";
+                            div.style.height = _self.Setting.Height + "px";
+                            div.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = src;
+                        }
+                    } else {
+                        document.getElementById(_self.Setting.ImgShow).src = _self.getObjectURL(this.files[0]);
+                    }
+                    _self.Setting.callback();
+                }
+
+            }
+        }
+
+        _self.Bind();
     }
 
-    _self.DefautlSetting = {
-        UpBtn: "",
-        DivShow: "",
-        ImgShow: "",
-        Width: 90,
-        Height: 50,
-        ImgType: ["gif", "jpeg", "jpg", "bmp", "png"],
-        ErrMsg: "选择文件错误,图片类型必须是(gif,jpeg,jpg,bmp,png)中的一种",
-        callback: function() { }
-    };
-
-    _self.Setting = {
-        UpBtn: _self.IsNull(setting.UpBtn) ? _self.DefautlSetting.UpBtn : setting.UpBtn,
-        DivShow: _self.IsNull(setting.DivShow) ? _self.DefautlSetting.DivShow : setting.DivShow,
-        ImgShow: _self.IsNull(setting.ImgShow) ? _self.DefautlSetting.ImgShow : setting.ImgShow,
-        Width: _self.IsNull(setting.Width) ? _self.DefautlSetting.Width : setting.Width,
-        Height: _self.IsNull(setting.Height) ? _self.DefautlSetting.Height : setting.Height,
-        ImgType: _self.IsNull(setting.ImgType) ? _self.DefautlSetting.ImgType : setting.ImgType,
-        ErrMsg: _self.IsNull(setting.ErrMsg) ? _self.DefautlSetting.ErrMsg : setting.ErrMsg,
-        callback: _self.IsNull(setting.callback) ? _self.DefautlSetting.callback : setting.callback
-    };
-
-    _self.getObjectURL = function(file) {
-        var url = null;
-        if (window.createObjectURL != undefined) {
-            url = window.createObjectURL(file);
-        } else if (window.URL != undefined) {
-            url = window.URL.createObjectURL(file);
-        } else if (window.webkitURL != undefined) {
-            url = window.webkitURL.createObjectURL(file);
-        }
-        return url;
-    }
-
-    _self.Bind = function() {
-
-			document.getElementById(_self.Setting.UpBtn).onchange = function() {
-				if (this.value) {
-					if (!RegExp("\.(" + _self.Setting.ImgType.join("|") + ")$", "i").test(this.value.toLowerCase())) {
-						alert(_self.Setting.ErrMsg);
-						this.value = "";
-						return false;
-					}
-					if (navigator.userAgent.indexOf("MSIE") > -1) {
-						try {
-							document.getElementById(_self.Setting.ImgShow).src = _self.getObjectURL(this.files[0]);
-						} catch (e) {
-							var div = document.getElementById(_self.Setting.DivShow);
-							this.select();
-							top.parent.document.body.focus();
-							var src = document.selection.createRange().text;
-							document.selection.empty();
-							document.getElementById(_self.Setting.ImgShow).style.display = "none";
-							div.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
-							div.style.width = _self.Setting.Width + "px";
-							div.style.height = _self.Setting.Height + "px";
-							div.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = src;
-						}
-					} else {
-						document.getElementById(_self.Setting.ImgShow).src = _self.getObjectURL(this.files[0]);
-					}
-					_self.Setting.callback();
-				}
-	
+    function file_click() {
+        var WARP = document.getElementById('warp');
+        var WARP_LI = WARP.getElementsByClassName('ID-card');
+        for (var i = 0; i < WARP_LI.length; i++) {
+            new uploadPreview({UpBtn: "up_img_WU_FILE_" + i, ImgShow: "imgShow_WU_FILE_" + i});
         }
     }
 
-    _self.Bind();
-}
-
-function file_click(){
-	var WARP = document.getElementById('warp');
-	var WARP_LI = WARP.getElementsByClassName('ID-card');
-	for(var i=0; i<WARP_LI.length;i++){
-		new uploadPreview({ UpBtn: "up_img_WU_FILE_"+i, ImgShow: "imgShow_WU_FILE_"+i});		
-	}
-}
-window.onload = file_click;
+    window.onload = file_click;
 
 
-</script> 
+</script>
 </body>
 
 </html>

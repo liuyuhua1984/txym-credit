@@ -41,13 +41,14 @@
          // jQuery(oldElement).before(newElement);
          // jQuery(oldElement).appendTo(form);
 
-          if(typeof(fileElementId) == 'string'){
-              fileElementId = [fileElementId];
-          }
-          for(var i in fileElementId){
+          //if(typeof(fileElementId) == 'string'){
+         //     fileElementId = [fileElementId];
+         // }
+           for (var i=0; i< fileElementId.length; i++) {
               var oldElement = jQuery('#' + fileElementId[i]);
+
               var newElement = jQuery(oldElement).clone();
-              jQuery(oldElement).attr('id', fileId);
+              jQuery(oldElement).attr('id',fileElementId[i]);
               jQuery(oldElement).before(newElement);
               jQuery(oldElement).appendTo(form);
           }
@@ -64,7 +65,7 @@
           // TODO introduce global settings, allowing the client to modify them for all requests, not only timeout        
           s = jQuery.extend({}, jQuery.ajaxSettings, s);
           var id = new Date().getTime()
-          var form = jQuery.createUploadForm(id, s.fileElementId, (typeof (s.data) == 'undefined' ? false : s.data));
+          var form = jQuery.createUploadForm(id, s.fileElementId, (typeof(s.data) == 'undefined' ? false : s.data));
           var io = jQuery.createUploadIframe(id, s.secureuri);
           var frameId = 'jUploadFrame' + id;
           var formId = 'jUploadForm' + id;
@@ -108,8 +109,9 @@
                           // Fire the global callback
                           if (s.global)
                              jQuery.event.trigger("ajaxSuccess", [xml, s]);
-                     } else
-                         jQuery.handleError(s, xml, status);
+                     } else {
+                          jQuery.handleError(s, xml, status);
+                      }
                  } catch (e) {
                      status = "error";
                      jQuery.handleError(s, xml, status, e);
@@ -127,7 +129,7 @@
                  if (s.complete)
                      s.complete(xml, status);
  
-                 jQuery(io).unbind()
+                 jQuery(io).unbind();
  
                  setTimeout(function () {
                      try {
@@ -138,9 +140,9 @@
                          jQuery.handleError(s, xml, null, e);
                      }
  
-                 }, 100)
+                 }, 100);
  
-                 xml = null
+                 xml = null;
  
              }
          }

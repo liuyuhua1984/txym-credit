@@ -861,9 +861,11 @@ class Request
             // 处理上传文件
             $array = [];
             foreach ($files as $key => $file) {
+
                 if (is_array($file['name'])) {
                     $item  = [];
                     $keys  = array_keys($file);
+
                     $count = count($file['name']);
                     for ($i = 0; $i < $count; $i++) {
                         if (empty($file['tmp_name'][$i]) || !is_file($file['tmp_name'][$i])) {
@@ -877,13 +879,19 @@ class Request
                     }
                     $array[$key] = $item;
                 } else {
+
                     if ($file instanceof File) {
+
                         $array[$key] = $file;
                     } else {
+
+
                         if (empty($file['tmp_name']) || !is_file($file['tmp_name'])) {
                             continue;
                         }
+
                         $array[$key] = (new File($file['tmp_name']))->setUploadInfo($file);
+
                     }
                 }
             }
@@ -1230,6 +1238,7 @@ class Request
     public function isAjax($ajax = false)
     {
         $value  = $this->server('HTTP_X_REQUESTED_WITH', '', 'strtolower');
+        Log::error("HTTP_X_REQUESTED_WITH::".$value);
         $result = ('xmlhttprequest' == $value) ? true : false;
         if (true === $ajax) {
             return $result;
