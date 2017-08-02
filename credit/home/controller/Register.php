@@ -131,7 +131,7 @@ class Register extends Controller
             $file =  $files[$val];
             if (empty($file)){
 
-                return json_encode(["res" => -2]);
+                return ["res" => -2];
             }
 
            // Log::error("文件::".$val);
@@ -156,13 +156,14 @@ class Register extends Controller
                 // 上传失败获取错误信息
                 Log::error(ROOT_PATH."文件::".$val);
 
-                return json_encode(["res" => -2]);;
+                return ["res" => -2];
             }
         }
 
         $phone = Borrower::where("phone", '=', $phone_rj)->select();
         if (!empty($phone)) {
-            return json_encode(["res" => -1]);
+          //  return json_encode(["res" => -1]);
+            return ["res" => -1];
         }
 
 
@@ -184,7 +185,7 @@ class Register extends Controller
         //具体看返回的Json 格式 xxx => xxxx
         Session::set("name", $name_rj);
 
-        return json_encode(["res" => 1]);
+        return ["res" => 1];
     }
 }
 

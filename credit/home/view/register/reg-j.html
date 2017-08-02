@@ -259,13 +259,16 @@
 
 
 
-        $.ajax(
+        $.ajaxFileUpload(
             {
                 url: "__ROOT__/home/Register/borrowerRegister", //用于文件上传的服务器端请求地址
                 type: 'POST',
                 secureuri : false, //是否需要安全协议，一般设置为false
                 fileElementId : id_card, //文件上传域的ID
-                dataType: 'txt', //返回值类型 一般设置为json
+                dataType: 'json', //返回值类型 一般设置为json
+                beforeSend: function(request) {
+                    request.setRequestHeader("x-requested-with", "XMLHttpRequest");
+                },
                 data:
                     {
 
@@ -286,12 +289,12 @@
                 },
                 success: function (data, status) //服务器成功响应处理函数
                 {
-                    var tjson =  JSON.parse(data);
+                    //var tjson =  JSON.parse(data);
                     //data是服务器返回的数据
-                    if (tjson.res == '1') {
+                    if (data.res == '1') {
                         console.log("进入这进而::" + "__ROOT__");
                         window.location.href = "__ROOT__";
-                    } else if (tjson.res == '-1') {
+                    } else if (data.res == '-1') {
                         alert("手机号已注册,请更换");
                     }
                     else {
