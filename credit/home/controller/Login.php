@@ -55,7 +55,7 @@ class Login extends Controller
         Session::set("name", $loaner['name']);
 
         Session::delete("bBorrower");
-
+        Session::set('loaner',$loaner);
         return ['res' => 1];
     }
 
@@ -77,7 +77,7 @@ class Login extends Controller
         //具体看返回的Json 格式 xxx => xxxx
         Session::set("name", $borrower['name']);
         Session::set("bBorrower", $borrower);
-
+        Session::delete('loaner');
         return ['res' => 1];
     }
 }

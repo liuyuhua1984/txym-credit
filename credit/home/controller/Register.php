@@ -72,6 +72,7 @@ class Register extends Controller
 
         Session::set("name", $name_rc);
         Session::delete("bBorrower");
+        Session::set('loaner',$_Loaner);
         //具体看返回的Json 格式 xxx => xxxx
         return ["res" => 1];
 
@@ -184,8 +185,8 @@ class Register extends Controller
         Log::error(ROOT_PATH."文件222222222222::");
         //具体看返回的Json 格式 xxx => xxxx
         Session::set("name", $name_rj);
-        Session::set("bBorrower", 1);
-
+        Session::set("bBorrower", $borrower);
+        Session::delete('loaner');
        // return json_encode(["res" => 1]);
         return ["res" => 1];
     }
