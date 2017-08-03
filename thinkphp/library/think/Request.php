@@ -1244,7 +1244,7 @@ class Request
 
             return $result;
         } else {
-            Log::error("HTTP_X_REQUESTED_WITH::".$this->param(Config::get('var_ajax')));
+           // Log::error("HTTP_X_REQUESTED_WITH::".$this->param(Config::get('var_ajax')));
             return $this->param(Config::get('var_ajax')) ? true : $result;
         }
     }

@@ -88,6 +88,9 @@
 		
 			function checkPassword(mm)
 			{
+                if ($("#repassword_rc").val() != mm) {
+                    return false;
+                }
 				var reg = /^(\w){6,10}$/
 				return reg.test(mm);
 			}
@@ -131,7 +134,7 @@
 		    		var require_rc = $("#require_rc").val();	//出借要求
 		          //  var sex=$("input[type=radio][checked]").siblings('label').text();  //性别
 
-					if (phone_rc.length < 11 || phone_rc.length > 11){
+					if (phone_rc.length !=11){
                         alert("手机号位数不对!");
 					    return ;
 					}

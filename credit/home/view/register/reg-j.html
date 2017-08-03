@@ -234,41 +234,39 @@
 
         var id_card = ['up_img_WU_FILE_0', 'up_img_WU_FILE_1'];
 
-        if (phone_rj.length < 11 || phone_rj.length > 11) {
+        if (phone_rj.length != 11) {
             alert("手机号位数不对!");
             return;
         }
 
-        if (phone_1.length < 11 || phone_1.length > 11) {
+        if (phone_1.length != 11) {
             alert("联系人1,手机号位数不对!");
             return;
         }
-        if (phone_2.length < 11 || phone_2.length > 11) {
+        if (phone_2.length != 11) {
             alert("联系人2,手机号位数不对!");
             return;
         }
 
-        if (phone_1 == phone_2){
+        if (phone_1 == phone_2) {
             alert("联系人2与联系1,手机号不能相同!");
             return;
         }
-        if (name_2 == name_1){
+        if (name_2 == name_1) {
             alert("联系人2与联系1,姓名不能相同!");
             return;
         }
-
 
 
         $.ajaxFileUpload(
             {
                 url: "__ROOT__/home/Register/borrowerRegister", //用于文件上传的服务器端请求地址
                 type: 'POST',
-                secureuri : false, //是否需要安全协议，一般设置为false
-                fileElementId : id_card, //文件上传域的ID
+                secureuri: false, //是否需要安全协议，一般设置为false
+                fileElementId: id_card, //文件上传域的ID
                 dataType: 'json', //返回值类型 一般设置为json
 
-                data:
-                    {
+                data: {
 
                     phone_rj: phone_rj,
                     password_rj: password_rj,
@@ -284,16 +282,16 @@
                     sex: sex,
                     house: house,
                     car: car,
-                        '_ajax':1,
+                    '_ajax': 1,
                 },
                 success: function (data, status) //服务器成功响应处理函数
                 {
-                    var tjson =  JSON.parse(data);
+                   // var tjson = JSON.parse(data);
                     //data是服务器返回的数据
-                    if (tjson.res == '1') {
+                    if (data.res == '1') {
                         console.log("进入这进而::" + "__ROOT__");
                         window.location.href = "__ROOT__";
-                    } else if (tjson.res == '-1') {
+                    } else if (data.res == '-1') {
                         alert("手机号已注册,请更换");
                     }
                     else {

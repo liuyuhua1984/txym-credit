@@ -59,7 +59,7 @@ class Register extends Controller
         $require_rc = $this->request->param("require_rc");//借出要求
         $sex = $this->request->param("sex");//性别 男=1,女=2
 
-        $phone = Loaner::where("phone", '=', $phone_rc)->select();
+        $phone = Loaner::where("phone", '=', $phone_rc)->find();
         if (!empty($phone)) {
             return ["res" => -1];
         }
@@ -71,7 +71,7 @@ class Register extends Controller
         $_Loaner->save();
 
         Session::set("name", $name_rc);
-
+        Session::delete("bBorrower");
         //具体看返回的Json 格式 xxx => xxxx
         return ["res" => 1];
 
@@ -142,14 +142,14 @@ class Register extends Controller
                 // 成功上传后 获取上传信息
                 // 输出 jpg
 
-                Log::error("扩展文件::".$info->getExtension());
+               // Log::error("扩展文件::".$info->getExtension());
                 // 输出 20160820/42a79759f284b767dfcb2a0197904287.jpg
                 Log::error("文件路径::".$info->getSaveName());
                 $borrowerVal['id_card_'.$i++] = $info->getSaveName();
 
                 // 输出 42a79759f284b767dfcb2a0197904287.jpg
               //  echo $info->getFilename();
-                Log::error("文件名称::".$info->getFilename());
+               // Log::error("文件名称::".$info->getFilename());
 
 
             }else{
@@ -160,7 +160,7 @@ class Register extends Controller
             }
         }
 
-        $phone = Borrower::where("phone", '=', $phone_rj)->select();
+        $phone = Borrower::where("phone", '=', $phone_rj)->find();
         if (!empty($phone)) {
            // return json_encode(["res" => -1]);
             return ["res" => -1];
@@ -184,6 +184,8 @@ class Register extends Controller
         Log::error(ROOT_PATH."文件222222222222::");
         //具体看返回的Json 格式 xxx => xxxx
         Session::set("name", $name_rj);
+        Session::set("bBorrower", 1);
+
        // return json_encode(["res" => 1]);
         return ["res" => 1];
     }

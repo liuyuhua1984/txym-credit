@@ -41,9 +41,9 @@
          // jQuery(oldElement).before(newElement);
          // jQuery(oldElement).appendTo(form);
 
-          //if(typeof(fileElementId) == 'string'){
-         //     fileElementId = [fileElementId];
-         // }
+          if(typeof(fileElementId) == 'string'){
+              fileElementId = [fileElementId];
+          }
            for (var i=0; i< fileElementId.length; i++) {
               var oldElement = jQuery('#' + fileElementId[i]);
 
@@ -91,6 +91,7 @@
                       xml.responseXML = io.contentDocument.document.XMLDocument ? io.contentDocument.document.XMLDocument : io.contentDocument.document;
                   }
               } catch (e) {
+                  alert('33333' + e.message + '发生在' +   e.lineNumber + '行');
                   jQuery.handleError(s, xml, null, e);
               }
               if (xml || isTimeout == "timeout") {
@@ -110,11 +111,13 @@
                           if (s.global)
                              jQuery.event.trigger("ajaxSuccess", [xml, s]);
                      } else {
+                          alert("我的异常222222::".status);
                           jQuery.handleError(s, xml, status);
                       }
                  } catch (e) {
                      status = "error";
-                     jQuery.handleError(s, xml, status, e);
+                      alert('11' + e.message + '发生在' +   e.lineNumber + '行');
+                      jQuery.handleError(s, xml, status, e);
                  }
  
                  // The request was completed
@@ -168,6 +171,7 @@
              jQuery(form).submit();
  
          } catch (e) {
+             alert('222' + e.message + '发生在' +   e.lineNumber + '行');
              jQuery.handleError(s, xml, null, e);
         }
 
@@ -190,6 +194,7 @@
          if (type == "json") {
              ////////////Fix the issue that it always throws the error "unexpected token '<'"///////////////  
             data = r.responseText;
+           // alert('data11111::'+data);
              var start = data.indexOf(">");
              if (start != -1) {
                  var end = data.indexOf("<", start + 1);
@@ -197,6 +202,7 @@
                      data = data.substring(start + 1, end);
                  }
              }
+           //  alert('data::'+data);
              ///////////////////////////////////////////////////////////////////////////////////////////////  
              eval("data = " + data);
          }
