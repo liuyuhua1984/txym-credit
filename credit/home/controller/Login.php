@@ -43,6 +43,8 @@ class Login extends Controller
         //判断是否已存在
         $phone =  $this->request->param("phone");
         $password =  $this->request->param("password1");
+        $password =  preg_replace('/\s/','',$password);
+        $phone =  preg_replace('/\s/','',$phone);
         $loaner =  Loaner::where('phone','=',$phone)->where('password','=',$password)->find();
         if (empty($loaner)){
             return ['res' => -1];
@@ -69,6 +71,8 @@ class Login extends Controller
        // var password1 = $("#password-j").val();
         $phone =  $this->request->param("phone");
         $password =  $this->request->param("password1");
+        $password =  preg_replace('/\s/','',$password);
+        $phone =  preg_replace('/\s/','',$phone);
         $borrower =  Borrower::where('phone','=',$phone)->where('password','=',$password)->find();
       if (empty($borrower)){
           return ['res' => -1];

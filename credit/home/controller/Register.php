@@ -57,6 +57,16 @@ class Register extends Controller
         $price_rc = $this->request->param("price_rc");//借出资金
         $time_rc = $this->request->param("time_rc");//借出时间
         $require_rc = $this->request->param("require_rc");//借出要求
+
+
+        $phone_rc =  preg_replace('/\s/','',$phone_rc);
+        $password_rc =  preg_replace('/\s/','',$password_rc);
+        $name_rc =  preg_replace('/\s/','',$name_rc);
+        $address_rcc =  preg_replace('/\s/','',$address_rcc);
+        $price_rc =  preg_replace('/\s/','',$price_rc);
+        $time_rc =  preg_replace('/\s/','',$time_rc);
+        $require_rc =  preg_replace('/\s/','',$require_rc);
+
         $sex = $this->request->param("sex");//性别 男=1,女=2
 
         $phone = Loaner::where("phone", '=', $phone_rc)->find();
@@ -114,6 +124,21 @@ class Register extends Controller
         $phone_2 = $this->request->param("phone_2");//借出时间
         $name_2 = $this->request->param("name_2");//借出要求
         $contact_2 = $this->request->param("contact_2");//借出要求
+
+
+
+        $phone_rj =  preg_replace('/\s/','',$phone_rj);
+
+        $password_rj =  preg_replace('/\s/','',$password_rj);
+        $name_rj =  preg_replace('/\s/','',$name_rj);
+        $address_rj =  preg_replace('/\s/','',$address_rj);
+        $email_rj =  preg_replace('/\s/','',$email_rj);
+        $phone_1 =  preg_replace('/\s/','',$phone_1);
+        $name_1 =  preg_replace('/\s/','',$name_1);
+        $contact_1 =  preg_replace('/\s/','',$contact_1);
+        $phone_2 =  preg_replace('/\s/','',$phone_2);
+        $name_2 =  preg_replace('/\s/','',$name_2);
+        $contact_2 =  preg_replace('/\s/','',$contact_2);
 
 
         $sex = $this->request->param("sex");//性别 男=1,女=2

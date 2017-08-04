@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:70:"E:\AppServ\www\txym-credit\public/../credit/home\view\index\index.html";i:1501837642;}*/ ?>
 <!doctype html>
 <html>
 <head>
@@ -14,14 +15,14 @@
 	<!--header-->
 	<header id="header" class="mui-bar mui-bar-nav">
 		<h1 class="mui-title">公司名称</h1>
-		{if condition="$Think.session.name neq null "}
+		<?php if(\think\Session::get('name') != null): ?>
 
 		<a href="__ROOT__/home/Login/exitCredit" class="mui-btn-link mui-pull-right">退出</a>
-		<a href="#" class="mui-btn-link mui-pull-right ">{$Think.session.name}&nbsp;/&nbsp; </a>
-		{else /}
+		<a href="#" class="mui-btn-link mui-pull-right "><?php echo \think\Session::get('name'); ?>&nbsp;/&nbsp; </a>
+		<?php else: ?>
 			<a id="menu1"  href="#topPopover1" class="mui-btn-link mui-pull-right">登录</a>
 			<a id="menu2"  href="#topPopover2" class="mui-btn-link mui-pull-right">注册&nbsp;/&nbsp;</a>
-		{/if}
+		<?php endif; ?>
 
 
 
@@ -33,39 +34,39 @@
 		<!--贷款推荐-->
 	    <div class="mui-card">
 
-			{volist name="list" id="item" key="k"}
-			<div class="mui-card-header">贷款推荐 {$k}</div>
+			<?php if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $k = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$item): $mod = ($k % 2 );++$k;?>
+			<div class="mui-card-header">贷款推荐 <?php echo $k; ?></div>
 			<div class="mui-card-content">
 				<div class="mui-card-content-inner">
 					<div class="mui-input-row">
 						<label>可出借资金：</label>
-						<input id="price_rc"  style="padding-right: 40px;"  type="text" class="mui-input" placeholder="" maxlength="10" value="{$item['loan_money']}" readonly="true">
+						<input id="price_rc"  style="padding-right: 40px;"  type="text" class="mui-input" placeholder="" maxlength="10" value="<?php echo $item['loan_money']; ?>" readonly="true">
 						<span class="right-tet">元</span>
 					</div>
 					<div class="mui-input-row">
 						<label>可出借期限：</label>
-						<input id="time_rc" style="padding-right: 40px;"  type="text" class="mui-input" placeholder="" maxlength="10" value="{$item['loan_time_limit']}" readonly="true">
+						<input id="time_rc" style="padding-right: 40px;"  type="text" class="mui-input" placeholder="" maxlength="10" value="<?php echo $item['loan_time_limit']; ?>" readonly="true">
 						<span class="right-tet">日</span>
 					</div>
 					<p class="magin5">要求：</p>
 					<p>
-						{$item['demand']}
+						<?php echo $item['demand']; ?>
 					</p>
 				</div>
 
 			</div>
 			<div class="mui-card-footer">
 				<a class="mui-card-link"></a>
-				{if condition="$Think.session.bBorrower neq null "}
-					<a id='promptBtn' type="button" class="mui-card-link mui-btn mui-btn-blue mui-btn-outlined  mui-btn-block-mini" onclick=reqeustBorrow(this,"{$item['id']}");>申请借贷</a>
-				{/if}
+				<?php if(\think\Session::get('bBorrower') != null): ?>
+					<a id='promptBtn' type="button" class="mui-card-link mui-btn mui-btn-blue mui-btn-outlined  mui-btn-block-mini" onclick=reqeustBorrow(this,"<?php echo $item['id']; ?>");>申请借贷</a>
+				<?php endif; ?>
 			</div>
-			{/volist}
+			<?php endforeach; endif; else: echo "" ;endif; ?>
 
 		</div>
 
 
-		<input type="hidden" name="tIndex" value={$tIndex}>
+		<input type="hidden" name="tIndex" value=<?php echo $tIndex; ?>>
 	</div>
 
 	<!--右上角弹出菜单-->
@@ -102,16 +103,16 @@
 				var days = $('#input2').val();
 
 				if (!money.match('^[1-9]\d*$')){
-                    mui.toast("请正确输入金钱.");
+                    mui.toast("请输入金钱");
                     return;
 				}
 
 				if (!days.match('^[1-9]\d*$')){
-                    mui.toast("请正确输入天数.");
+                    mui.toast("请输入天数");
                     return;
 				}
                 var loaner_id = lid;
-			    var borrower_id = "{$Think.session.bBorrower['id']}";
+			    var borrower_id = "<?php echo \think\Session::get('bBorrower')['id']; ?>";
                 //ajax发送
 
                 $.ajax({

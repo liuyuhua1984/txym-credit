@@ -7059,8 +7059,9 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	}());
 
 	var createInput = function(placeholder) {
-		return '<div class="' + CLASS_POPUP_INPUT + ' mui-input-row tipinput"><label>资金要求:</label><input id="input1" type="text" autofocus placeholder="' + (placeholder || '') + '"/><label>使用期限:</label><input id="input2" type="text" autofocus placeholder="' + (placeholder || '') + '"/></div>';
+		return '<div class="' + CLASS_POPUP_INPUT + ' mui-input-row tipinput"><label>资金要求:</label><input id="input1" type="number" value="1000" min="1000" max="10000000" autofocus placeholder="' + (placeholder || '') + '"/><label>使用期限:</label><input id="input2" type="number" value="1" min="1" max="10000" autofocus placeholder="' + (placeholder || '') + '"/></div>';
 	};
+
 	var createInner = function(message, title, extra) {
 		return '<div class="' + CLASS_POPUP_INNER + '"><div class="' + CLASS_POPUP_TITLE + '">' + title + '</div><div class="' + CLASS_POPUP_TEXT + '">' + message.replace(/\r\n/g, "<br/>").replace(/\n/g, "<br/>") + '</div>' + (extra || '') + '</div>';
 	};
@@ -7185,6 +7186,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		}
 		return plus.nativeUI.confirm(message, callback, title, btnArray || ['取消', '确认']);
 	};
+
 	var createPrompt = function(message, placeholder, title, btnArray, callback, type) {
 		if (typeof message === 'undefined') {
 			return;
@@ -7209,6 +7211,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		if (!$.os.plus || type === 'div') {
 			return createPopup(createInner(message, title || '提示', createInput(placeholder)) + createButtons(btnArray || ['取消', '确认']), callback);
 		}
+
 		return plus.nativeUI.prompt(message, callback, title || '提示', placeholder, btnArray || ['取消', '确认']);
 	};
 	var closePopup = function() {
@@ -7230,6 +7233,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	$.alert = createAlert;
 	$.confirm = createConfirm;
 	$.prompt = createPrompt;
+
 })(mui, window, document);
 (function($, document) {
 	var CLASS_PROGRESSBAR = 'mui-progressbar';
