@@ -18,7 +18,7 @@
 	    	<div class="mui-col-xs-3">金额：</div>
 	    	<div class="mui-col-xs-7">
 	    		<div class="mui-input-row">
-	    			<input class="mui-input-clear" type="number" id="" value="" />
+	    			<input class="mui-input-clear" type="number" id="money" value="{$money}" />
 	    		</div>
 	    	</div>
 	    	<div class="mui-col-xs-2">元</div>
@@ -26,22 +26,83 @@
 	    	<div class="mui-col-xs-3">期限：</div>
 	    	<div class="mui-col-xs-7">
 	    		<div class="mui-input-row">
-	    			<input class="mui-input-clear" type="number" id="n_limit" value="" />
+	    			<input class="mui-input-clear" type="number" id="n_limit" value="{$days}" />
 	    		</div>
 	    	</div>
 	    	<div class="mui-col-xs-2">日</div>
 	    	
 	    	<div class="mui-col-xs-12">
-	    		日还款：<span class="red-text">22222</span>元
+	    		日还款：<span class="red-text">{$day_back}</span>元
 	    	</div>
 	    	<div class="mui-col-xs-12">
-	    		总利息：<span class="red-text">22222</span>元
+	    		总利息：<span class="red-text">{$total_interest}</span>元
 	    	</div>
 	    	<div class="mui-col-xs-12">
-	    		日利率：0.1%
+	    		日利率：{$day_interest_rate}
 	    	</div>
+
+			<div class="mui-content-padded">
+				<button id='interest_cal' class="mui-btn mui-btn-block mui-btn-primary">计算</button>
+			</div>
+			</div>
 	    </div>
 	</div>
-	<script src="_JS_/mui.js"></script>
+	<script type="text/javascript"  src="_JS_/mui.js"></script>
+	<script type="text/javascript" src="_JS_/jquery-1.12.4.js" ></script>
+
+	<script>
+
+        //mui初始化
+        mui.init({
+            swipeBack: true //启用右滑关闭功能
+        });
+
+        document.getElementById("interest_cal").addEventListener('tap', function () {
+            var money = $("#money").val();
+            var n_limit = $("#n_limit").val();
+            if (money == "") {
+                mui.toast('金额不能为空！');
+            } else if (!money.match('/^[1-9]d*$/')) {
+                mui.toast("请输入正确的金额！");
+            }else if (!n_limit.match('/^[1-9]d*$/')){
+
+                mui.toast("请输入正确的天数!");
+            }else {
+                //ajax发送
+
+                $.ajax({
+                    url : "__ROOT__/home/Index/interest_cal",
+                    type:"POST",
+                    dataType: "json",
+                    data: {
+                        'money': money,
+                        'days': n_limit,
+                    },
+
+
+                    success: function (data) {
+                        if (data.res=="1"){
+                            console.log("进入这进而::"+"__ROOT__");
+
+                        }else if (data.res == "-1"){
+                            alert("计算有错误")
+                        }else if (data.res == "-2"){
+                            alert("错误::"+data);
+                        }
+
+                    },
+
+                    error: function (data) {
+
+                        alert("这个错::"+data.responseText);
+                    }
+
+                });
+            }
+
+
+        });
+
+	</script>
 </body>
 </html>

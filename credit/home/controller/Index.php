@@ -34,5 +34,54 @@ class Index extends Controller
         // 渲染模板输出
         return $this->fetch();
     }
+
+    /**利息计算
+     * @return mixed
+     */
+    public function interest(){
+        $days = $this->request->param("days");
+        $money = $this->request->param("money");
+        if (empty($days)){
+            $days =1;
+
+        }
+
+        if (empty($money)){
+            $money = 100;
+        }
+
+        $this->assign('days',$days);
+        $this->assign('money',$money);
+
+        $this->assign('day_back',10);
+        $this->assign("total_interest",1000);
+        $this->assign('day_interest_rate',10);
+
+        return $this->fetch();
+    }
+
+
+    public function interest_cal(){
+        $days = $this->request->param("days");
+        $money = $this->request->param("money");
+        if (empty($days)){
+            $days =1;
+
+        }
+
+        if (empty($money)){
+            $money = 100;
+        }
+
+        $this->assign('days',$days);
+        $this->assign('money',$money);
+
+        $this->assign('day_back',10);
+        $this->assign("total_interest",1000);
+        $this->assign('day_interest_rate',10);
+
+        return ['res' => 1];
+    }
+
 }
 ?>
