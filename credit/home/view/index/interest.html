@@ -60,11 +60,12 @@
         document.getElementById("interest_cal").addEventListener('tap', function () {
             var money = $("#money").val();
             var n_limit = $("#n_limit").val();
+            var reg = /^[1-9]\d*$/;
             if (money == "") {
                 mui.toast('金额不能为空！');
-            } else if (!money.match('/^[1-9]d*$/')) {
+            } else if (!reg.test(money)) {
                 mui.toast("请输入正确的金额！");
-            }else if (!n_limit.match('/^[1-9]d*$/')){
+            }else if (!reg.test(n_limit)){
 
                 mui.toast("请输入正确的天数!");
             }else {

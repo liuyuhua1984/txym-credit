@@ -101,12 +101,13 @@
 				var money = $('#input1').val();
 				var days = $('#input2').val();
 
-				if (!money.match('^[1-9]\d*$')){
+              //  /^[1-9]\d*$/
+				if (!money.match(/^[1-9]\d*$/)){
                     mui.toast("请正确输入金钱.");
                     return;
 				}
 
-				if (!days.match('^[1-9]\d*$')){
+				if (!days.match(/^[1-9]\d*$/)){
                     mui.toast("请正确输入天数.");
                     return;
 				}
