@@ -66,6 +66,6 @@ class loaderTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('app\index\controller\User', Loader::parseClass('index', 'controller', 'user'));
         $this->assertEquals('app\index\controller\user\Type', Loader::parseClass('index', 'controller', 'user.type'));
-        $this->assertEquals('app\admin\model\AdminRole', Loader::parseClass('admin', 'model', 'user_type'));
+        $this->assertEquals('app\admin\model\AmenuUrl', Loader::parseClass('admin', 'model', 'user_type'));
     }
 }
