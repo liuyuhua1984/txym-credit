@@ -1,25 +1,27 @@
-<{include file ="header.html"}>
-<{include file ="navibar.html"}>
-<{include file ="sidebar.html"}>
+<include file="sys/header" />
 
-<!--- START 以上内容不需更改，保证该TPL页内的标签匹配即可 --->
+<include file="sys/navibar" />
+<include file="sys/sidebar" />
 
-{$osadmin_action_alert}
-{$osadmin_quick_note}
+<p> 进来了index</p>
+
+
+<!--- START 以上内容不需更改，保证该TPL页内的标签匹配即可--->
+
 
 	<div class="block">
         <a href="#page-menu" class="block-heading" data-toggle="collapse">快捷菜单</a>
         <div id="page-menu" class="block-body collapse in">
 		<h3>
-		<{if condition= "count($menus) > 0"  }>
-			<{volist name="menus"  id="menu"}>
+		<if condition= "count($menus) > 0"  >
+			<volist name="menus"  id="menu">
 			<span>
-				<a href="__ROOT_/admin/<{$menu[menu_url]}>">
+				<a href="_ADMIN_/<{$menu[menu_url]}>">
 					<{$menu[menu_name]}>
 				</a>
 			</span>&nbsp;
-			<{/volist}>
-		<{/if}>
+			</volist>
+		</if>
 		</h3>
 		</div> 
     </div>
@@ -54,6 +56,6 @@
 			<strong>注意！</strong>请保管好您的个人信息，一点发生密码泄露请紧急联系管理员。</div>
         </div>
     </div>
-	
-<!--- END 以下内容不需更改，请保证该TPL页内的标签匹配即可 --->
-<{include file="footer.html"}>
+
+<!--- END 以下内容不需更改，请保证该TPL页内的标签匹配即可--->
+<include file="sys/footer" />

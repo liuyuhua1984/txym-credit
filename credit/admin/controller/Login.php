@@ -14,13 +14,20 @@ use app\admin\model\Auser;
 use function md5;
 use think\Controller;
 use think\Session;
-
-class Login extends Controller
+use think\Log;
+class Login extends BaseController
 {
+
+
+    public function openLogin(){
+        $this->assign('page_title', '登入');
+        return $this->fetch('login');
+    }
 
     public function login()
     {
-        Log::error("进入sdsdfaf板");
+
+        Log::error(session_id().":进入sdsdfaf板::".Session::get('osa_verify_code'));
         $user_name = $this->request->param("user_name");
         $password = $this->request->param("password");
         $remember = $this->request->param("remember");
@@ -34,7 +41,7 @@ class Login extends Controller
         }
 
 
-        if (strtolower($verify_code_text) != strtolower($_SESSION['osa_verify_code'])) {
+        if (strtolower($verify_code_text) != strtolower(Session::get('osa_verify_code'))) {
             return ['res' => -2];//验证码不正确
         }
         else {
@@ -45,9 +52,18 @@ class Login extends Controller
 
         }
 
-        Session::set("user_name", $user_name);
+        Session::set("user", $auser);
 
         return ['res' => 1];
+    }
+
+
+    public function logOut(){
+
+        setAppCookie("osa_remember","",time()-3600);
+        Session::delete("user");
+        Session::delete("osa_timezone");
+
     }
 }
 

@@ -18,9 +18,12 @@ $text = "";
 for($i=0;$i<6;$i++)
 	$text .= trim($chars[rand(0,count($chars)-1)]);
 
-$_SESSION['osa_verify_code'] = $text; 
+$_SESSION['osa_verify_code'] = $text;
 
-$font = '/static/font/tahoma.ttf';
+
+error_log(session_id(). "::osa_verify_code:".$_SESSION['osa_verify_code']);
+
+$font = './static/font/tahoma.ttf';
 
 $gray = ImageColorAllocate($im, 200,200,200); 
 
@@ -41,5 +44,5 @@ for($i=0;$i<150;$i++){
 imagepng($im); 
 imagedestroy($im); 
 
-var_dump($text);
+//var_dump($text);
 ?> 

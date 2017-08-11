@@ -253,5 +253,14 @@ return [
         '_JS_'=>GAME_ROOT.'/static/js',
         '_IMG_'=>GAME_ROOT.'/static/images',
 
+        '_ADMIN_'=>GAME_ROOT."/admin",
+
+        '_A_CSS_'=>GAME_ROOT.'/static/admin/css',
+        '_A_JS_'=>GAME_ROOT.'/static/admin/js',
+        '_A_IMG_'=>GAME_ROOT.'/static/admin/img',
+        '_A_FONT_'=>GAME_ROOT.'/static/admin/font-awesome',
+        '_A_THEME_'=>GAME_ROOT.'/static/admin/stylesheets_',
+
+        '_HOME_'=>GAME_ROOT."/home",
     ],
 ];
