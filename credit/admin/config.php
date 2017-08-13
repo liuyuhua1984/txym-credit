@@ -28,4 +28,13 @@ return [
         // 标签库标签结束标记
         'taglib_end'   => '>',
     ],
+
+    'OSA_TEMPLATES' => array(
+        'default' => '默认模板',
+        'schoolpainting' => '青葱校园',
+        'blacktie' => '黑色领结',
+        'wintertide' => '冰雪冬季',
+    ),
+   'ADMIN_TITLE'=>'管理后台',
+    'COMPANY_NAME'=>'大天地',
 ];

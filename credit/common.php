@@ -11,7 +11,7 @@
 
 // 应用公共文件
 use think\Cookie;
-
+use think\Config;
 /**
  * @param $now
  *time()转换为Y-m-d h:i:s
@@ -90,29 +90,50 @@ function setAppCookie($cookie = "key", $encrypted, $day = 7)
 //获取action_url，用于权限验证
  function getActionUrl(){
     $action_script=$_SERVER['SCRIPT_NAME'];
-    $admin_url = strtolower(__ROOT__);
-    if($admin_url{strlen($admin_url)-1}=="/"){
-        $admin_url = substr($admin_url,0,strlen($admin_url)-1);
-    }
+    $arscript=dirname($action_script);
+     $action_url = $action_script;
+    $admin_url = str_replace($arscript,"",$action_script);
 
-    $http_pos = strpos($admin_url,'http://');
+     \think\Log::error("位置::".$admin_url);
+   //  $admin_url_no_http = str_replace("http://","",$admin_url);
 
-    if($http_pos !== false){
-        $admin_url_no_http = substr($admin_url,7);
-    }else{
-        $admin_url_no_http=$admin_url;
-    }
+    //$http_pos = strpos($admin_url,'http://');
 
-    $slash = 0;
-    $slash=strpos($admin_url_no_http,'/');
+//    if($http_pos !== false){
+//
+//        $admin_url_no_http = substr($admin_url,$http_pos);
+//    }else{
+//        $admin_url_no_http=$admin_url;
+//    }
+//
+//
+//    $slash=strpos($admin_url_no_http,'/');
+//
+//    if($slash){
+//        $sub_dir = substr($admin_url_no_http,$slash);
+//        $action_url = substr($action_script,strlen($sub_dir));
+//    }else{
+//        $action_url =$action_script;
+ //   }
+     $admin_url =  str_replace('//','/',$admin_url);
+     return  str_replace('.php','',$admin_url);
+}
 
-    if($slash){
-        $sub_dir = substr($admin_url_no_http,$slash);
-        $action_url = substr($action_script,strlen($sub_dir));
-    }else{
-        $action_url =$action_script;
-    }
-    return str_replace('//','/',$action_url);
+
+/**
+ * @param $url
+ * 跳转到后台url
+ */
+function jumpAdminUrl($url){
+    Header ( "Location: ".Config::get('_M_ADMIN_')."/$url" );
+}
+
+/**
+ * @param $url
+ * 跳转前台URL
+ */
+function jumpHomeUrl($url){
+    Header ( "Location: ".Config::get('_M_HOME_')."/$url" );
 }
 
 ?>

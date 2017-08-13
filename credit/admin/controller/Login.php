@@ -46,13 +46,16 @@ class Login extends BaseController
         }
         else {
 
+            if($auser['status']==1){
+                $this->loginDoSomething($auser['user_id']);
+            }
             if ($remember) {
-                setAppCookie("osa_remember", $user_name, 30);
+                setAppCookie("osa_remember", $auser['user_id'], 30);
             }
 
         }
 
-        Session::set("user", $auser);
+        //Session::set("user", $auser);
 
         return ['res' => 1];
     }

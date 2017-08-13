@@ -11,6 +11,7 @@ namespace app\admin\controller;
 
 
 use app\admin\model\Amodule;
+use app\admin\model\AquickNote;
 use function checkNoNeedLogin;
 use function convertDate;
 use function getActionUrl;
@@ -24,14 +25,18 @@ use function error_log;
 
 use think\Log;
 use think\Session;
-
+use think\Cookie;
+use think\Config;
 class BaseController extends Controller
 {
     const SESSION_NAME = "osa_user_info";
 
+    //显示可见菜单
+    const SHOW_MENU = 1;
+
     public function _initialize()
     {
-        $no_need_login_page = array("/Login/login", "/panel/logout",);
+        $no_need_login_page = array("/Login/login", 'Login/openLogin',"/Login/logout",);
 
         // 如果不需要登录就可以访问的话
         $action_url = getActionUrl();
@@ -39,43 +44,58 @@ class BaseController extends Controller
         if (checkNoNeedLogin($action_url, $no_need_login_page)) {
             // for login.php, logout.php, etc . . .
             // ;
-        }
-        else {
+            Log::error("检测为真!!!!");
+        } else {
+
             // 否则需要验证登录信息
-            if (empty(Session::get(SESSION_NAME))) {
+            if (empty(Session::get(self::SESSION_NAME))) {
+                Log::error("检测为w空!!!!");
                 $user_id = getCookieRemember();
                 if ($user_id > 0) {
-                    loginDoSomething($user_id);
+                    $status = $this->loginDoSomething($user_id);
+                    if(empty($status)){
+                       return jumpAdminUrl('Login/openLogin');
+                    }
                 }
             }
 
-            checkLogin();
 
-            User::checkActionAccess();
-            $current_user_info = UserSession::getSessionInfo();
+            $checkNull = $this->checkLogin();
+            Log::error("检测为wdddddd假!!!!".$checkNull);
+            if ($checkNull){
+               return jumpAdminUrl('Login/openLogin');
+            }
+
+            Log::error("检测为w假!!!!");
+           $checkAcces = $this->checkActionAccess();
+            if ($checkAcces){
+                return $this->error('您当前没有权限访问该功能，如需访问请联系管理员开通权限', 'index/index');
+            }
+
+            $current_user_info = $this->getSessionInfo();
             // 如果非 AJAX 请求
-            if (stripos($_SERVER['SCRIPT_NAME'], "/ajax") === false) {
+         //   if (stripos($_SERVER['SCRIPT_NAME'], "/ajax") === false) {
                 // 显示菜单、导航条、模板
-                $sidebar = SideBar::getTree();
+                $sidebar =$this->getTree();
 
                 // 是否显示 quick note
                 if ($current_user_info['show_quicknote']) {
-                    OSAdmin::showQuickNote();
+                    $this->showQuickNote();
                 }
 
-                $menu = MenuUrl::getMenuByUrl(Common::getActionUrl());
-                Template::assign('page_title', $menu['menu_name']);
-                Template::assign('content_header', $menu);
-                Template::assign('sidebar', $sidebar);
-                Template::assign('current_module_id', $menu['module_id']);
-                Template::assign('user_info', UserSession::getSessionInfo());
-            }
+                $menu = $this->getMenuByUrl(getActionUrl());
+                $this->assign('page_title', $menu['menu_name']);
+                $this->assign('content_header', $menu);
+                $this->assign('sidebar', $sidebar);
+                $this->assign('current_module_id', $menu['module_id']);
+                $this->assign('user_info', $this->getSessionInfo());
+           // }
         }
 
-        Template::assign('osa_templates', $OSA_TEMPLATES);
+        $this->assign('osa_templates', Config::get('OSA_TEMPLATES'));
 
-        $sidebarStatus = $_COOKIE['sidebarStatus'] == null ? "yes" : $_COOKIE['sidebarStatus'];
-        Template::assign('sidebarStatus', $sidebarStatus);
+        $sidebarStatus = Cookie::get('sidebarStatus') == null ? "yes" :Cookie::ge('sidebarStatus');
+        $this->assign('sidebarStatus', $sidebarStatus);
     }
 
     /**
@@ -84,32 +104,36 @@ class BaseController extends Controller
      *
      * @return mixed|void
      */
-    private function loginDoSomething($user_id)
+    protected function loginDoSomething($user_id)
     {
 
         $user_info = Auser::where("user_id", '=', $user_id)->find();
 
         if (empty($user_info)) {
-            return;
+            Log::info('把user存入dddddd容器');
+            return 0;
         }
         $user_info['login_time'] = convertDate(time());//登录时间
 
         if ($user_info['status'] != 1) {//状不为1就去登录 界面
 
-            return $this->fetch('login/login');
+            return 0;
         }
 
         //读取该用户所属用户组将该组的权限保存在$_SESSION中
         $user_group = AuserGroup::where('group_id', '=', $user_info['user_group'])->find();
         if (empty($user_group)) {
-            return;
+            return 0;
         }
+
         $user_info['group_id'] = $user_group['group_id'];
         $user_info['user_role'] = $user_group['group_role'];
         $user_info['shortcuts_arr'] = explode(',', $user_info['shortcuts']);
-        $menu = getMenuByUrl('/admin/setting.php');
-        if (strpos($user_group['group_role'], $menu['menu_id'])) {
+        $menu = $this->getMenuByUrl('/panel/setting.php');
+        if (!empty($menu)){
+            if (strpos($user_group['group_role'], $menu['menu_id'])) {
             $user_info['setting'] = 1;
+            }
         }
 
         $login_time = time();
@@ -120,7 +144,8 @@ class BaseController extends Controller
 
         $user_info['login_ip'] = $login_ip;
         $user_info['login_time'] = getDateTime($login_time);
-        Session::set(SESSION_NAME, $user_info);
+        Session::set(self::SESSION_NAME, $user_info);
+
     }
 
 
@@ -136,12 +161,12 @@ class BaseController extends Controller
         $menu = AmenuUrl::where('menu_url', "=", $url)->find();
         if (!empty($menu)) {
 
-            $module = getModuleById($menu['module_id']);
+            $module = $this->getModuleById($menu['module_id']);
             $menu['module_id'] = $module['module_id'];
             $menu['module_name'] = $module['module_name'];
             $menu['module_url'] = $module['module_url'];
             if ($menu['father_menu'] > 0) {
-                $father_menu = getMenuById($menu['father_menu']);
+                $father_menu = $this->getMenuById($menu['father_menu']);
                 $menu['father_menu_url'] = $father_menu['menu_url'];
                 $menu['father_menu_name'] = $father_menu['menu_name'];
             }
@@ -150,15 +175,37 @@ class BaseController extends Controller
         return array();
     }
 
+    public function getSessionInfo()
+    {
+        return Session::get(self::SESSION_NAME);
+    }
 
-    public static function getMenuByRole($user_role, $online = 1)
+    public function checkActionAccess()
+    {
+        $action_url = getActionUrl();
+
+        Log::error('權限:'.$action_url);
+
+        $user_info =$this->getSessionInfo();
+
+        $role_menu_url = $this->getMenuByRole($user_info['user_role']);
+       // var_dump($role_menu_url);
+        $search_result = in_array($action_url, $role_menu_url);
+        if (!$search_result) {
+            // Common::exitWithMessage ('您当前没有权限访问该功能，如需访问请联系管理员开通权限','index.php' );
+            return true;
+        }
+    }
+
+    public function getMenuByRole($user_role, $online = 1)
     {
         $url_array = array();
-        $db = self::__instance();
+        $SQL = "me.menu_id in($user_role) AND me.online=$online AND me.module_id=mo.module_id AND mo.online=1";
+        $list = AmenuUrl::alias('me')->join('__AMODULE__ mo', $SQL)->select();
 
-        $sql = "select * from " . self::getTableName() . " me," . Module::getTableName() . " mo where me.menu_id in ($user_role) and me.online = $online and me.module_id = mo.module_id and mo.online = 1";
+        //  $sql = "select * from " . self::getTableName() . " me," . Module::getTableName() . " mo where me.menu_id in ($user_role) and me.online = $online and me.module_id = mo.module_id and mo.online = 1";
 
-        $list = $db->query($sql)->fetchAll();
+        //  $list = $db->query($sql)->fetchAll();
 
         if ($list) {
             foreach ($list as $menu_info) {
@@ -188,13 +235,155 @@ class BaseController extends Controller
     }
 
 
-    protected function checkLogin(){
-        $user_info = Session::get(SESSION_NAME);
-        if (empty($user_info)){
-            return $this->fetch('login/login');
+    protected function checkLogin()
+    {
+        $user_info = Session::get(self::SESSION_NAME);
+        if (empty($user_info)) {
+            return true;
         }
+        return false;
+    }
+
+
+    protected function getTree()
+    {
+
+        $user_info = $this->getSessionInfo();
+        //功能菜单
+        $data = array();
+        $data = $this->getAllModules(1);
+
+        $user_info = $this->getSessionInfo();
+        //用户的权限
+        $access = $this->getMenuByRole($user_info ['user_role']);
+
+        foreach ($data as $k => $module) {
+            $list = $this->getlistByModuleId($module ['module_id'], 'sidebar');
+
+            if (!$list) {
+                unset ($data [$k]);
+                continue;
+            }
+            //去除无权限访问的
+            foreach ($list as $key => $value) {
+                if (!in_array($value ['menu_url'], $access)) {
+                    unset ($list [$key]);
+                }
+            }
+            $data [$k] ['menu_list'] = $list;
+        }
+        return $data;
+    }
+
+    protected function getMenuShortCuts()
+    {
+
+        $user_info = $this->getSessionInfo();
+        //功能菜单
+        $data = array();
+        $data = $this->getAllModule();
+        $user_info = $this->getSessionInfo();
+        //用户的权限
+        $access = $this->getMenuByRole($user_info ['user_role']);
+
+        foreach ($data as $k => $module) {
+            $list = $this->getlistByModuleId( $module['module_id'],'shortcut');
+            if (!$list) {
+                unset ($data [$k]);
+                continue;
+            }
+            //去除无权限访问的
+            foreach ($list as $key => $value) {
+                if (!in_array($value ['menu_url'], $access)) {
+                    unset ($list [$key]);
+                }
+            }
+            $data [$k] ['menu_list'] = $list;
+        }
+        return $data;
+    }
+
+    protected  function getModuleById($module_id) {
+        if (! $module_id || ! is_numeric ( $module_id )) {
+            return false;
+        }
+        $module = Amodule::where('module_id','=',$module_id)->find();
+        if ($module){
+            return $module;
+        }
+        return array ();
+    }
+
+    //列表
+    protected function getAllModules($is_online = null)
+    {
+
+        if (!empty($is_online)) {
+            $list = Amodule::where('online', '=', $is_online)->order(array('module_sort' => 'asc', 'module_id' => 'asc'))->select();
+        } else {
+            $list = Amodule::order(array('module_sort' => 'asc', 'module_id' => 'asc'))->select();
+        }
+
+        if ($list) {
+            return $list;
+        }
+        return array();
+    }
+
+
+    protected function getListByModuleId($module_id, $type = "all")
+    {
+        if (!$module_id || !is_numeric($module_id))
+        {
+            return array();
+        }
+
+        switch ($type) {
+            case "sidebar":
+              $sub_condition["is_show"] = 1;
+             $sub_condition["online"] = 1;
+             break;
+            case "role":
+                $sub_condition["online"] = 1;
+             break;
+            case "navibar":
+             $sub_condition["is_show"] = 1;
+             $sub_condition["online"] = 1;
+             break;
+    // default:
+         }
+
+        $sub_condition["module_id"] = $module_id;
+        $list = AmenuUrl::where($sub_condition)->select();
+
+        if ($list)
+            return $list;
+        return array();
+    }
+
+
+    protected  function getRandomNote() {
+        $min = AquickNote::min('note_id');
+        $max = AquickNote::max('note_id');
+
+        if ($max && $min) {
+            $note_id=rand($min,$max);
+            $condition['note_id[>=]'] = $note_id;
+            $list = AquickNote::where('note_id','=',$note_id)->find();
+
+            if ($list) {
+                return $list;
+            }
+        }
+        return array ();
+    }
+
+    protected  function showQuickNote(){
+        $note = $this->getRandomNote();
+        $note_content=$note['note_content'];
+        $note_html="<div class=\"alert alert-info\">
+			<button type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button>$note_content</div>";
+        $this->assign("osadmin_quick_note",$note_html);
     }
 }
-
-
 ?>

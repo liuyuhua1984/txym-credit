@@ -13,8 +13,7 @@ class Index extends BaseController
     public function index()
     {
 
-
-        $passport = Session::get("user");
+        $passport = $this->getSessionInfo();
         Log::error("进入index");
         if (empty($passport)) {
             $this->assign('page_title', '登入');

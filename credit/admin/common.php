@@ -11,11 +11,11 @@ function checkNoNeedLogin($action_url, $no_need_login_array){
     }else{
         return false;
     }
+}
 
-    function getCookieRemember(){
-        $encrypted = Cookie::get('osa_remember');
-       // $base64=urldecode($encrypted);
-        return $encrypted;
-    }
+function getCookieRemember(){
+    $encrypted = Cookie::get('osa_remember');
+    // $base64=urldecode($encrypted);
+    return $encrypted;
 }
 ?>

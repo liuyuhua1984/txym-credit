@@ -3,8 +3,6 @@
 <include file="sys/navibar" />
 <include file="sys/sidebar" />
 
-<p> 进来了index</p>
-
 
 <!--- START 以上内容不需更改，保证该TPL页内的标签匹配即可--->
 
@@ -13,11 +11,11 @@
         <a href="#page-menu" class="block-heading" data-toggle="collapse">快捷菜单</a>
         <div id="page-menu" class="block-body collapse in">
 		<h3>
-		<if condition= "count($menus) > 0"  >
+		<if condition= "count($menus) gt 0"  >
 			<volist name="menus"  id="menu">
 			<span>
-				<a href="_ADMIN_/<{$menu[menu_url]}>">
-					<{$menu[menu_name]}>
+				<a href="_ADMIN_/<{$menu['menu_url']}>">
+					<{$menu['menu_name']}>
 				</a>
 			</span>&nbsp;
 			</volist>

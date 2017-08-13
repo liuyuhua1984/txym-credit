@@ -263,4 +263,7 @@ return [
 
         '_HOME_'=>GAME_ROOT."/home",
     ],
+
+    '_M_ADMIN_'=>GAME_ROOT."/admin",
+    '_M_HOME_'=>GAME_ROOT."/home",
 ];
