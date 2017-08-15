@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-08-11 18:54:04
+Date: 2017-08-15 18:29:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,15 +36,15 @@ CREATE TABLE `credit_amenu_url` (
 -- ----------------------------
 -- Records of credit_amenu_url
 -- ----------------------------
-INSERT INTO `credit_amenu_url` VALUES ('1', '首页', '/panel/index.php', '1', '0', '1', '1', '后台首页', '0');
-INSERT INTO `credit_amenu_url` VALUES ('2', '账号列表', '/panel/users.php', '1', '1', '1', '1', '账号列表', '0');
-INSERT INTO `credit_amenu_url` VALUES ('3', '修改账号', '/panel/user_modify.php', '1', '0', '1', '0', '修改账号', '2');
-INSERT INTO `credit_amenu_url` VALUES ('4', '新建账号', '/panel/user_add.php', '1', '0', '1', '1', '新建账号', '2');
-INSERT INTO `credit_amenu_url` VALUES ('5', '个人信息', '/panel/profile.php', '1', '0', '1', '1', '个人信息', '0');
-INSERT INTO `credit_amenu_url` VALUES ('6', '账号组成员', '/panel/group.php', '1', '0', '1', '0', '显示账号组详情及该组成员', '7');
-INSERT INTO `credit_amenu_url` VALUES ('7', '账号组管理', '/panel/groups.php', '1', '1', '1', '1', '增加管理员', '0');
-INSERT INTO `credit_amenu_url` VALUES ('8', '修改账号组', '/panel/group_modify.php', '1', '0', '1', '0', '修改账号组', '7');
-INSERT INTO `credit_amenu_url` VALUES ('9', '新建账号组', '/panel/group_add.php', '1', '0', '1', '1', '新建账号组', '7');
+INSERT INTO `credit_amenu_url` VALUES ('1', '首页', '/admin/Index/index', '1', '0', '1', '1', '后台首页', '0');
+INSERT INTO `credit_amenu_url` VALUES ('2', '借出账号', '/admin/Aloaner/index', '1', '1', '1', '1', '借出账号', '0');
+INSERT INTO `credit_amenu_url` VALUES ('3', '借款账号', '/panel/user_modify.php', '1', '1', '1', '0', '借款账号', '0');
+INSERT INTO `credit_amenu_url` VALUES ('4', '借款申请记录', '/panel/user_add.php', '1', '1', '1', '1', '借款申请记录', '0');
+INSERT INTO `credit_amenu_url` VALUES ('5', '拒绝申请', '/panel/profile.php', '1', '0', '1', '1', '拒绝申请', '4');
+INSERT INTO `credit_amenu_url` VALUES ('6', '同意申请', '/panel/group.php', '1', '0', '1', '0', '同意申请', '4');
+INSERT INTO `credit_amenu_url` VALUES ('7', '黑名单', '/panel/groups.php', '1', '1', '1', '1', '黑名单', '0');
+INSERT INTO `credit_amenu_url` VALUES ('8', '加入黑名单', '/panel/group_modify.php', '1', '0', '1', '0', '加入黑名单', '7');
+INSERT INTO `credit_amenu_url` VALUES ('9', '删除黑名单', '/panel/group_add.php', '1', '0', '1', '1', '删除黑名单', '7');
 INSERT INTO `credit_amenu_url` VALUES ('10', '权限管理', '/panel/group_role.php', '1', '1', '1', '1', '用户权限依赖于账号组的权限', '0');
 INSERT INTO `credit_amenu_url` VALUES ('11', '菜单模块', '/panel/modules.php', '1', '1', '1', '1', '菜单里的模块', '0');
 INSERT INTO `credit_amenu_url` VALUES ('12', '编辑菜单模块', '/panel/module_modify.php', '1', '0', '1', '0', '编辑模块', '11');
@@ -83,7 +83,7 @@ CREATE TABLE `credit_amodule` (
 -- ----------------------------
 -- Records of credit_amodule
 -- ----------------------------
-INSERT INTO `credit_amodule` VALUES ('1', '控制面板', '/panel/index.php', '0', '配置OSAdmin的相关功能', 'icon-th', '1');
+INSERT INTO `credit_amodule` VALUES ('1', '用户管理', '/Index/index.php', '0', '配置OSAdmin的相关功能', 'icon-th', '1');
 INSERT INTO `credit_amodule` VALUES ('2', '样例模块', '/panel/index.php', '1', '样例模块', 'icon-leaf', '1');
 
 -- ----------------------------
@@ -198,7 +198,7 @@ CREATE TABLE `credit_auser` (
 -- ----------------------------
 -- Records of credit_auser
 -- ----------------------------
-INSERT INTO `credit_auser` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'SomewhereYu', '13800138001', 'admin@osadmin.org', '初始的超级管理员!', '1502077462', '1', '127.0.0.1', '1', 'schoolpainting', '2,7,10,11,13,14,18,21,24', '0');
+INSERT INTO `credit_auser` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'SomewhereYu', '13800138001', 'admin@osadmin.org', '初始的超级管理员!', '1502792041', '1', '127.0.0.1', '1', 'schoolpainting', '2,7,10,11,13,14,18,21,24', '0');
 INSERT INTO `credit_auser` VALUES ('26', 'demo', 'e10adc3949ba59abbe56e057f20f883e', 'SomewhereYu', '15812345678', 'yuwenqi@osadmin.org', '默认用户组成员', '1371605873', '1', '127.0.0.1', '2', 'schoolpainting', '', '1');
 
 -- ----------------------------
