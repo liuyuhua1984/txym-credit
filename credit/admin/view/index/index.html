@@ -8,23 +8,6 @@
 
 
 	<div class="block">
-        <a href="#page-menu" class="block-heading" data-toggle="collapse">快捷菜单</a>
-        <div id="page-menu" class="block-body collapse in">
-		<h3>
-		<if condition= "count($menus) gt 0"  >
-			<volist name="menus"  id="menu">
-			<span>
-				<a href="_ADMIN_/<{$menu['menu_url']}>">
-					<{$menu['menu_name']}>
-				</a>
-			</span>&nbsp;
-			</volist>
-		</if>
-		</h3>
-		</div> 
-    </div>
-	
-	<div class="block">
         <a href="#page-stats" class="block-heading" data-toggle="collapse">当前用户信息</a>
         <div id="page-stats" class="block-body collapse in">
 			

@@ -26,23 +26,11 @@ class Index extends BaseController
         $aUser = Auser::where('user_name', '=', $passport['user_name'])->find();
         if (!empty($aUser)) {
 
-            $shorts = explode(',', $aUser['shortcuts']);
-            if (!empty($shorts)) {
-                Log::error("进来这儿了11111::");
-                $menus = AMenuUrl::where('menu_id', 'in', $shorts)->select();
-                $this->assign('menus', $menus);
-                Log::error("进来这儿了::");
-                error_log("要完完了!!!!");
-                return $this->fetch();
-                //return "完了!!";
-            }
-            else {
-                $this->assign('page_title', '登入');
-                return $this->fetch("login/login");
-            }
+            return $this->fetch();
         }
         else {
-            return '没有找到玩家';
+            $this->assign('page_title', '登入');
+            return $this->fetch("login/login");
         }
 
 
@@ -55,6 +43,7 @@ class Index extends BaseController
     public function checkCode()
     {
 
+        error_log("要完完了!!!!");
 
         header("Content-type: image/png");
 

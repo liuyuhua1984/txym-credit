@@ -26,7 +26,7 @@ class Index extends Controller
         if (empty($page)){
             $page = 1;
         }
-        Log::write($page);
+
         // 模板变量赋值
         $this->assign('list', $list);
         $this->assign('tIndex',$tIndex);

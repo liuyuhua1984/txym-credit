@@ -14,7 +14,6 @@ use app\admin\model\Amodule;
 use app\admin\model\AquickNote;
 use function checkNoNeedLogin;
 use function convertDate;
-use function getActionUrl;
 use function getIp;
 use think\Controller;
 use app\admin\model\AmenuUrl;
@@ -27,6 +26,8 @@ use think\Log;
 use think\Session;
 use think\Cookie;
 use think\Config;
+use function var_dump;
+
 class BaseController extends Controller
 {
     const SESSION_NAME = "osa_user_info";
@@ -36,65 +37,81 @@ class BaseController extends Controller
 
     public function _initialize()
     {
-        $no_need_login_page = array("/Login/login", 'Login/openLogin',"/Login/logout",);
-
+        //   $no_need_login_page = array("/Login/login", 'Login/openLogin', "/Login/logout",);
+     //   var_dump($_SERVER);
         // 如果不需要登录就可以访问的话
-        $action_url = getActionUrl();
+       $action_url = getActionUrl();
 
-        if (checkNoNeedLogin($action_url, $no_need_login_page)) {
-            // for login.php, logout.php, etc . . .
-            // ;
-            Log::error("检测为真!!!!");
-        } else {
+       Log::error("action::!!!!" . $action_url);
 
-            // 否则需要验证登录信息
-            if (empty(Session::get(self::SESSION_NAME))) {
-                Log::error("检测为w空!!!!");
-                $user_id = getCookieRemember();
-                if ($user_id > 0) {
-                    $status = $this->loginDoSomething($user_id);
-                    if(empty($status)){
-                       return jumpAdminUrl('Login/openLogin');
-                    }
+        // 否则需要验证登录信息,如果cookie有user_id
+        if (empty(Session::get(self::SESSION_NAME))) {
+            Log::error("检测为w空!!!!");
+            $user_id = getCookieRemember();
+            if ($user_id > 0) {
+                $status = $this->loginDoSomething($user_id);
+                if (empty($status)) {
+                    return ;
                 }
             }
-
-
-            $checkNull = $this->checkLogin();
-            Log::error("检测为wdddddd假!!!!".$checkNull);
-            if ($checkNull){
-               return jumpAdminUrl('Login/openLogin');
-            }
-
-            Log::error("检测为w假!!!!");
-           $checkAcces = $this->checkActionAccess();
-            if ($checkAcces){
-                return $this->error('您当前没有权限访问该功能，如需访问请联系管理员开通权限', 'index/index');
-            }
-
-            $current_user_info = $this->getSessionInfo();
-            // 如果非 AJAX 请求
-         //   if (stripos($_SERVER['SCRIPT_NAME'], "/ajax") === false) {
-                // 显示菜单、导航条、模板
-                $sidebar =$this->getTree();
-
-                // 是否显示 quick note
-                if ($current_user_info['show_quicknote']) {
-                    $this->showQuickNote();
-                }
-
-                $menu = $this->getMenuByUrl(getActionUrl());
-                $this->assign('page_title', $menu['menu_name']);
-                $this->assign('content_header', $menu);
-                $this->assign('sidebar', $sidebar);
-                $this->assign('current_module_id', $menu['module_id']);
-                $this->assign('user_info', $this->getSessionInfo());
-           // }
         }
+
+
+        $checkNull = $this->checkLogin();
+
+        if ($checkNull) {
+            Log::error("检测为w假!!!!".$checkNull);
+            return ;
+        }
+
+
+
+        //  Log::error("检测为w假!!!!");
+        // $checkAcces = $this->checkActionAccess();
+        //   if ($checkAcces){
+        //      return $this->error('您当前没有权限访问该功能，如需访问请联系管理员开通权限', 'index/index');
+        //   }
+
+        $current_user_info = $this->getSessionInfo();
+        // 如果非 AJAX 请求
+       // if (stripos($_SERVER['SCRIPT_NAME'], "/ajax") === false) {
+        if (!$this->request->isAjax()){
+            // 显示菜单、导航条、模板
+            $sidebar = $this->getTree();
+
+            // 是否显示 quick note
+            if ($current_user_info['show_quicknote']) {
+                $this->showQuickNote();
+            }
+
+            $menu = $this->getMenuByUrl(getActionUrl());
+
+            if (empty($menu)){
+                $menu = $this->getMenuById(1);
+                if (!empty($menu)) {
+                    $module = $this->getModuleById($menu['module_id']);
+                    $menu['module_id'] = $module['module_id'];
+                    $menu['module_name'] = $module['module_name'];
+                    $menu['module_url'] = $module['module_url'];
+                    if ($menu['father_menu'] > 0) {
+                        $father_menu = $this->getMenuById($menu['father_menu']);
+                        $menu['father_menu_url'] = $father_menu['menu_url'];
+                        $menu['father_menu_name'] = $father_menu['menu_name'];
+                    }
+
+                }
+            }
+            $this->assign('page_title', $menu['menu_name']);
+            $this->assign('content_header', $menu);
+            $this->assign('sidebar', $sidebar);
+            $this->assign('current_module_id', $menu['module_id']);
+            $this->assign('user_info', $this->getSessionInfo());
+        }
+
 
         $this->assign('osa_templates', Config::get('OSA_TEMPLATES'));
 
-        $sidebarStatus = Cookie::get('sidebarStatus') == null ? "yes" :Cookie::ge('sidebarStatus');
+        $sidebarStatus = Cookie::get('sidebarStatus') == null ? "yes" : Cookie::ge('sidebarStatus');
         $this->assign('sidebarStatus', $sidebarStatus);
     }
 
@@ -130,9 +147,9 @@ class BaseController extends Controller
         $user_info['user_role'] = $user_group['group_role'];
         $user_info['shortcuts_arr'] = explode(',', $user_info['shortcuts']);
         $menu = $this->getMenuByUrl('/panel/setting.php');
-        if (!empty($menu)){
+        if (!empty($menu)) {
             if (strpos($user_group['group_role'], $menu['menu_id'])) {
-            $user_info['setting'] = 1;
+                $user_info['setting'] = 1;
             }
         }
 
@@ -158,6 +175,7 @@ class BaseController extends Controller
     protected function getMenuByUrl($url)
     {
 
+        Log::error("url::".$url);
         $menu = AmenuUrl::where('menu_url', "=", $url)->find();
         if (!empty($menu)) {
 
@@ -180,22 +198,22 @@ class BaseController extends Controller
         return Session::get(self::SESSION_NAME);
     }
 
-    public function checkActionAccess()
-    {
-        $action_url = getActionUrl();
-
-        Log::error('權限:'.$action_url);
-
-        $user_info =$this->getSessionInfo();
-
-        $role_menu_url = $this->getMenuByRole($user_info['user_role']);
-       // var_dump($role_menu_url);
-        $search_result = in_array($action_url, $role_menu_url);
-        if (!$search_result) {
-            // Common::exitWithMessage ('您当前没有权限访问该功能，如需访问请联系管理员开通权限','index.php' );
-            return true;
-        }
-    }
+//    public function checkActionAccess()
+//    {
+//        $action_url = getActionUrl();
+//
+//        Log::error('權限:' . $action_url);
+//
+//        $user_info = $this->getSessionInfo();
+//
+//        $role_menu_url = $this->getMenuByRole($user_info['user_role']);
+//        // var_dump($role_menu_url);
+//        $search_result = in_array($action_url, $role_menu_url);
+//        if (!$search_result) {
+//            // Common::exitWithMessage ('您当前没有权限访问该功能，如需访问请联系管理员开通权限','index.php' );
+//            return true;
+//        }
+//    }
 
     public function getMenuByRole($user_role, $online = 1)
     {
@@ -227,7 +245,7 @@ class BaseController extends Controller
         if (!$menu_id || !is_numeric($menu_id))
             return false;
 
-        $module = Amodule::where('menu_id', "=", $menu_id)->find();
+        $module = AmenuUrl::where('menu_id', "=", $menu_id)->find();
         if (empty($module)) {
             return array();
         }
@@ -287,7 +305,7 @@ class BaseController extends Controller
         $access = $this->getMenuByRole($user_info ['user_role']);
 
         foreach ($data as $k => $module) {
-            $list = $this->getlistByModuleId( $module['module_id'],'shortcut');
+            $list = $this->getlistByModuleId($module['module_id'], 'shortcut');
             if (!$list) {
                 unset ($data [$k]);
                 continue;
@@ -303,15 +321,16 @@ class BaseController extends Controller
         return $data;
     }
 
-    protected  function getModuleById($module_id) {
-        if (! $module_id || ! is_numeric ( $module_id )) {
+    protected function getModuleById($module_id)
+    {
+        if (!$module_id || !is_numeric($module_id)) {
             return false;
         }
-        $module = Amodule::where('module_id','=',$module_id)->find();
-        if ($module){
+        $module = Amodule::where('module_id', '=', $module_id)->find();
+        if ($module) {
             return $module;
         }
-        return array ();
+        return array();
     }
 
     //列表
@@ -320,7 +339,8 @@ class BaseController extends Controller
 
         if (!empty($is_online)) {
             $list = Amodule::where('online', '=', $is_online)->order(array('module_sort' => 'asc', 'module_id' => 'asc'))->select();
-        } else {
+        }
+        else {
             $list = Amodule::order(array('module_sort' => 'asc', 'module_id' => 'asc'))->select();
         }
 
@@ -333,25 +353,24 @@ class BaseController extends Controller
 
     protected function getListByModuleId($module_id, $type = "all")
     {
-        if (!$module_id || !is_numeric($module_id))
-        {
+        if (!$module_id || !is_numeric($module_id)) {
             return array();
         }
 
         switch ($type) {
             case "sidebar":
-              $sub_condition["is_show"] = 1;
-             $sub_condition["online"] = 1;
-             break;
+                $sub_condition["is_show"] = 1;
+                $sub_condition["online"] = 1;
+                break;
             case "role":
                 $sub_condition["online"] = 1;
-             break;
+                break;
             case "navibar":
-             $sub_condition["is_show"] = 1;
-             $sub_condition["online"] = 1;
-             break;
-    // default:
-         }
+                $sub_condition["is_show"] = 1;
+                $sub_condition["online"] = 1;
+                break;
+            // default:
+        }
 
         $sub_condition["module_id"] = $module_id;
         $list = AmenuUrl::where($sub_condition)->select();
@@ -362,28 +381,31 @@ class BaseController extends Controller
     }
 
 
-    protected  function getRandomNote() {
+    protected function getRandomNote()
+    {
         $min = AquickNote::min('note_id');
         $max = AquickNote::max('note_id');
 
         if ($max && $min) {
-            $note_id=rand($min,$max);
+            $note_id = rand($min, $max);
             $condition['note_id[>=]'] = $note_id;
-            $list = AquickNote::where('note_id','=',$note_id)->find();
+            $list = AquickNote::where('note_id', '=', $note_id)->find();
 
             if ($list) {
                 return $list;
             }
         }
-        return array ();
+        return array();
     }
 
-    protected  function showQuickNote(){
+    protected function showQuickNote()
+    {
         $note = $this->getRandomNote();
-        $note_content=$note['note_content'];
-        $note_html="<div class=\"alert alert-info\">
+        $note_content = $note['note_content'];
+        $note_html = "<div class=\"alert alert-info\">
 			<button type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button>$note_content</div>";
-        $this->assign("osadmin_quick_note",$note_html);
+        $this->assign("osadmin_quick_note", $note_html);
     }
 }
+
 ?>

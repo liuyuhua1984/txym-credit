@@ -79,6 +79,24 @@ function getTime()
     return strtotime(date('Y-m-d H:i:s'));
 }
 
+/**
+ * @param $date
+ *0点开始
+ * @return string
+ */
+function beginDate($date){
+    return $date." 00:00:00";
+}
+
+/**
+ * @param $date
+ * 23:59结束
+ * @return string
+ */
+function endDate($date){
+    return $date." 23:59:59";
+}
+
 
 function setAppCookie($cookie = "key", $encrypted, $day = 7)
 {
@@ -90,11 +108,14 @@ function setAppCookie($cookie = "key", $encrypted, $day = 7)
 //获取action_url，用于权限验证
  function getActionUrl(){
     $action_script=$_SERVER['SCRIPT_NAME'];
-    $arscript=dirname($action_script);
-     $action_url = $action_script;
-    $admin_url = str_replace($arscript,"",$action_script);
+    $php_self = $_SERVER['PHP_SELF'];
+  //  $arscript=dirname($action_script);
+    // $action_url = $action_script;
+
+    $admin_url = str_replace($action_script,"",$php_self);
 
      \think\Log::error("位置::".$admin_url);
+
    //  $admin_url_no_http = str_replace("http://","",$admin_url);
 
     //$http_pos = strpos($admin_url,'http://');
@@ -115,8 +136,8 @@ function setAppCookie($cookie = "key", $encrypted, $day = 7)
 //    }else{
 //        $action_url =$action_script;
  //   }
-     $admin_url =  str_replace('//','/',$admin_url);
-     return  str_replace('.php','',$admin_url);
+     $action_url =  str_replace('//','/',$admin_url);
+     return  str_replace('.php','',$action_url);
 }
 
 
