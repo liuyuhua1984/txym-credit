@@ -1,11 +1,14 @@
 <?php
 /**
- * Class Loaner
- *TODO:
- *  出借者
- * @package app\admin\controller
+ * Created by PhpStorm.
+ * User: admin
+ * Date: 2017/8/15
+ * Time: 14:37
+ * TODO: 借款者展示
  */
+
 namespace app\admin\controller;
+use app\home\model\Borrower;
 use app\home\model\Loaner;
 use function beginDate;
 use function endDate;
@@ -13,9 +16,8 @@ use function error_log;
 use think\Log;
 use function var_dump;
 
-class Aloaner extends BaseController
+class Borrowerlist extends BaseController
 {
-
     public function index(){
 
         //传入index,返回一个数组
@@ -31,13 +33,13 @@ class Aloaner extends BaseController
         $arr['page'] = $tIndex;
 
         // 查询状态为1的用户数据 并且每页显示10条数据 总记录数为
-            if (empty($start_date) && empty($end_date)) {
-                $list = Loaner::where('is_show', '=', 1)->order(['create_time'=>'desc'])->paginate(10,false,$arr);
-                $start_date="";
-                $end_date = "";
-            }else{
-                $list = Loaner::where('is_show', '=', 1)->whereBetween('create_time',[beginDate($start_date),endDate($end_date)])->order(['create_time'=>'desc'])->paginate(10, false, $arr);
-            }
+        if (empty($start_date) && empty($end_date)) {
+            $list = Borrower::where('is_show', '=', 1)->order(['create_time'=>'desc'])->paginate(10,false,$arr);
+            $start_date="";
+            $end_date = "";
+        }else{
+            $list = Borrower::where('is_show', '=', 1)->whereBetween('create_time',[beginDate($start_date),endDate($end_date)])->order(['create_time'=>'desc'])->paginate(10, false, $arr);
+        }
 
         //  var_dump($list);
         // 获取分页显示
@@ -65,14 +67,15 @@ class Aloaner extends BaseController
      */
     public function del(){
         $ld =  $this->request->param('lId');
-        $loaner = Loaner::get($ld);
+        $loaner = Borrower::get($ld);
         Log::error("id::".$ld);
         if (!empty($loaner)){
             $loaner['is_show'] = 0;
-            Loaner::where('id',$ld)-> update(['is_show'=>0]);
+            Borrower::where('id',$ld)-> update(['is_show'=>0]);
 
         }
         return $this->index();
     }
-
 }
+
+?>

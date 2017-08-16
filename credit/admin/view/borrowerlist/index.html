@@ -13,7 +13,7 @@
             <label>选择结束时间</label>
             <input type="text" id="end_date" name="end_date" value="<{$end_date}>" placeholder="结束时间">
         </div>
-            <!--
+        <!--
         <div style="float:left;margin-right:5px">
             <label>用户名，查询所有用户请留空</label>
             <input type="text" name="user_name" value="" placeholder="输入用户名">
@@ -37,9 +37,9 @@
                 <th style="width:100px">电话</th>
                 <th style="width:35px">性别</th>
                 <th style="width:100px">地址</th>
-                <th style="width:35px">可借资金</th>
-                <th style="width:35px">可借期限</th>
-                <th style="width:250px">要求</th>
+                <th style="width:50px">身份证正面</th>
+                <th style="width:50px">身份证背面</th>
+                <th style="width:100px">邮箱</th>
                 <th style="width:100px">创建时间</th>
                 <th style="width:100px">操作</th>
             </tr>
@@ -60,11 +60,11 @@
                     </td>
 
                     <td><{$item.address}></td>
-                    <td><{$item.loan_money}></td>
-                    <td><{$item.loan_time_limit}></td>
-                    <td> <{$item.demand}></td>
+                    <td><img width="50" height="50" src="__ROOT__/uploads/<{$item.id_card_1}>" /></td>
+                    <td><img width="50" height="50" src="__ROOT__/uploads/<{$item.id_card_2}>" /></td>
+                    <td> <{$item.email}></td>
                     <td><{$item.create_time}></td>
-                    <td><a href="_ADMIN_/Aloaner/del?lId=<{$item.id}>" onclick="return confirm('确认删除此条数据吗？');return false;">删除</a></td>
+                    <td><a href="_ADMIN_/Borrowerlist/del?lId=<{$item.id}>" onclick="return confirm('确认删除此条数据吗？');return false;">删除</a></td>
                 </tr>
             </volist>
             </tbody>
@@ -73,6 +73,7 @@
         <if condition=" $page neq 1">
             <{$page}>
         </if>
+
         <!--- END --->
     </div>
 </div>

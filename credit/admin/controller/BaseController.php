@@ -406,6 +406,8 @@ class BaseController extends Controller
 			<button type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button>$note_content</div>";
         $this->assign("osadmin_quick_note", $note_html);
     }
+
+
 }
 
 ?>

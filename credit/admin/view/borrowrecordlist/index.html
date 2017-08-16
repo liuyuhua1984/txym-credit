@@ -33,13 +33,13 @@
             <thead>
             <tr>
                 <th style="width:30px">#</th>
-                <th style="width:50px">名称</th>
-                <th style="width:100px">电话</th>
-                <th style="width:35px">性别</th>
-                <th style="width:100px">地址</th>
-                <th style="width:35px">可借资金</th>
-                <th style="width:35px">可借期限</th>
-                <th style="width:250px">要求</th>
+                <th style="width:100px">订单号</th>
+                <th style="width:100px">借出者电话</th>
+                <th style="width:100px">借款者电话</th>
+
+                <th style="width:35px">借款金额</th>
+                <th style="width:35px">借款期限</th>
+                <th style="width:35px">状态</th>
                 <th style="width:100px">创建时间</th>
                 <th style="width:100px">操作</th>
             </tr>
@@ -48,23 +48,31 @@
             <volist name='list' id='item'>
                 <tr>
                     <td><{$item.id}></td>
-                    <td><{$item.name}></td>
-                    <td><{$item.phone}></td>
+                    <td><{$item.order_id}></td>
+                    <td><{$item.l_phone}></td>
+                    <td><{$item.b_phone}></td>
+
+                    <td><{$item.borrow_money}></td>
+                    <td><{$item.borrow_time_limit}></td>
                     <td>
-                        <if condition="$item.sex eq '1'">
-                            男
-                            <else/>
-                            女
+                        <if condition="$item.flag eq '0'">
+                            待办
+                            <elseif condition="$item.flag eq '1'"/>
+                            已同意
+                            <else />
+                            已拒绝
                         </if>
 
                     </td>
 
-                    <td><{$item.address}></td>
-                    <td><{$item.loan_money}></td>
-                    <td><{$item.loan_time_limit}></td>
-                    <td> <{$item.demand}></td>
                     <td><{$item.create_time}></td>
-                    <td><a href="_ADMIN_/Aloaner/del?lId=<{$item.id}>" onclick="return confirm('确认删除此条数据吗？');return false;">删除</a></td>
+                    <if condition="$item.flag eq '0'">
+                    <td><a href="_ADMIN_/Borrowrecordlist/agree?lId=<{$item.id}>" onclick="return confirm('确认同意此申请？');return false;">同意</a>/<a
+                            href="_ADMIN_/Borrowrecordlist/refuse?lId=<{$item.id}>" onclick="return
+                    confirm('确认拒绝此申请吗？');return false;">拒绝</a></td>
+                        <else />
+                        无
+                    </if>
                 </tr>
             </volist>
             </tbody>
