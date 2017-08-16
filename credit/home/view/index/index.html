@@ -5,6 +5,7 @@
 	<title>首页</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 	<link rel="stylesheet" href="_CSS_/layout.css" />
+	<link rel="stylesheet" href="_CSS_/bootstrap.css" />
 	<link href="_CSS_/mui.css" rel="stylesheet" />
 	<script type="text/javascript"  src="_JS_/mui.js"></script>
 	<script type="text/javascript" src="_JS_/jquery-1.12.4.js" ></script>
@@ -62,6 +63,11 @@
 			</div>
 			{/volist}
 
+			<!--- START 分页模板 --->
+			{if condition="$page neq 1"}
+				{$page}
+			{/if}
+			<!--- END --->
 		</div>
 
 
