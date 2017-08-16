@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 127.0.0.1
-Source Server Version : 50717
+Source Server Version : 50718
 Source Host           : 127.0.0.1:3306
 Source Database       : txym_credit
 
 Target Server Type    : MYSQL
-Target Server Version : 50717
+Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2017-08-16 17:47:03
+Date: 2017-08-17 06:25:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -42,28 +42,28 @@ INSERT INTO `credit_amenu_url` VALUES ('3', '借款账号', '/admin/Borrowerlist
 INSERT INTO `credit_amenu_url` VALUES ('4', '借款申请记录', '/admin/Borrowrecordlist/index', '1', '1', '1', '1', '借款申请记录', '0');
 INSERT INTO `credit_amenu_url` VALUES ('5', '借款申请记录', '/admin/Borrowrecordlist/refuse', '1', '0', '1', '1', '拒绝申请', '4');
 INSERT INTO `credit_amenu_url` VALUES ('6', '借款申请记录', '/admin/Borrowrecordlist/agree', '1', '0', '1', '0', '同意申请', '4');
-INSERT INTO `credit_amenu_url` VALUES ('7', '黑名单', '/panel/groups.php', '1', '1', '1', '1', '黑名单', '0');
-INSERT INTO `credit_amenu_url` VALUES ('8', '加入黑名单', '/panel/group_modify.php', '1', '0', '1', '0', '加入黑名单', '7');
-INSERT INTO `credit_amenu_url` VALUES ('9', '删除黑名单', '/panel/group_add.php', '1', '0', '1', '1', '删除黑名单', '7');
+INSERT INTO `credit_amenu_url` VALUES ('7', '黑名单', '/panel/groups.php', '1', '1', '0', '1', '黑名单', '0');
+INSERT INTO `credit_amenu_url` VALUES ('8', '加入黑名单', '/panel/group_modify.php', '1', '0', '0', '0', '加入黑名单', '7');
+INSERT INTO `credit_amenu_url` VALUES ('9', '删除黑名单', '/panel/group_add.php', '1', '0', '0', '1', '删除黑名单', '7');
 INSERT INTO `credit_amenu_url` VALUES ('10', '借出账号', '/admin/Aloaner/del', '1', '0', '1', '1', '删除借出者', '2');
-INSERT INTO `credit_amenu_url` VALUES ('11', '借款账号', '/admin/Borrowerlist/del', '1', '1', '1', '1', '菜单里的模块', '3');
-INSERT INTO `credit_amenu_url` VALUES ('12', '编辑菜单模块', '/panel/module_modify.php', '1', '0', '1', '0', '编辑模块', '11');
-INSERT INTO `credit_amenu_url` VALUES ('13', '添加菜单模块', '/panel/module_add.php', '1', '0', '1', '1', '添加菜单模块', '11');
-INSERT INTO `credit_amenu_url` VALUES ('14', '功能列表', '/panel/menus.php', '1', '1', '1', '1', '菜单功能及可访问的链接', '0');
-INSERT INTO `credit_amenu_url` VALUES ('15', '增加功能', '/panel/menu_add.php', '1', '0', '1', '1', '增加功能', '14');
-INSERT INTO `credit_amenu_url` VALUES ('16', '功能修改', '/panel/menu_modify.php', '1', '0', '1', '0', '修改功能', '14');
-INSERT INTO `credit_amenu_url` VALUES ('17', '设置模板', '/panel/set.php', '1', '0', '1', '1', '设置模板', '0');
-INSERT INTO `credit_amenu_url` VALUES ('18', '便签管理', '/panel/quicknotes.php', '1', '1', '1', '1', 'quick note', '0');
+INSERT INTO `credit_amenu_url` VALUES ('11', '借款账号', '/admin/Borrowerlist/del', '1', '0', '1', '1', '删除借款者', '3');
+INSERT INTO `credit_amenu_url` VALUES ('12', '编辑菜单模块', '/panel/module_modify.php', '1', '0', '0', '0', '编辑模块', '11');
+INSERT INTO `credit_amenu_url` VALUES ('13', '添加菜单模块', '/panel/module_add.php', '1', '0', '0', '1', '添加菜单模块', '11');
+INSERT INTO `credit_amenu_url` VALUES ('14', '功能列表', '/panel/menus.php', '1', '1', '0', '1', '菜单功能及可访问的链接', '0');
+INSERT INTO `credit_amenu_url` VALUES ('15', '增加功能', '/panel/menu_add.php', '1', '0', '0', '1', '增加功能', '14');
+INSERT INTO `credit_amenu_url` VALUES ('16', '功能修改', '/panel/menu_modify.php', '1', '0', '0', '0', '修改功能', '14');
+INSERT INTO `credit_amenu_url` VALUES ('17', '设置模板', '/panel/set.php', '1', '0', '0', '1', '设置模板', '0');
+INSERT INTO `credit_amenu_url` VALUES ('18', '便签管理', '/panel/quicknotes.php', '1', '1', '0', '1', 'quick note', '0');
 INSERT INTO `credit_amenu_url` VALUES ('19', '菜单链接列表', '/panel/module.php', '1', '0', '1', '0', '显示模块详情及该模块下的菜单', '11');
-INSERT INTO `credit_amenu_url` VALUES ('20', '登入', '/login.php', '1', '0', '1', '1', '登入页面', '0');
-INSERT INTO `credit_amenu_url` VALUES ('21', '操作记录', '/panel/syslog.php', '1', '1', '1', '1', '用户操作的历史行为', '0');
-INSERT INTO `credit_amenu_url` VALUES ('22', '系统信息', '/panel/system.php', '1', '1', '1', '1', '显示系统相关信息', '0');
-INSERT INTO `credit_amenu_url` VALUES ('23', 'ajax访问修改快捷菜单', '/ajax/shortcut.php', '1', '0', '1', '0', 'ajax请求', '0');
-INSERT INTO `credit_amenu_url` VALUES ('24', '添加便签', '/panel/quicknote_add.php', '1', '0', '1', '1', '添加quicknote的内容', '18');
-INSERT INTO `credit_amenu_url` VALUES ('25', '修改便签', '/panel/quicknote_modify.php', '1', '0', '1', '0', '修改quicknote的内容', '18');
-INSERT INTO `credit_amenu_url` VALUES ('26', '系统设置', '/panel/setting.php', '1', '0', '1', '0', '系统设置', '0');
-INSERT INTO `credit_amenu_url` VALUES ('101', '样例', '/sample/sample.php', '2', '1', '1', '1', '', '0');
-INSERT INTO `credit_amenu_url` VALUES ('103', '读取XLS文件', '/sample/read_excel.php', '2', '1', '1', '1', '', '0');
+INSERT INTO `credit_amenu_url` VALUES ('20', '登入', '/login.php', '1', '0', '0', '1', '登入页面', '0');
+INSERT INTO `credit_amenu_url` VALUES ('21', '操作记录', '/panel/syslog.php', '1', '1', '0', '1', '用户操作的历史行为', '0');
+INSERT INTO `credit_amenu_url` VALUES ('22', '系统信息', '/panel/system.php', '1', '1', '0', '1', '显示系统相关信息', '0');
+INSERT INTO `credit_amenu_url` VALUES ('23', 'ajax访问修改快捷菜单', '/ajax/shortcut.php', '1', '0', '0', '0', 'ajax请求', '0');
+INSERT INTO `credit_amenu_url` VALUES ('24', '添加便签', '/panel/quicknote_add.php', '1', '0', '0', '1', '添加quicknote的内容', '18');
+INSERT INTO `credit_amenu_url` VALUES ('25', '修改便签', '/panel/quicknote_modify.php', '1', '0', '0', '0', '修改quicknote的内容', '18');
+INSERT INTO `credit_amenu_url` VALUES ('26', '系统设置', '/panel/setting.php', '1', '0', '0', '0', '系统设置', '0');
+INSERT INTO `credit_amenu_url` VALUES ('101', '样例', '/sample/sample.php', '2', '1', '0', '1', '', '0');
+INSERT INTO `credit_amenu_url` VALUES ('103', '读取XLS文件', '/sample/read_excel.php', '2', '1', '0', '1', '', '0');
 
 -- ----------------------------
 -- Table structure for credit_amodule
@@ -84,7 +84,7 @@ CREATE TABLE `credit_amodule` (
 -- Records of credit_amodule
 -- ----------------------------
 INSERT INTO `credit_amodule` VALUES ('1', '用户管理', '/Index/index.php', '0', '配置OSAdmin的相关功能', 'icon-th', '1');
-INSERT INTO `credit_amodule` VALUES ('2', '样例模块', '/panel/index.php', '1', '样例模块', 'icon-leaf', '1');
+INSERT INTO `credit_amodule` VALUES ('2', '样例模块', '/panel/index.php', '1', '样例模块', 'icon-leaf', '0');
 
 -- ----------------------------
 -- Table structure for credit_aquick_note
@@ -198,7 +198,7 @@ CREATE TABLE `credit_auser` (
 -- ----------------------------
 -- Records of credit_auser
 -- ----------------------------
-INSERT INTO `credit_auser` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'SomewhereYu', '13800138001', 'admin@osadmin.org', '初始的超级管理员!', '1502871339', '1', '127.0.0.1', '1', 'schoolpainting', '2,7,10,11,13,14,18,21,24', '0');
+INSERT INTO `credit_auser` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'SomewhereYu', '13800138001', 'admin@osadmin.org', '初始的超级管理员!', '1502922217', '1', '127.0.0.1', '1', 'schoolpainting', '2,7,10,11,13,14,18,21,24', '0');
 INSERT INTO `credit_auser` VALUES ('26', 'demo', 'e10adc3949ba59abbe56e057f20f883e', 'SomewhereYu', '15812345678', 'yuwenqi@osadmin.org', '默认用户组成员', '1371605873', '1', '127.0.0.1', '2', 'schoolpainting', '', '1');
 
 -- ----------------------------
@@ -348,10 +348,10 @@ INSERT INTO `credit_loaner` VALUES ('10', '左载枯萎枯萎基本面棋', '152
 INSERT INTO `credit_loaner` VALUES ('11', '左基载 ', '15845698523', '123456', '2', ' 夺顶替柑栽植顶替 ', '100', '1', '奔发电公司地时代复分工土木工程阿斯蒂芬 ', '0', '2017-08-16 16:44:36');
 INSERT INTO `credit_loaner` VALUES ('12', '有东西苛', '15213425698', '123456', '1', '厅霜期 模压霜期 ', '100', '1', '基本面零用苛阿斯蒂芬 ', '1', '2017-08-01 02:47:27');
 INSERT INTO `credit_loaner` VALUES ('13', '原貌压下枯干 ', '17785698123', '123456', '2', '标有一概而论枯干 顶替', '100', '1', '克林霉素 枯干 佣兵硅酸顶替', '1', '2017-08-01 02:50:11');
-INSERT INTO `credit_loaner` VALUES ('14', '砍大本营', '13256898563', '123456', '2', '大本营在霜期地阿斯蒂芬 ', '100', '1', '左栽棋欠妥顶替 ', '0', '2017-08-16 16:16:19');
-INSERT INTO `credit_loaner` VALUES ('15', '砍大本营', '13256898564', '123456', '2', '大本营在霜期地阿斯蒂芬 ', '100', '1', '左栽棋欠妥顶替 ', '0', '2017-08-16 16:17:43');
-INSERT INTO `credit_loaner` VALUES ('16', 'dasf sdf a', '17578945638', '123456', '2', '夺茜脸色奇才柑棋寺', '100', '1', '在五块石 震天一概而论', '0', '2017-08-16 16:19:10');
-INSERT INTO `credit_loaner` VALUES ('17', '仍我', '13566589565', '123456', '1', '仍顶替', '100', '1', '珠仍', '0', '2017-08-16 16:47:13');
+INSERT INTO `credit_loaner` VALUES ('14', '砍大本营', '13256898563', '123456', '2', '大本营在霜期地阿斯蒂芬 ', '100', '1', '左栽棋欠妥顶替 ', '1', '2017-08-17 06:23:08');
+INSERT INTO `credit_loaner` VALUES ('15', '砍大本营', '13256898564', '123456', '2', '大本营在霜期地阿斯蒂芬 ', '100', '1', '左栽棋欠妥顶替 ', '1', '2017-08-17 06:23:09');
+INSERT INTO `credit_loaner` VALUES ('16', 'dasf sdf a', '17578945638', '123456', '2', '夺茜脸色奇才柑棋寺', '100', '1', '在五块石 震天一概而论', '1', '2017-08-17 06:23:10');
+INSERT INTO `credit_loaner` VALUES ('17', '仍我', '13566589565', '123456', '1', '仍顶替', '100', '1', '珠仍', '1', '2017-08-17 06:23:12');
 
 -- ----------------------------
 -- Table structure for credit_lona_request
