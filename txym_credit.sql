@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-08-15 18:29:36
+Date: 2017-08-16 17:47:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -38,15 +38,15 @@ CREATE TABLE `credit_amenu_url` (
 -- ----------------------------
 INSERT INTO `credit_amenu_url` VALUES ('1', '首页', '/admin/Index/index', '1', '0', '1', '1', '后台首页', '0');
 INSERT INTO `credit_amenu_url` VALUES ('2', '借出账号', '/admin/Aloaner/index', '1', '1', '1', '1', '借出账号', '0');
-INSERT INTO `credit_amenu_url` VALUES ('3', '借款账号', '/panel/user_modify.php', '1', '1', '1', '0', '借款账号', '0');
-INSERT INTO `credit_amenu_url` VALUES ('4', '借款申请记录', '/panel/user_add.php', '1', '1', '1', '1', '借款申请记录', '0');
-INSERT INTO `credit_amenu_url` VALUES ('5', '拒绝申请', '/panel/profile.php', '1', '0', '1', '1', '拒绝申请', '4');
-INSERT INTO `credit_amenu_url` VALUES ('6', '同意申请', '/panel/group.php', '1', '0', '1', '0', '同意申请', '4');
+INSERT INTO `credit_amenu_url` VALUES ('3', '借款账号', '/admin/Borrowerlist/index', '1', '1', '1', '0', '借款账号', '0');
+INSERT INTO `credit_amenu_url` VALUES ('4', '借款申请记录', '/admin/Borrowrecordlist/index', '1', '1', '1', '1', '借款申请记录', '0');
+INSERT INTO `credit_amenu_url` VALUES ('5', '借款申请记录', '/admin/Borrowrecordlist/refuse', '1', '0', '1', '1', '拒绝申请', '4');
+INSERT INTO `credit_amenu_url` VALUES ('6', '借款申请记录', '/admin/Borrowrecordlist/agree', '1', '0', '1', '0', '同意申请', '4');
 INSERT INTO `credit_amenu_url` VALUES ('7', '黑名单', '/panel/groups.php', '1', '1', '1', '1', '黑名单', '0');
 INSERT INTO `credit_amenu_url` VALUES ('8', '加入黑名单', '/panel/group_modify.php', '1', '0', '1', '0', '加入黑名单', '7');
 INSERT INTO `credit_amenu_url` VALUES ('9', '删除黑名单', '/panel/group_add.php', '1', '0', '1', '1', '删除黑名单', '7');
-INSERT INTO `credit_amenu_url` VALUES ('10', '权限管理', '/panel/group_role.php', '1', '1', '1', '1', '用户权限依赖于账号组的权限', '0');
-INSERT INTO `credit_amenu_url` VALUES ('11', '菜单模块', '/panel/modules.php', '1', '1', '1', '1', '菜单里的模块', '0');
+INSERT INTO `credit_amenu_url` VALUES ('10', '借出账号', '/admin/Aloaner/del', '1', '0', '1', '1', '删除借出者', '2');
+INSERT INTO `credit_amenu_url` VALUES ('11', '借款账号', '/admin/Borrowerlist/del', '1', '1', '1', '1', '菜单里的模块', '3');
 INSERT INTO `credit_amenu_url` VALUES ('12', '编辑菜单模块', '/panel/module_modify.php', '1', '0', '1', '0', '编辑模块', '11');
 INSERT INTO `credit_amenu_url` VALUES ('13', '添加菜单模块', '/panel/module_add.php', '1', '0', '1', '1', '添加菜单模块', '11');
 INSERT INTO `credit_amenu_url` VALUES ('14', '功能列表', '/panel/menus.php', '1', '1', '1', '1', '菜单功能及可访问的链接', '0');
@@ -198,7 +198,7 @@ CREATE TABLE `credit_auser` (
 -- ----------------------------
 -- Records of credit_auser
 -- ----------------------------
-INSERT INTO `credit_auser` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'SomewhereYu', '13800138001', 'admin@osadmin.org', '初始的超级管理员!', '1502792041', '1', '127.0.0.1', '1', 'schoolpainting', '2,7,10,11,13,14,18,21,24', '0');
+INSERT INTO `credit_auser` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'SomewhereYu', '13800138001', 'admin@osadmin.org', '初始的超级管理员!', '1502871339', '1', '127.0.0.1', '1', 'schoolpainting', '2,7,10,11,13,14,18,21,24', '0');
 INSERT INTO `credit_auser` VALUES ('26', 'demo', 'e10adc3949ba59abbe56e057f20f883e', 'SomewhereYu', '15812345678', 'yuwenqi@osadmin.org', '默认用户组成员', '1371605873', '1', '127.0.0.1', '2', 'schoolpainting', '', '1');
 
 -- ----------------------------
@@ -237,6 +237,7 @@ CREATE TABLE `credit_borrower` (
   `driver_licence` varchar(255) DEFAULT '' COMMENT '驾驶证存储路径',
   `email` varchar(255) DEFAULT NULL COMMENT '邮箱',
   `create_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  `is_show` tinyint(4) DEFAULT '1' COMMENT '是否显示',
   PRIMARY KEY (`id`),
   KEY `phone` (`phone`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
@@ -244,13 +245,13 @@ CREATE TABLE `credit_borrower` (
 -- ----------------------------
 -- Records of credit_borrower
 -- ----------------------------
-INSERT INTO `credit_borrower` VALUES ('11', 'ew', '18554654210', '110110', '2', '感人肺腑枯萎', '20170802\\5803e1610ef905b3edff8c26acd38cae.png', '20170802\\8a9c3d5c9cb373cf225839e160244070.jpg', '1', '1', 'w@163.com', '2017-08-02 05:02:37');
-INSERT INTO `credit_borrower` VALUES ('12', 'w胗', '15212365895', '123456', '2', '脸厅', '20170802\\f9221a7039f6d2f8ff4d11a32583da41.png', '20170802\\58b40e7aed8e5cd27252fab389852394.png', '1', '1', 'sw@163.com', '2017-08-02 05:42:19');
-INSERT INTO `credit_borrower` VALUES ('13', '仍', '15213456565', '123456', '1', '脸奇才脸你 欠妥', '20170802\\20b6f76dc1d0f360ca586b5ea5ab227f.png', '20170802\\5b385d6dfe9c4527e4222c97dddd9b52.jpg', '1', '1', '15@163.com', '2017-08-02 06:34:45');
-INSERT INTO `credit_borrower` VALUES ('14', 'we33', '15213659856', '123456', '1', 'ewe fsg ', '20170803\\df9ceb3e4a4130f7d4328956d8dbc853.png', '20170803\\56c982f01a5c44449b676217d0eec4c2.png', '1', '1', 'ww@163.com', '2017-08-03 11:01:17');
-INSERT INTO `credit_borrower` VALUES ('15', 'da e ', '15214785469', '123456', '1', 'ewq d ', '20170803\\06b6b91a2f2d9f5ebc80e29794e05d38.png', '20170803\\8e77b6ef0f305ef662f27e68e063b67b.png', '1', '1', '44@163.com', '2017-08-03 11:24:58');
-INSERT INTO `credit_borrower` VALUES ('16', '脸色脸', '15213658954', '123456', '2', '在脸色我', '20170803\\3101aca0baa5dffe0289b0426b3f778b.jpg', '20170803\\372562f2970cbf87fb09c0e3dbf2e760.jpg', '1', '1', '2@163.com', '2017-08-03 11:31:11');
-INSERT INTO `credit_borrower` VALUES ('17', 'we 脸厅', '15217854698', '123456', '2', '脸色枯载', '20170803\\4df90e4fbcbaf4add26b0b5b6e82a608.jpg', '20170803\\590110e86a3bd7909289c41923f8247e.png', '1', '1', '1454@163.com', '2017-08-03 11:37:42');
+INSERT INTO `credit_borrower` VALUES ('11', 'ew', '18554654210', '110110', '2', '感人肺腑枯萎', '20170802\\1a569c5f62590b7b019e4feba31efe1a.png', '20170802\\8a9c3d5c9cb373cf225839e160244070.jpg', '1', '1', 'w@163.com', '2017-08-16 16:39:13', '1');
+INSERT INTO `credit_borrower` VALUES ('12', 'w胗', '15212365895', '123456', '2', '脸厅', '20170802\\f9221a7039f6d2f8ff4d11a32583da41.png', '20170802\\58b40e7aed8e5cd27252fab389852394.png', '1', '1', 'sw@163.com', '2017-08-02 05:42:19', '1');
+INSERT INTO `credit_borrower` VALUES ('13', '仍', '15213456565', '123456', '1', '脸奇才脸你 欠妥', '20170802\\20b6f76dc1d0f360ca586b5ea5ab227f.png', '20170802\\5b385d6dfe9c4527e4222c97dddd9b52.jpg', '1', '1', '15@163.com', '2017-08-02 06:34:45', '1');
+INSERT INTO `credit_borrower` VALUES ('14', 'we33', '15213659856', '123456', '1', 'ewe fsg ', '20170803\\df9ceb3e4a4130f7d4328956d8dbc853.png', '20170803\\56c982f01a5c44449b676217d0eec4c2.png', '1', '1', 'ww@163.com', '2017-08-03 11:01:17', '1');
+INSERT INTO `credit_borrower` VALUES ('15', 'da e ', '15214785469', '123456', '1', 'ewq d ', '20170803\\06b6b91a2f2d9f5ebc80e29794e05d38.png', '20170803\\8e77b6ef0f305ef662f27e68e063b67b.png', '1', '1', '44@163.com', '2017-08-03 11:24:58', '1');
+INSERT INTO `credit_borrower` VALUES ('16', '脸色脸', '15213658954', '123456', '2', '在脸色我', '20170803\\3101aca0baa5dffe0289b0426b3f778b.jpg', '20170803\\372562f2970cbf87fb09c0e3dbf2e760.jpg', '1', '1', '2@163.com', '2017-08-03 11:31:11', '1');
+INSERT INTO `credit_borrower` VALUES ('17', 'we 脸厅', '15217854698', '123456', '2', '脸色枯载', '20170803\\4df90e4fbcbaf4add26b0b5b6e82a608.jpg', '20170803\\590110e86a3bd7909289c41923f8247e.png', '1', '1', '1454@163.com', '2017-08-16 16:58:38', '0');
 
 -- ----------------------------
 -- Table structure for credit_borrow_record
@@ -264,6 +265,7 @@ CREATE TABLE `credit_borrow_record` (
   `borrow_time_limit` int(11) DEFAULT '0' COMMENT '借款时间(天)',
   `order_id` varchar(255) DEFAULT '' COMMENT '订单号',
   `create_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  `flag` tinyint(4) DEFAULT '0' COMMENT '1表示同意,2表示拒绝',
   PRIMARY KEY (`id`),
   KEY `borrow_id` (`borrow_id`),
   KEY `loaner_id` (`loaner_id`),
@@ -273,11 +275,11 @@ CREATE TABLE `credit_borrow_record` (
 -- ----------------------------
 -- Records of credit_borrow_record
 -- ----------------------------
-INSERT INTO `credit_borrow_record` VALUES ('1', '11', '3', '10', '36', '2017080456569997', '2017-08-04 04:48:24');
-INSERT INTO `credit_borrow_record` VALUES ('2', '11', '5', '15', '52', '2017080453559710', '2017-08-04 04:48:53');
-INSERT INTO `credit_borrow_record` VALUES ('3', '12', '3', '10', '10', '2017080453541001', '2017-08-04 04:49:57');
-INSERT INTO `credit_borrow_record` VALUES ('4', '12', '7', '0', '0', '2017080455505010', '2017-08-04 04:52:55');
-INSERT INTO `credit_borrow_record` VALUES ('5', '12', '6', '0', '0', '2017080449535148', '2017-08-04 04:56:49');
+INSERT INTO `credit_borrow_record` VALUES ('1', '11', '3', '10', '36', '2017080456569997', '2017-08-16 17:32:49', '2');
+INSERT INTO `credit_borrow_record` VALUES ('2', '11', '5', '15', '52', '2017080453559710', '2017-08-04 04:48:53', '0');
+INSERT INTO `credit_borrow_record` VALUES ('3', '12', '3', '10', '10', '2017080453541001', '2017-08-04 04:49:57', '0');
+INSERT INTO `credit_borrow_record` VALUES ('4', '12', '7', '0', '0', '2017080455505010', '2017-08-04 04:52:55', '0');
+INSERT INTO `credit_borrow_record` VALUES ('5', '12', '6', '0', '0', '2017080449535148', '2017-08-16 17:32:32', '1');
 
 -- ----------------------------
 -- Table structure for credit_frequent_contacts
@@ -343,13 +345,13 @@ INSERT INTO `credit_loaner` VALUES ('7', '姑顶替基本面 ', '15213455698', '
 INSERT INTO `credit_loaner` VALUES ('8', 'WQ wq SD F', '13523654896', '123456', '1', 'sd fsad f大本营奇才棋某', '100', '1', '模压 柑模压 使用者顶替棋霜期 ', '1', '2017-08-01 02:36:15');
 INSERT INTO `credit_loaner` VALUES ('9', '淡粉色阿斯蒂芬地', '15842365128', '123456', '1', '奇才模压模压 械', '100', '1', '左霜期 阿斯蒂芬 ', '1', '2017-08-01 02:39:20');
 INSERT INTO `credit_loaner` VALUES ('10', '左载枯萎枯萎基本面棋', '15246589596', '123456', '2', '下富商大贾村压下克林霉素 枯', '100', '1', '大规模在李斐莉雪茜茜', '1', '2017-08-01 02:44:15');
-INSERT INTO `credit_loaner` VALUES ('11', '左基载 ', '15845698523', '123456', '2', ' 夺顶替柑栽植顶替 ', '100', '1', '奔发电公司地时代复分工土木工程阿斯蒂芬 ', '1', '2017-08-01 02:45:38');
+INSERT INTO `credit_loaner` VALUES ('11', '左基载 ', '15845698523', '123456', '2', ' 夺顶替柑栽植顶替 ', '100', '1', '奔发电公司地时代复分工土木工程阿斯蒂芬 ', '0', '2017-08-16 16:44:36');
 INSERT INTO `credit_loaner` VALUES ('12', '有东西苛', '15213425698', '123456', '1', '厅霜期 模压霜期 ', '100', '1', '基本面零用苛阿斯蒂芬 ', '1', '2017-08-01 02:47:27');
 INSERT INTO `credit_loaner` VALUES ('13', '原貌压下枯干 ', '17785698123', '123456', '2', '标有一概而论枯干 顶替', '100', '1', '克林霉素 枯干 佣兵硅酸顶替', '1', '2017-08-01 02:50:11');
-INSERT INTO `credit_loaner` VALUES ('14', '砍大本营', '13256898563', '123456', '2', '大本营在霜期地阿斯蒂芬 ', '100', '1', '左栽棋欠妥顶替 ', '1', '2017-08-01 06:30:46');
-INSERT INTO `credit_loaner` VALUES ('15', '砍大本营', '13256898564', '123456', '2', '大本营在霜期地阿斯蒂芬 ', '100', '1', '左栽棋欠妥顶替 ', '1', '2017-08-01 06:34:07');
-INSERT INTO `credit_loaner` VALUES ('16', 'dasf sdf a', '17578945638', '123456', '2', '夺茜脸色奇才柑棋寺', '100', '1', '在五块石 震天一概而论', '1', '2017-08-01 07:01:42');
-INSERT INTO `credit_loaner` VALUES ('17', '仍我', '13566589565', '123456', '1', '仍顶替', '100', '1', '珠仍', '1', '2017-08-03 11:38:44');
+INSERT INTO `credit_loaner` VALUES ('14', '砍大本营', '13256898563', '123456', '2', '大本营在霜期地阿斯蒂芬 ', '100', '1', '左栽棋欠妥顶替 ', '0', '2017-08-16 16:16:19');
+INSERT INTO `credit_loaner` VALUES ('15', '砍大本营', '13256898564', '123456', '2', '大本营在霜期地阿斯蒂芬 ', '100', '1', '左栽棋欠妥顶替 ', '0', '2017-08-16 16:17:43');
+INSERT INTO `credit_loaner` VALUES ('16', 'dasf sdf a', '17578945638', '123456', '2', '夺茜脸色奇才柑棋寺', '100', '1', '在五块石 震天一概而论', '0', '2017-08-16 16:19:10');
+INSERT INTO `credit_loaner` VALUES ('17', '仍我', '13566589565', '123456', '1', '仍顶替', '100', '1', '珠仍', '0', '2017-08-16 16:47:13');
 
 -- ----------------------------
 -- Table structure for credit_lona_request
