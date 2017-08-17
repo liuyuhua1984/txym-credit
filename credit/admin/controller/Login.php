@@ -66,7 +66,7 @@ class Login extends BaseController
         setAppCookie("osa_remember","",time()-3600);
         Session::delete("user");
         Session::delete("osa_timezone");
-
+       $this->openLogin();
     }
 }
 
