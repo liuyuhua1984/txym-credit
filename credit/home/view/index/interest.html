@@ -32,13 +32,13 @@
 	    	<div class="mui-col-xs-2">日</div>
 	    	
 	    	<div class="mui-col-xs-12">
-	    		日还款：<span class="red-text">{$day_back}</span>元
+	    		日还款：<span class="red-text" id="day_back">{$day_back}</span>元
 	    	</div>
 	    	<div class="mui-col-xs-12">
-	    		总利息：<span class="red-text">{$total_interest}</span>元
+	    		总利息：<span class="red-text" id="total_interest">{$total_interest}</span>元
 	    	</div>
-	    	<div class="mui-col-xs-12">
-	    		日利率：{$day_interest_rate}
+	    	<div class="mui-col-xs-12" >
+	    		日利率：<span class="red-text" id="day_interest_rate">{$day_interest_rate}</span>元
 	    	</div>
 
 			<div class="mui-content-padded">
@@ -84,6 +84,11 @@
                     success: function (data) {
                         if (data.res=="1"){
                             console.log("进入这进而::"+"__ROOT__");
+							$('#money').val(data.money);
+                            $('#n_limit').val(data.days);
+                            $('#day_back').text(data.day_back);
+                            $('#total_interest').text(data.total_interest);
+                            $('#day_interest_rate').text(data.day_interest_rate);
 
                         }else if (data.res == "-1"){
                             alert("计算有错误")

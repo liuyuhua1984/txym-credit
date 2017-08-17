@@ -62,6 +62,9 @@ class Index extends Controller
     }
 
 
+    /**计算利息
+     * @return array
+     */
     public function interest_cal(){
         $days = $this->request->param("days");
         $money = $this->request->param("money");
@@ -74,14 +77,14 @@ class Index extends Controller
             $money = 100;
         }
 
-        $this->assign('days',$days);
-        $this->assign('money',$money);
-
-        $this->assign('day_back',10);
-        $this->assign("total_interest",1000);
-        $this->assign('day_interest_rate',10);
-
-        return ['res' => 1];
+//        $this->assign('days',$days);
+//        $this->assign('money',$money);
+//
+//        $this->assign('day_back',10*$money);
+//        $this->assign("total_interest",1000);
+//        $this->assign('day_interest_rate',10);
+        error_log("计算利息::".$days);
+        return ['res' => 1,'days'=>$days,'money'=>$money,'day_back'=>10*$money,"total_interest"=>1000*$days*$money,'day_interest_rate'=>10*$days-5];
     }
 
 }
