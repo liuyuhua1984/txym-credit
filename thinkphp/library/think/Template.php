@@ -344,7 +344,7 @@ class Template
             $content = str_replace('{__NOLAYOUT__}', '', $content);
         }
 
-        error_log('template解析::开始');
+      //  error_log('template解析::开始');
         // 模板解析
         $this->parse($content);
 
@@ -385,22 +385,22 @@ class Template
 
         // 替换literal标签内容
         $this->parseLiteral($content);
-        error_log("替换literal标签内容");
+      //  error_log("替换literal标签内容");
         // 解析继承
         $this->parseExtend($content);
-        error_log("解析继承");
+     //   error_log("解析继承");
         // 解析布局
         $this->parseLayout($content);
-        error_log("解析布局");
+      //  error_log("解析布局");
         // 检查include语法
         $this->parseInclude($content);
-        error_log("检查include语法");
+      //  error_log("检查include语法");
         // 替换包含文件中literal标签内容
         $this->parseLiteral($content);
-        error_log("替换包含文件中literal标签内容1");
+      //  error_log("替换包含文件中literal标签内容1");
         // 检查PHP语法
         $this->parsePhp($content);
-        error_log("检查PHP语法");
+      //  error_log("检查PHP语法");
         // 获取需要引入的标签库列表
         // 标签库只需要定义一次，允许引入多个一次
         // 一般放在文件的最前面
@@ -412,7 +412,7 @@ class Template
 
                 // 对导入的TagLib进行解析
                 foreach ($tagLibs as $tagLibName) {
-                    error_log("对导入的TagLib进行解析".$tagLibName);
+                   // error_log("对导入的TagLib进行解析".$tagLibName);
                     $this->parseTagLib($tagLibName, $content);
 
                 }
@@ -422,22 +422,22 @@ class Template
         if ($this->config['taglib_pre_load']) {
             $tagLibs = explode(',', $this->config['taglib_pre_load']);
             foreach ($tagLibs as $tag) {
-                error_log("预先加载的标签库 无需在每个模板中使用taglib标签加载 但必须使用标签库XML前缀".$tag);
+               // error_log("预先加载的标签库 无需在每个模板中使用taglib标签加载 但必须使用标签库XML前缀".$tag);
                 $this->parseTagLib($tag, $content);
             }
         }
         // 内置标签库 无需使用taglib标签导入就可以使用 并且不需使用标签库XML前缀
         $tagLibs = explode(',', $this->config['taglib_build_in']);
         foreach ($tagLibs as $tag) {
-            error_log("内置标签库 无需使用taglib标签导入就可以使用 并且不需使用标签库XML前缀".$tag);
+           // error_log("内置标签库 无需使用taglib标签导入就可以使用 并且不需使用标签库XML前缀".$tag);
             $this->parseTagLib($tag, $content, true);
         }
-        error_log("解析普通模板标签");
+        //error_log("解析普通模板标签");
         // 解析普通模板标签 {$tagName}
         $this->parseTag($content);
 
         // 还原被替换的Literal标签
-        error_log("还原被替换的Literal标签2");
+       // error_log("还原被替换的Literal标签2");
         $this->parseLiteral($content, true);
         return;
     }

@@ -21,7 +21,7 @@ for($i=0;$i<6;$i++)
 $_SESSION['osa_verify_code'] = $text;
 
 
-error_log(session_id(). "::osa_verify_code:".$_SESSION['osa_verify_code']);
+//error_log(session_id(). "::osa_verify_code:".$_SESSION['osa_verify_code']);
 
 $font = './static/font/tahoma.ttf';
 

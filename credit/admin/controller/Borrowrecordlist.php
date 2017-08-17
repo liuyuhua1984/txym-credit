@@ -59,6 +59,7 @@ class Borrowrecordlist extends BaseController
         $tList = array();
         foreach ($list as $item){
             $borrower  = Borrower::get($item['borrow_id']);
+
             if (!empty($borrower)){
                 $item['b_phone'] = $borrower['phone'];
             }
@@ -90,10 +91,10 @@ class Borrowrecordlist extends BaseController
     {
         $ld = $this->request->param('lId');
         $loaner = BorrowRecord::get($ld);
-        Log::error("id::" . $ld);
+        //Log::error("id::" . $ld);
         if (!empty($loaner)) {
             $loaner['flag'] = 2;
-            BorrowRecord::where('id', $ld)->update(['flag' => 2]);
+            BorrowRecord::where('id','=', $ld)->update(['flag' => 2]);
 
         }
         return $this->index();
@@ -106,10 +107,10 @@ class Borrowrecordlist extends BaseController
     {
         $ld = $this->request->param('lId');
         $loaner = BorrowRecord::get($ld);
-        Log::error("id::" . $ld);
+       // Log::error("id::" . $ld);
         if (!empty($loaner)) {
             $loaner['flag'] = 1;
-            BorrowRecord::where('id', $ld)->update(['flag' => 1]);
+            BorrowRecord::where('id','=', $ld)->update(['flag' => 1]);
 
         }
         return $this->index();

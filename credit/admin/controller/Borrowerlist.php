@@ -9,10 +9,16 @@
 
 namespace app\admin\controller;
 use app\home\model\Borrower;
+use app\home\model\FrequentContacts;
 use app\home\model\Loaner;
+use function array_push;
 use function beginDate;
 use function endDate;
 use function error_log;
+use function gettype;
+use function is_array;
+use function is_object;
+use function print_r;
 use think\Log;
 use function var_dump;
 
@@ -48,8 +54,20 @@ class Borrowerlist extends BaseController
             $page = 1;
         }
 
-        error_log("值::".$page);
-        //var_dump($list[0]['create_time']);
+
+        foreach ($list as $item){//查找关系
+          $freList =  FrequentContacts::where('borrower_id','=',$item['id'])->select();
+
+          if (!empty($freList)){
+
+              $item['fre_list'] = $freList;
+
+
+          }
+
+        }
+       // error_log("值::".$page);
+
         // 模板变量赋值
         $this->assign('list', $list);
         $this->assign('tIndex',$tIndex);
@@ -71,7 +89,7 @@ class Borrowerlist extends BaseController
         Log::error("id::".$ld);
         if (!empty($loaner)){
             $loaner['is_show'] = 0;
-            Borrower::where('id',$ld)-> update(['is_show'=>0]);
+            Borrower::where('id','=',$ld)-> update(['is_show'=>0]);
 
         }
         return $this->index();

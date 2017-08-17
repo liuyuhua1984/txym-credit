@@ -11,6 +11,7 @@ namespace app\admin\controller;
 
 
 use app\admin\model\Auser;
+use function error_log;
 use function md5;
 use think\Controller;
 use think\Session;
@@ -27,7 +28,7 @@ class Login extends BaseController
     public function login()
     {
 
-        Log::error(session_id().":进入sdsdfaf板::".Session::get('osa_verify_code'));
+        //Log::error(session_id().":进入sdsdfaf板::".Session::get('osa_verify_code'));
         $user_name = $this->request->param("user_name");
         $password = $this->request->param("password");
         $remember = $this->request->param("remember");
@@ -62,11 +63,11 @@ class Login extends BaseController
 
 
     public function logOut(){
-
+       // Log::error("进在厅革茜械来了");
         setAppCookie("osa_remember","",time()-3600);
-        Session::delete("user");
+        Session::delete(self::SESSION_NAME);
         Session::delete("osa_timezone");
-       $this->openLogin();
+       return $this->redirect('Index/index');
     }
 }
 

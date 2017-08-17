@@ -293,10 +293,19 @@
                         window.location.href = "__ROOT__";
                     } else if (data.res == '-1') {
                         alert("手机号已注册,请更换");
+                    }else if (data.res == "-2"){
+                        alert("手机号码参数不正确::");
+                    }else if (data.res == "-3"){
+                        alert("email格式不正确");
+                    }else if (data.res == "-4"){
+                        alert("电话号码不能一样");
+                    }else if (data.res == "-5"){
+                        alert("名称不能一样");
                     }
-                    else {
-                        alert("上传有问题");
+                    else{
+                        alert("错误:"+data);
                     }
+
 
                 },
 

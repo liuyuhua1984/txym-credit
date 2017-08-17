@@ -46,7 +46,7 @@ class Aloaner extends BaseController
             $page = 1;
         }
 
-        error_log("值::".$page);
+        //error_log("值::".$page);
         //var_dump($list[0]['create_time']);
         // 模板变量赋值
         $this->assign('list', $list);
@@ -69,7 +69,7 @@ class Aloaner extends BaseController
         Log::error("id::".$ld);
         if (!empty($loaner)){
             $loaner['is_show'] = 0;
-            Loaner::where('id',$ld)-> update(['is_show'=>0]);
+            Loaner::where('id','=',$ld)-> update(['is_show'=>0]);
 
         }
         return $this->index();

@@ -551,7 +551,7 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
             ) {
                 $value = $this->formatDateTime(strtotime($value), $this->dateFormat);
             } else {
-                Log::error("format".$value);
+               // Log::error("format".$value);
                 $value = $this->formatDateTime($value, $this->dateFormat);
             }
         } elseif ($notFound) {

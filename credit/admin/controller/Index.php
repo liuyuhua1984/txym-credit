@@ -43,7 +43,7 @@ class Index extends BaseController
     public function checkCode()
     {
 
-        error_log("要完完了!!!!");
+        //error_log("要完完了!!!!");
 
         header("Content-type: image/png");
 

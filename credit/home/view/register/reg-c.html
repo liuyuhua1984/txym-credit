@@ -164,7 +164,11 @@
 							}else if (data.res == "-1"){
 								alert("手机号已注册")
 							}else if (data.res == "-2"){
-								alert("错误::"+data);
+								alert("手机号码参数不正确::");
+							}else if (data.res == "-3"){
+                                alert("借出资金与借出时间格式不正确::");
+                            }else{
+							    alert("错误:"+data);
 							}
 
                         },

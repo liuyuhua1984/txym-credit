@@ -42,11 +42,11 @@ class BaseController extends Controller
         // 如果不需要登录就可以访问的话
        $action_url = getActionUrl();
 
-       Log::error("action::!!!!" . $action_url);
+      // Log::error("action::!!!!" . $action_url);
 
         // 否则需要验证登录信息,如果cookie有user_id
         if (empty(Session::get(self::SESSION_NAME))) {
-            Log::error("检测为w空!!!!");
+          //  Log::error("检测为w空!!!!");
             $user_id = getCookieRemember();
             if ($user_id > 0) {
                 $status = $this->loginDoSomething($user_id);
@@ -60,7 +60,7 @@ class BaseController extends Controller
         $checkNull = $this->checkLogin();
 
         if ($checkNull) {
-            Log::error("检测为w假!!!!".$checkNull);
+            //Log::error("检测为w假!!!!".$checkNull);
             return ;
         }
 
@@ -127,7 +127,7 @@ class BaseController extends Controller
         $user_info = Auser::where("user_id", '=', $user_id)->find();
 
         if (empty($user_info)) {
-            Log::info('把user存入dddddd容器');
+          //  Log::info('把user存入dddddd容器');
             return 0;
         }
         $user_info['login_time'] = convertDate(time());//登录时间
@@ -175,7 +175,7 @@ class BaseController extends Controller
     protected function getMenuByUrl($url)
     {
 
-        Log::error("url::".$url);
+      //  Log::error("url::".$url);
         $menu = AmenuUrl::where('menu_url', "=", $url)->find();
         if (!empty($menu)) {
 

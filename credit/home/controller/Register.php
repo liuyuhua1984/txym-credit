@@ -13,6 +13,10 @@ use app\home\model\Loaner;
 use app\home\model\Borrower;
 
 use function count;
+use function error_log;
+use function is_numeric;
+use function isEmail;
+use function isPhoneNum;
 use function json_encode;
 use think\Session;
 use function convertDate;
@@ -67,6 +71,14 @@ class Register extends Controller
         $time_rc =  preg_replace('/\s/','',$time_rc);
         $require_rc =  preg_replace('/\s/','',$require_rc);
 
+        if (!isPhoneNum($phone_rc)){
+            return ['res' => -2];
+        }
+
+        if (!is_numeric($time_rc) || !is_numeric($price_rc)){
+            return ['res' => -3];
+        }
+
         $sex = $this->request->param("sex");//性别 男=1,女=2
 
         $phone = Loaner::where("phone", '=', $phone_rc)->find();
@@ -117,13 +129,13 @@ class Register extends Controller
         $address_rj= $this->request->param("address_rj");//地址
         $email_rj = $this->request->param("email_rj");//email
 
-        $phone_1 = $this->request->param("phone_1");//借出时间
-        $name_1 = $this->request->param("name_1");//借出要求
-        $contact_1 = $this->request->param("contact_1");//借出要求
+        $phone_1 = $this->request->param("phone_1");//联系人1手机号
+        $name_1 = $this->request->param("name_1");//联系人1名称
+        $contact_1 = $this->request->param("contact_1");//联系人1关系
 
-        $phone_2 = $this->request->param("phone_2");//借出时间
-        $name_2 = $this->request->param("name_2");//借出要求
-        $contact_2 = $this->request->param("contact_2");//借出要求
+        $phone_2 = $this->request->param("phone_2");//联系人1手机号
+        $name_2 = $this->request->param("name_2");//联系人1名称
+        $contact_2 = $this->request->param("contact_2");//联系人1关系
 
 
 
@@ -145,6 +157,24 @@ class Register extends Controller
         $house= $this->request->param("house");//有=1,无=2
         $car = $this->request->param("car");//有=1,无=2
 
+
+        if (!isPhoneNum($phone_rj) || !isPhoneNum($phone_1) || !isPhoneNum($phone_2)){
+            return ['res' => -2];
+        }
+
+        if (!isEmail($email_rj)){
+            return ['res' => -3];
+        }
+
+        if ($phone_rj == $phone_2 || $phone_rj == $phone_2 || $phone_1 == $phone_2){
+            return ['res' => -4];
+        }
+
+        if ($name_rj == $name_1 || $name_rj == $name_2 || $name_1 == $name_2){
+            return ['res' => -5];
+        }
+
+       // Log::error("进来ssssssssssssssssssssssssssssssssssssssss了");
         $id_card = ['up_img_WU_FILE_0', 'up_img_WU_FILE_1'];
         // 获取表单上传文件
         $borrowerVal = ['name' => $name_rj, 'phone' => $phone_rj, 'password' => $password_rj, 'sex' => $sex, 'email' => $email_rj,
@@ -203,11 +233,11 @@ class Register extends Controller
        $fContact1->save();
 
 
-        Log::error($name_2."文件::11111111:".$borrower->id."::".$phone_2."::".$contact_2);
+        //Log::error($name_2."文件::11111111:".$borrower->id."::".$phone_2."::".$contact_2);
         $fContact2 = new FrequentContacts();
         $fContact2->data(['borrower_id'=> $borrower->id,'name'=>$name_2,'phone'=>$phone_2,'relation'=>$contact_2,'create_time'=>convertDate(time())]);
         $fContact2->save();
-        Log::error(ROOT_PATH."文件222222222222::");
+       // Log::error(ROOT_PATH."文件222222222222::");
         //具体看返回的Json 格式 xxx => xxxx
         Session::set("name", $name_rj);
         Session::set("bBorrower", $borrower);

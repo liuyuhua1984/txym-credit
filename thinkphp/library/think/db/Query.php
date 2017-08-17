@@ -11,6 +11,7 @@
 
 namespace think\db;
 
+use function error_log;
 use PDO;
 use think\Cache;
 use think\Collection;
@@ -27,6 +28,7 @@ use think\Model;
 use think\model\Relation;
 use think\model\relation\OneToOne;
 use think\Paginator;
+use function var_dump;
 
 class Query
 {
@@ -2332,6 +2334,7 @@ class Query
 
         // 数据列表读取后的处理
         if (!empty($this->model)) {
+
             // 生成模型对象
             $modelName = $this->model;
             if (count($resultSet) > 0) {
@@ -2492,6 +2495,7 @@ class Query
         // 数据处理
         if (!empty($result)) {
             if (!empty($this->model)) {
+
                 // 返回模型对象
                 $model  = $this->model;
                 $result = new $model($result);
@@ -2512,6 +2516,7 @@ class Query
         } elseif (!empty($options['fail'])) {
             $this->throwNotFound($options);
         }
+
         return $result;
     }
 

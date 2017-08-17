@@ -40,6 +40,16 @@
                 <th style="width:50px">身份证正面</th>
                 <th style="width:50px">身份证背面</th>
                 <th style="width:100px">邮箱</th>
+
+
+                <th style="width:60px">联系人1名称</th>
+                <th style="width:100px">联系人1电话</th>
+                <th style="width:60px">与联系人1关系</th>
+
+                <th style="width:60px">联系人2名称</th>
+                <th style="width:100px">联系人2电话</th>
+                <th style="width:60px">与联系人2关系</th>
+
                 <th style="width:100px">创建时间</th>
                 <th style="width:100px">操作</th>
             </tr>
@@ -63,6 +73,25 @@
                     <td><img width="50" height="50" src="__ROOT__/uploads/<{$item.id_card_1}>" /></td>
                     <td><img width="50" height="50" src="__ROOT__/uploads/<{$item.id_card_2}>" /></td>
                     <td> <{$item.email}></td>
+
+                    <if condition=" isset($item.fre_list)">
+                        <volist name="item['fre_list']" id="fre" >
+                            <td><{$fre.name}></td>
+                            <td><{$fre.phone}></td>
+                            <td><{$fre.relation}></td>
+                        </volist>
+
+                        <else />
+
+                       <td>无</td>
+
+                        <td>无</td>
+                        <td>无</td>
+                        <td>无</td>
+                        <td>无</td>
+                        <td>无</td>
+                    </if>
+
                     <td><{$item.create_time}></td>
                     <td><a href="_ADMIN_/Borrowerlist/del?lId=<{$item.id}>" onclick="return confirm('确认删除此条数据吗？');return false;">删除</a></td>
                 </tr>
