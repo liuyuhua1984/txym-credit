@@ -18,7 +18,11 @@
 		{if condition="$Think.session.name neq null "}
 
 		<a href="__ROOT__/home/Login/exitCredit" class="mui-btn-link mui-pull-right">退出</a>
-		<a href="#" class="mui-btn-link mui-pull-right ">{$Think.session.name}&nbsp;/&nbsp; </a>
+		{if condition =  "$Think.session.loaner neq null" }
+			<a href="_HOME/User/loanerInfo?did={$Think.session.loaner.id}" class="mui-btn-link mui-pull-right ">{$Think.session.loaner.name}&nbsp;/&nbsp; </a>
+		{elseif  condition="$Think.session.bBorrower neq null" "}
+			<a href="_HOME/User/borrowerInfo?did={$Think.session.bBorrower.id}" class="mui-btn-link mui-pull-right ">{$Think.session.bBorrower.name}&nbsp;/&nbsp; </a>
+		{/if}
 		{else /}
 			<a id="menu1"  href="#topPopover1" class="mui-btn-link mui-pull-right">登录</a>
 			<a id="menu2"  href="#topPopover2" class="mui-btn-link mui-pull-right">注册&nbsp;/&nbsp;</a>
