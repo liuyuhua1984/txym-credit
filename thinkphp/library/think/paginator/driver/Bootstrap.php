@@ -57,8 +57,8 @@ class Bootstrap extends Paginator
      */
     protected function getLinks()
     {
-        if ($this->simple)
-            return '';
+//        if ($this->simple)
+//            return '';
 
         $block = [
             'first'  => null,
@@ -231,7 +231,7 @@ class Bootstrap extends Paginator
      *  简单page
      * @return string
      */
-    protected  function showSimplePager($link, &$page_no, $page_size){
+    protected  function showSimplePager($link,&$page_no,$page_size,$row_count){
         $url="";
         $params="";
         if($link != ""){
@@ -248,18 +248,11 @@ class Bootstrap extends Paginator
         $navibar = "<div class=\"pagination\"><ul>";
         $offset=self::OFFSET;
         //$page_size=10;
-
+        $total_page=$row_count%$page_size==0?$row_count/$page_size:ceil($row_count/$page_size);
 
         $page_no=$page_no<1?1:$page_no;
-
-        if ($page_no == 1 && $this->hasMore ){
-            $navibar .= "<li><a href=\"$url?$params&page=1\">首页</a></li>\n<a href=\"$url ? $params & page = .($page_no+1).\">下一页</a></li>\n \"";
-        }else
+        $page_no=$page_no>($total_page)?($total_page):$page_no;
         if ($page_no > 1){
-
-            if ($this->hasMore){
-                
-            }
             $navibar .= "<li><a href=\"$url?$params&page=1\">首页</a></li>\n <li><a href=\"$url?$params&page=".($page_no-1)." \">上一页</a></li>\n";
         }
         /**** 显示页数 分页栏显示11页，前5条...当前页...后5条 *****/
@@ -292,6 +285,7 @@ class Bootstrap extends Paginator
         $navibar.=$jump;
         $navibar.="</ul></div>";
 
+        //error_log("bootstarp::".$navibar);
         return $navibar;
     }
 
