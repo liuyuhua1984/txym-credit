@@ -1,0 +1,81 @@
+<include file="sys/header"/>
+<include file="sys/navibar"/>
+<include file="sys/sidebar"/>
+<!--- START 以上内容不需更改，保证该TPL页内的标签匹配即可 --->
+<div class="well">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#home" data-toggle="tab">请修改出借人资料</a></li>
+    </ul>
+
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane active in" id="home">
+            <form class="form-horizontal" method="POST" action="_ADMIN_/Usermodify/modifyLoaner" autocomplete="off">
+                <div class="form-group">
+                    <label class="control-label" for="phone">手机号：</label>
+
+                    <input  id ="phone" name="phone" type="number" class=" input-xlarge" value="<{$loaner['phone']}>" pattern="\d{11}"/>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">密码：</label>
+                    <input name='password' type="password" class="form-control input-xlarge" value="<{$loaner['password']}>" maxlength="10"/>
+
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label">姓名：</label>
+                    <input id="name" type="text" class="form-control input-xlarge" value="<{$loaner['name']}>" maxlength="10"/>
+                </div>
+
+                <div class="controls">
+
+                    <if condition="$loaner['sex'] eq '1'">
+
+                        <input class="radio" type="radio" name="sex" value="1"
+                        <if condition="$loaner['sex'] eq '1'"> checked="true"</if>
+                        />
+                        <span>男</span>
+
+                        <input class="form-control" type="radio" name="sex" value="2"
+                        <if condition="$loaner['sex'] eq '2'"> checked="true"</if>
+                        />
+                        <span>女</span>
+
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label">住址：</label>
+                    <textarea name="address" class="form-control" rows="2" cols="2"><{$loaner['address']}></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">可出借资金：</label>
+                    <input id="money" type="number" class="form-control" value="<{$loaner['loan_money']}>"/>
+                    元
+                </div>
+                <div class="form-group">
+                    <label class="control-label">可出借期限：</label>
+                    <input id="days" type="number" value="<{$loaner['loan_time_limit']}>" class="form-control"/>
+                    日
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">出借人要求：</label>
+                    <textarea class="form-control" name="require" rows="4" cols="2"><{$loaner['demand']}></textarea>
+                </div>
+                <div class="form-actions">
+
+                    <button type="submit" class="btn btn-primary"><strong>提交</strong></button>
+                    <div class="btn-group"></div>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<!--- END 以下内容不需更改，请保证该TPL页内的标签匹配即可 --->
+<include file="sys/footer"/>
