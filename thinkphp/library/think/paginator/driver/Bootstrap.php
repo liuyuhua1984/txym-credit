@@ -256,10 +256,6 @@ class Bootstrap extends Paginator
             $navibar .= "<li><a href=\"$url?$params&page=1\">首页</a></li>\n<a href=\"$url ? $params & page = .($page_no+1).\">下一页</a></li>\n \"";
         }else
         if ($page_no > 1){
-
-            if ($this->hasMore){
-                
-            }
             $navibar .= "<li><a href=\"$url?$params&page=1\">首页</a></li>\n <li><a href=\"$url?$params&page=".($page_no-1)." \">上一页</a></li>\n";
         }
         /**** 显示页数 分页栏显示11页，前5条...当前页...后5条 *****/
