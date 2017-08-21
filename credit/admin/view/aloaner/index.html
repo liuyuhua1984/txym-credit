@@ -64,7 +64,10 @@
                     <td><{$item.loan_time_limit}></td>
                     <td> <{$item.demand}></td>
                     <td><{$item.create_time}></td>
-                    <td><a href="_ADMIN_/Aloaner/del?lId=<{$item.id}>" onclick="return confirm('确认删除此条数据吗？');return false;">删除</a></td>
+                    <td>
+                        <a href="_ADMIN_/Usermodify/pLoanerInfo?lId=<{$item.id}>">编辑</a>&nbsp/
+                        <a href="_ADMIN_/Aloaner/del?lId=<{$item.id}>" onclick="return confirm('确认删除此条数据吗？');return false;">删除</a>
+                    </td>
                 </tr>
             </volist>
             </tbody>

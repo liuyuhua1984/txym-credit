@@ -67,18 +67,20 @@ abstract class Paginator implements ArrayAccess, Countable, IteratorAggregate, J
         }
 
         if ($simple) {
-            $this->currentPage = $this->setCurrentPage($currentPage);
-            $this->hasMore     = count($items) > ($this->listRows);
-            if ($this->hasMore) {
-                $this->nextItem = $items->slice($this->listRows, 1);
-            }
-            $items = $items->slice(0, $this->listRows);
-        } else {
+//            $this->currentPage = $this->setCurrentPage($currentPage);
+//            $this->hasMore     = count($items) > ($this->listRows);
+//            if ($this->hasMore) {
+//                $this->nextItem = $items->slice($this->listRows, 1);
+//            }
+//            $items = $items->slice(0, $this->listRows);
+//} else {
             $this->total       = $total;
             $this->lastPage    = (int) ceil($total / $listRows);
             $this->currentPage = $this->setCurrentPage($currentPage);
             $this->hasMore     = $this->currentPage < $this->lastPage;
-        }
+
+           // error_log("total:".$total);
+      }
         $this->items = $items;
     }
 
@@ -98,7 +100,8 @@ abstract class Paginator implements ArrayAccess, Countable, IteratorAggregate, J
 
     protected function setCurrentPage($currentPage)
     {
-        if (!$this->simple && $currentPage > $this->lastPage) {
+       // if (!$this->simple && $currentPage > $this->lastPage) {
+        if ($currentPage > $this->lastPage) {
             return $this->lastPage > 0 ? $this->lastPage : 1;
         }
 
@@ -163,9 +166,9 @@ abstract class Paginator implements ArrayAccess, Countable, IteratorAggregate, J
 
     public function total()
     {
-        if ($this->simple) {
-            throw new \DomainException('not support total');
-        }
+//        if ($this->simple) {
+//            throw new \DomainException('not support total');
+//        }
         return $this->total;
     }
 
@@ -181,9 +184,9 @@ abstract class Paginator implements ArrayAccess, Countable, IteratorAggregate, J
 
     public function lastPage()
     {
-        if ($this->simple) {
-            throw new \DomainException('not support last');
-        }
+//        if ($this->simple) {
+//            throw new \DomainException('not support last');
+//        }
         return $this->lastPage;
     }
 
@@ -364,15 +367,15 @@ abstract class Paginator implements ArrayAccess, Countable, IteratorAggregate, J
 
     public function toArray()
     {
-        if ($this->simple) {
-            return [
-                'per_page'     => $this->listRows,
-                'current_page' => $this->currentPage,
-                'has_more'     => $this->hasMore,
-                'next_item'    => $this->nextItem,
-                'data'         => $this->items->toArray(),
-            ];
-        } else {
+//        if ($this->simple) {
+//            return [
+//                'per_page'     => $this->listRows,
+//                'current_page' => $this->currentPage,
+//                'has_more'     => $this->hasMore,
+//                'next_item'    => $this->nextItem,
+//                'data'         => $this->items->toArray(),
+//            ];
+//        } else {
             return [
                 'total'        => $this->total,
                 'per_page'     => $this->listRows,
@@ -380,7 +383,7 @@ abstract class Paginator implements ArrayAccess, Countable, IteratorAggregate, J
                 'last_page'    => $this->lastPage,
                 'data'         => $this->items->toArray(),
             ];
-        }
+ //       }
 
     }
 

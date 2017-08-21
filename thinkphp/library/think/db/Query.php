@@ -1332,8 +1332,9 @@ class Query
         $page = $page < 1 ? 1 : $page;
 
         $config['path'] = isset($config['path']) ? $config['path'] : call_user_func([$class, 'getCurrentPath']);
+       // if (!isset($total) && !$simple) {
 
-        if (!isset($total) && !$simple) {
+        if (!isset($total)) {
             $options = $this->getOptions();
 
             unset($this->options['order'], $this->options['limit'], $this->options['page'], $this->options['field']);

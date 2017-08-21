@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>借款人信息</title>
+    <link rel="stylesheet" href="_CSS_/layout.css"/>
+    <link href="_CSS_/mui.css" rel="stylesheet"/>
+</head>
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a href="javascript:history.go(-1)" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">借款人信息</h1>
+</header>
+<div class="mui-content reg">
+    <form id="from_rj" class="mui-input-group" onsubmit="return false;">
+        <div class="mui-input-row">
+            <label>手机号：</label>
+            <input type="text" class="mui-input"  readonly="readonly" value="{$borrower['phone']}"/>
+
+        </div>
+
+        <div class="mui-input-row">
+            <label>邮箱:</label>
+            <input type="text" class="mui-input"  readonly="readonly" value="{$borrower['email']}"/>
+        </div>
+
+        <div class="mui-row">
+            <div class="mui-col-xs-6">
+                <div class="mui-input-row">
+                    <label style="padding-right: 0;width: 40%;">名字：</label>
+                    <input type="text" class="mui-input"  readonly="readonly" value="{$borrower['name']}"/>
+                </div>
+            </div>
+            <div class="mui-col-xs-6">
+                <div class="mui-input-row">
+                    <label>性别:</label>
+                    {if condition="$borrower['sex'] eq '1'"}
+                     <input type="text" class="mui-input"  readonly="readonly" value="男"/>
+                    {else /}
+                    <input type="text" class="mui-input"  readonly="readonly" value="女"/>
+                    {/if}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="textarea">
+            <label>住址：</label>
+            <textarea id="address_rj" name="" rows="2" cols="2">{$borrower['address']} </textarea>
+        </div>
+
+        <div class="mui-row" id="warp">
+            <div class="mui-col-xs-3">
+                身份证：
+            </div>
+            <div class="mui-col-xs-5 ID-card">
+                <p><img id="imgShow_WU_FILE_0" width="90" height="50" src="__ROOT__/uploads/{$borrower['id_card_1']}"/></p>
+            </div>
+            <div class="mui-col-xs-4 ID-card">
+                <p><img id="imgShow_WU_FILE_1" width="90" height="50" src="__ROOT__/uploads/{$borrower['id_card_2']}"/></p>
+            </div>
+        </div>
+
+        {if condition="isset($borrower['frelist'])"}
+            {volist name="borrower['frelist']"  id="fre" key="k"}
+        <div class="mui-card contact">
+            <div class="mui-card-header">常用联系人{$k}</div>
+            <div class="mui-card-content">
+                <div class="mui-card-content-inner">
+                    <div class="mui-input-row">
+                        <label>姓名：</label>
+                        <input type="text" class="mui-input"  readonly="readonly" value="{$fre['name']}"/>
+
+                    </div>
+                    <div class="mui-input-row">
+                        <label>电话：</label>
+                        <input type="text" class="mui-input"  readonly="readonly" value="{$fre['phone']}"/>
+
+                    </div>
+                    <div class="mui-input-row">
+                        <label>关系：</label>
+                        <input type="text" class="mui-input"  readonly="readonly" value="{$fre['relation']}"/>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {/volist}
+        {/if}
+
+
+        <div class="mui-row">
+            <div class="mui-col-xs-6" style="padding: 7px 15px;font-size: 14px;">
+                {if condition="$borrower['house_licence'] eq '1'"}
+                        有房产
+                    {else /}
+                    无房产
+                {/if}
+
+            </div>
+
+            <div class="mui-col-xs-6" style="padding: 7px 15px;font-size: 14px;">
+                {if condition="$borrower['house_licence'] eq '1'"}
+                有车辆
+                {else /}
+                无车辆
+                {/if}
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+<script type="text/javascript" src="_JS_/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="_JS_/ajaxfileupload.js"></script>
+
+<script type="text/javascript" src="_JS_/mui.js"></script>
+<script type="text/javascript">
+
+</script>
+</body>
+
+</html>
