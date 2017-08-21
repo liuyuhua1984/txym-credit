@@ -184,6 +184,15 @@ class Register extends Controller
         $files = $this->request->file();
         foreach($id_card as $val){
 
+
+            if (empty($files)){
+                break;
+            }
+
+            if (!array_key_exists($val,$files)){
+                continue;
+            }
+
             $file =  $files[$val];
             if (empty($file)){
                // return json_encode(["res" => -2]);
