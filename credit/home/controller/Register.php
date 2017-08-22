@@ -186,7 +186,7 @@ class Register extends Controller
 
 
             if (empty($files)){
-                break;
+                return ["res" => -2];
             }
 
             if (!array_key_exists($val,$files)){
