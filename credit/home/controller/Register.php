@@ -186,17 +186,17 @@ class Register extends Controller
 
 
             if (empty($files)){
-                return ["res" => -2];
+                return ["res" => -7];
             }
 
             if (!array_key_exists($val,$files)){
-                continue;
+                return ["res" => -7];
             }
 
             $file =  $files[$val];
             if (empty($file)){
                // return json_encode(["res" => -2]);
-               return ["res" => -2];
+               return ["res" => -7];
             }
 
            // Log::error("文件::".$val);
