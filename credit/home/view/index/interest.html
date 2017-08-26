@@ -1,132 +1,127 @@
 <!doctype html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>利息计算</title>
-	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-	<link rel="stylesheet" href="_CSS_/layout.css" />
-	<link href="_CSS_/mui.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <title>利息计算</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link rel="stylesheet" href="_CSS_/layout.css"/>
+    <link href="_CSS_/mui.css" rel="stylesheet"/>
 </head>
 
 <body>
-	<header class="mui-bar mui-bar-nav">
-	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-	    <h1 class="mui-title">利息计算</h1>
-	</header>
-	<div class="mui-content">
-	    <div class="mui-row interest mui-card">
-	    	<div class="mui-col-xs-4">金额：</div>
-	    	<div class="mui-col-xs-6">
-	    		<div class="mui-input-row">
-	    			<input class="mui-input-clear" type="number" id="money" value="1000" />
-	    		</div>
-	    	</div>
-	    	<div class="mui-col-xs-2">元</div>
-	    	
-	    	<div class="mui-col-xs-4">期限：</div>
-	    	<div class="mui-col-xs-6">
-	    		<div class="mui-input-row">
-	    			<input class="mui-input-clear" type="number" id="n_limit" value="1" />
-	    		</div>
-	    	</div>
-	    	<div class="mui-col-xs-2">月</div>
-	    	
-	    	<div class="mui-col-xs-4">月还款：</div>
-	    	<div class="mui-col-xs-6" >
-	    	<input type = "number" class="red-text mui-input-clear" id="month_back" value ="0"  readonly="true"  />
-	    	</div>
-	    	<div class="mui-col-xs-4">总利息：</div>
-	    	<div class="mui-col-xs-6" >
-	    	<input type = "number" class="red-text mui-input-clear" id="total_interest" value ="0" readonly="true"  />
-	    	</div>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">利息计算</h1>
+</header>
+<div class="mui-content">
+    <div class="mui-row interest mui-card">
+        <div class="mui-col-xs-4">金额：</div>
+        <div class="mui-col-xs-6">
+            <div class="mui-input-row">
+                <input class="mui-input-clear" type="number" id="money" value="1000"/>
+            </div>
+        </div>
+        <div class="mui-col-xs-2">元</div>
 
-	  
-			<div class="mui-col-xs-4">月利率：</div>
-	    	<div class="mui-col-xs-6" >
-	    	<input type = "text" class="red-text mui-input-clear" id="month_interest_rate" value ="" placeholder="请输入"/>
-	    	</div>
-			<div class="mui-col-xs-2">%</div>
-			<div class="mui-content-padded">
-				<button id='interest_cal' class="mui-btn mui-btn-block mui-btn-primary">计算</button>
-				
-			</div>
-			</div>
-	    </div>
-	</div>
-	<script type="text/javascript"  src="_JS_/mui.js"></script>
-	<script type="text/javascript" src="_JS_/jquery-1.12.4.js" ></script>
+        <div class="mui-col-xs-4">期限：</div>
+        <div class="mui-col-xs-6">
+            <div class="mui-input-row">
+                <input class="mui-input-clear" type="number" id="n_limit" value="1"/>
+            </div>
+        </div>
+        <div class="mui-col-xs-2">月</div>
 
-	<script>
-
-        //mui初始化
-        mui.init({
-            swipeBack: true //启用右滑关闭功能
-        });
-
-        document.getElementById("interest_cal").addEventListener('tap', function () {
-            var money = $("#money").val();
-            var n_limit = $("#n_limit").val();
-            var month_interest_rate = $('#month_interest_rate').val();
-
-            if (n_limit > 1000){
-                n_limit = 1000;
-			}
-            var reg = /^[1-9]\d*$/;
-            if (money == "" || money == null) {
-                mui.toast('金额不能为空！');
-            } else if (!reg.test(money)) {
-                mui.toast("请输入正确的金额！");
-            }else if (n_limit == null || n_limit==""){
- 				mui.toast('期限不能为空！');
-            }
-            else if (!reg.test(n_limit)){
-
-                mui.toast("请输入正确的月数!");
-            }else if (month_interest_rate == null || month_interest_rate==""){
- 				mui.toast('利率不能为空！');
-            }
-            else {
-                //ajax发送
-
-                $.ajax({
-                    url : "__ROOT__/home/Index/interest_cal",
-                    type:"POST",
-                    dataType: "json",
-                    data: {
-                        'money': money,
-                        'months': n_limit,
-                        'month_interest_rate': month_interest_rate,
-                    },
+        <div class="mui-col-xs-4">月还款：</div>
+        <div class="mui-col-xs-6">
+            <input type="number" class="red-text mui-input-clear" id="month_back" value="0" readonly="readonly"/>
+        </div>
+        <div class="mui-col-xs-4">总利息：</div>
+        <div class="mui-col-xs-6">
+            <input type="number" class="red-text mui-input-clear" id="total_interest" value="0" readonly="readonly"/>
+        </div>
 
 
-                    success: function (data) {
-                        if (data.res=="1"){
-                            console.log("进入这进而::"+"__ROOT__");
-							$('#money').val(data.money);
-                            $('#n_limit').val(data.months);
-                            $('#month_back').val(data.month_back);
-                            $('#total_interest').val(data.total_interest);
-                            $('#month_interest_rate').val(data.month_interest_rate);
+        <div class="mui-col-xs-4">月利率：</div>
+        <div class="mui-col-xs-6">
+            <input type="text" class="red-text mui-input-clear" id="month_interest_rate" value="" placeholder="请输入"/>
+        </div>
+        <div class="mui-col-xs-2">%</div>
+        <div class="mui-content-padded">
+            <button id='interest_cal' class="mui-btn mui-btn-block mui-btn-primary">计算</button>
 
-                        }else if (data.res == "-1"){
-                            alert("月利率只能是数字与小数")
-                        }else if (data.res == "-2"){
-                            alert("错误::"+data);
-                        }
+        </div>
+    </div>
+</div>
 
-                    },
+<script type="text/javascript" src="_JS_/mui.js"></script>
+<script type="text/javascript" src="_JS_/jquery-1.12.4.js"></script>
 
-                    error: function (data) {
+<script type="text/javascript">
 
-                        alert("这个错::"+data.responseText);
+    document.getElementById("interest_cal").addEventListener('tap', function () {
+        var money = $("#money").val();
+        var n_limit = $("#n_limit").val();
+        var month_interest_rate = $('#month_interest_rate').val();
+
+        if (n_limit > 1000) {
+            n_limit = 1000;
+        }
+        var reg = /^[1-9]\d*$/;
+        if (money == "" || money == null) {
+            mui.toast('金额不能为空！');
+        } else if (!reg.test(money)) {
+            mui.toast("请输入正确的金额！");
+        } else if (n_limit == null || n_limit == "") {
+            mui.toast('期限不能为空！');
+        }
+        else if (!reg.test(n_limit)) {
+
+            mui.toast("请输入正确的月数!");
+        } else if (month_interest_rate == null || month_interest_rate == "") {
+            mui.toast('利率不能为空！');
+        }
+        else {
+            //ajax发送
+
+            $.ajax({
+                url: "__ROOT__/home/Index/interest_cal",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    'money': money,
+                    'months': n_limit,
+                    'month_interest_rate': month_interest_rate,
+                },
+
+
+                success: function (data) {
+                    if (data.res == "1") {
+                        console.log("进入这进而::" + "__ROOT__");
+                        $('#money').val(data.money);
+                        $('#n_limit').val(data.months);
+                        $('#month_back').val(data.month_back);
+                        $('#total_interest').val(data.total_interest);
+                        $('#month_interest_rate').val(data.month_interest_rate);
+
+                    } else if (data.res == "-1") {
+                        alert("月利率只能是数字与小数")
+                    } else if (data.res == "-2") {
+                        alert("错误::" + data);
                     }
 
-                });
-            }
+                },
+
+                error: function (data) {
+
+                    alert("这个错::" + data.responseText);
+                }
+
+            });
+        }
 
 
-        });
+    });
 
-	</script>
+</script>
 </body>
 </html>
