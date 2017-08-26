@@ -68,6 +68,9 @@
             var n_limit = $("#n_limit").val();
             var month_interest_rate = $('#month_interest_rate').val();
 
+            if (n_limit > 1000){
+                n_limit = 1000;
+			}
             var reg = /^[1-9]\d*$/;
             if (money == "" || money == null) {
                 mui.toast('金额不能为空！');

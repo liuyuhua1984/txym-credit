@@ -265,8 +265,12 @@ function object_array($array) {
 
 /**
  *每月还款额=[贷款本金×月利率×（1+月利率）^还款月数]÷[（1+月利率）^还款月数－1]
+ *     $dkm     = 240; //贷款月数，20年就是240个月
+$dkTotal = 10000; //贷款总额
+$dknl    = 0.0515;  //贷款年利率
+ * $dkTotal * $dknl / 12 * pow(1 + $dknl / 12, $dkm) / (pow(1 + $dknl / 12, $dkm) - 1)
  */
 function month_cal($months,$money,$month_interest_rate){
-    return pow(($money*$month_interest_rate *(1+$month_interest_rate)),$months)/(pow((1+$month_interest_rate),$months)-1);
+    return  $money*$month_interest_rate * pow(1+$month_interest_rate,$months)/(pow((1+$month_interest_rate),$months)-1);
 }
 ?>
