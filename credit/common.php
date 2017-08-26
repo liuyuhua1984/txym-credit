@@ -262,4 +262,11 @@ function object_array($array) {
     }
     return $array;
 }
+
+/**
+ *每月还款额=[贷款本金×月利率×（1+月利率）^还款月数]÷[（1+月利率）^还款月数－1]
+ */
+function month_cal($months,$money,$month_interest_rate){
+    return pow(($money*$month_interest_rate *(1+$month_interest_rate)),$months)/(pow((1+$month_interest_rate),$months)-1);
+}
 ?>

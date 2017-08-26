@@ -15,34 +15,40 @@
 	</header>
 	<div class="mui-content">
 	    <div class="mui-row interest mui-card">
-	    	<div class="mui-col-xs-3">金额：</div>
-	    	<div class="mui-col-xs-7">
+	    	<div class="mui-col-xs-4">金额：</div>
+	    	<div class="mui-col-xs-6">
 	    		<div class="mui-input-row">
-	    			<input class="mui-input-clear" type="number" id="money" value="{$money}" />
+	    			<input class="mui-input-clear" type="number" id="money" value="1000" />
 	    		</div>
 	    	</div>
 	    	<div class="mui-col-xs-2">元</div>
 	    	
-	    	<div class="mui-col-xs-3">期限：</div>
-	    	<div class="mui-col-xs-7">
+	    	<div class="mui-col-xs-4">期限：</div>
+	    	<div class="mui-col-xs-6">
 	    		<div class="mui-input-row">
-	    			<input class="mui-input-clear" type="number" id="n_limit" value="{$days}" />
+	    			<input class="mui-input-clear" type="number" id="n_limit" value="1" />
 	    		</div>
 	    	</div>
-	    	<div class="mui-col-xs-2">日</div>
+	    	<div class="mui-col-xs-2">月</div>
 	    	
-	    	<div class="mui-col-xs-12">
-	    		日还款：<span class="red-text" id="day_back">{$day_back}</span>元
+	    	<div class="mui-col-xs-4">月还款：</div>
+	    	<div class="mui-col-xs-6" >
+	    	<input type = "number" class="red-text mui-input-clear" id="month_back" value ="0"  />
 	    	</div>
-	    	<div class="mui-col-xs-12">
-	    		总利息：<span class="red-text" id="total_interest">{$total_interest}</span>元
-	    	</div>
-	    	<div class="mui-col-xs-12" >
-	    		日利率：<span class="red-text" id="day_interest_rate">{$day_interest_rate}</span>元
+	    	<div class="mui-col-xs-4">总利息：</div>
+	    	<div class="mui-col-xs-6" >
+	    	<input type = "number" class="red-text mui-input-clear" id="total_interest" value ="0"  />
 	    	</div>
 
+	  
+			<div class="mui-col-xs-4">月利率：</div>
+	    	<div class="mui-col-xs-6" >
+	    	<input type = "text" class="red-text mui-input-clear" id="month_interest_rate" value ="" placeholder="请输入"/>
+	    	</div>
+			<div class="mui-col-xs-2">%</div>
 			<div class="mui-content-padded">
 				<button id='interest_cal' class="mui-btn mui-btn-block mui-btn-primary">计算</button>
+				
 			</div>
 			</div>
 	    </div>
@@ -60,15 +66,23 @@
         document.getElementById("interest_cal").addEventListener('tap', function () {
             var money = $("#money").val();
             var n_limit = $("#n_limit").val();
+            var month_interest_rate = $('#month_interest_rate').val();
+
             var reg = /^[1-9]\d*$/;
-            if (money == "") {
+            if (money == "" || money == null) {
                 mui.toast('金额不能为空！');
             } else if (!reg.test(money)) {
                 mui.toast("请输入正确的金额！");
-            }else if (!reg.test(n_limit)){
+            }else if (n_limit == null || n_limit==""){
+ 				mui.toast('期限不能为空！');
+            }
+            else if (!reg.test(n_limit)){
 
-                mui.toast("请输入正确的天数!");
-            }else {
+                mui.toast("请输入正确的月数!");
+            }else if (month_interest_rate == null || month_interest_rate==""){
+ 				mui.toast('利率不能为空！');
+            }
+            else {
                 //ajax发送
 
                 $.ajax({
@@ -77,7 +91,8 @@
                     dataType: "json",
                     data: {
                         'money': money,
-                        'days': n_limit,
+                        'months': n_limit,
+                        'month_interest_rate': month_interest_rate,
                     },
 
 
@@ -85,13 +100,13 @@
                         if (data.res=="1"){
                             console.log("进入这进而::"+"__ROOT__");
 							$('#money').val(data.money);
-                            $('#n_limit').val(data.days);
-                            $('#day_back').text(data.day_back);
-                            $('#total_interest').text(data.total_interest);
-                            $('#day_interest_rate').text(data.day_interest_rate);
+                            $('#n_limit').val(data.months);
+                            $('#month_back').val(data.month_back);
+                            $('#total_interest').val(data.total_interest);
+                            $('#month_interest_rate').val(data.month_interest_rate);
 
                         }else if (data.res == "-1"){
-                            alert("计算有错误")
+                            alert("月利率只能是数字与小数")
                         }else if (data.res == "-2"){
                             alert("错误::"+data);
                         }
