@@ -1,0 +1,133 @@
+<include file="sys/header"/>
+<include file="sys/navibar"/>
+<include file="sys/sidebar"/>
+<!--- START 以上内容不需更改，保证该TPL页内的标签匹配即可 --->
+
+<div style="border:0px;padding-bottom:5px;height:auto">
+    <form action="" method="post" style="margin-bottom:0px">
+        <div style="float:left;margin-right:5px">
+            <label> 选择起始时间 </label>
+            <input type="text" id="start_date" name="start_date" value="<{$start_date}>" placeholder="起始时间">
+        </div>
+        <div style="float:left;margin-right:5px">
+            <label>选择结束时间</label>
+            <input type="text" id="end_date" name="end_date" value="<{$end_date}>" placeholder="结束时间">
+        </div>
+        <!--
+        <div style="float:left;margin-right:5px">
+            <label>用户名，查询所有用户请留空</label>
+            <input type="text" name="user_name" value="" placeholder="输入用户名">
+        </div>
+        -->
+        <div class="btn-toolbar" style="padding-top:25px;padding-bottom:0px;margin-bottom:0px">
+            <button type="submit" class="btn btn-primary"><strong>检索</strong></button>
+            <a href="_ADMIN_/Blacklist/add" class="btn btn-primary"><i class="icon-plus"></i>添加黑名单</a>
+        </div>
+        <div style="clear:both;"></div>
+    </form>
+</div>
+
+<div class="block">
+    <a href="#page-stats" class="block-heading" data-toggle="collapse"><{$page_title}>展示</a>
+    <div id="page-stats" class="block-body collapse in">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th style="width:30px">#</th>
+                <th style="width:50px">名称</th>
+                <th style="width:100px">电话</th>
+                <th style="width:35px">性别</th>
+                <th style="width:100px">地址</th>
+                <th style="width:50px">身份证正面</th>
+                <th style="width:50px">身份证背面</th>
+                <th style="width:100px">邮箱</th>
+
+
+                <th style="width:60px">联系人1名称</th>
+                <th style="width:100px">联系人1电话</th>
+                <th style="width:60px">与联系人1关系</th>
+
+                <th style="width:60px">联系人2名称</th>
+                <th style="width:100px">联系人2电话</th>
+                <th style="width:60px">与联系人2关系</th>
+
+                <th style="width:100px">创建时间</th>
+                <th style="width:100px">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name='list' id='item'>
+                <tr>
+                    <td><{$item.id}></td>
+                    <td><{$item.name}></td>
+                    <td><{$item.phone}></td>
+                    <td>
+                        <if condition="$item.sex eq '1'">
+                            男
+                            <else/>
+                            女
+                        </if>
+
+                    </td>
+
+                    <td><{$item.address}></td>
+                    <td><img width="50" height="50" src="__ROOT__/uploads/<{$item.id_card_1}>" /></td>
+                    <td><img width="50" height="50" src="__ROOT__/uploads/<{$item.id_card_2}>" /></td>
+                    <td> <{$item.email}></td>
+
+                    <if condition=" isset($item.fre_list)">
+                        <volist name="item['fre_list']" id="fre" >
+                            <td><{$fre.name}></td>
+                            <td><{$fre.phone}></td>
+                            <td><{$fre.relation}></td>
+                        </volist>
+
+                        <else />
+
+                       <td>无</td>
+
+                        <td>无</td>
+                        <td>无</td>
+                        <td>无</td>
+                        <td>无</td>
+                        <td>无</td>
+                    </if>
+
+                    <td><{$item.create_time}></td>
+                    <td>
+                        <a href="_ADMIN_/Blacklist/del?lId=<{$item.id}>" onclick="return confirm('确认从黑名单删除此条数据吗？');return false;">删除</a>
+                    </td>
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+        <!--- START 分页模板 --->
+        <if condition=" $page neq 1">
+            <{$page}>
+        </if>
+
+        <!--- END --->
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        var date = $("#start_date");
+        if (date.length) {
+            date.datepicker({dateFormat: "yy-mm-dd"});
+            date.datepicker("option", "firstDay", 1);
+        }
+
+        var end_date = $("#end_date");
+        if (end_date.length){
+            end_date.datepicker({dateFormat: "yy-mm-dd"});
+            end_date.datepicker("option", "firstDay", 1);
+        }
+
+    });
+
+
+</script>
+<!--- END 以下内容不需更改，请保证该TPL页内的标签匹配即可 --->
+<include file="sys/footer" />

@@ -36,5 +36,5 @@ return [
         'wintertide' => '冰雪冬季',
     ),
    'ADMIN_TITLE'=>'管理后台',
-    'COMPANY_NAME'=>'大天地',
+    'COMPANY_NAME'=>'天行亿迈',
 ];

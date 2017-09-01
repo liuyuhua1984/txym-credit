@@ -213,7 +213,9 @@ class Bootstrap extends Paginator
         if($total_page>0){
             $navibar.="<li><a>".$page_no ."/". $total_page."</a></li>";
         }
-        $navibar.="<li><a>共".$row_count."条</a></li>";
+        if ($row_count > 0) {
+            $navibar .= "<li><a>共" . $row_count . "条</a></li>";
+        }
         $jump ="";
         //$jump ="<li><form action='$url' method='GET' name='jumpForm'><input type='text' name='page_no' value='$page_no'></form></li>";
 

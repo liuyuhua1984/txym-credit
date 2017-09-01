@@ -22,6 +22,7 @@ use think\Session;
 use function convertDate;
 use think\Controller;
 use think\Log;
+use app\home\model\Black;
 use function time;
 use app\home\model\FrequentContacts;
 
@@ -174,6 +175,10 @@ class Register extends Controller
             return ['res' => -5];
         }
 
+        $blackList = Black::where('phone','=',$phone_rj)->find();
+        if ($blackList){
+            return ["res" => -8];
+        }
        // Log::error("进来ssssssssssssssssssssssssssssssssssssssss了");
         $id_card = ['up_img_WU_FILE_0', 'up_img_WU_FILE_1'];
         // 获取表单上传文件
