@@ -158,26 +158,53 @@ class Register extends Controller
         $house= $this->request->param("house");//有=1,无=2
         $car = $this->request->param("car");//有=1,无=2
 
+//
+//        if (data.res == '1') {
+//            console.log("进入这进而::" + "__ROOT__");
+//            window.location.href = "__ROOT__";
+//        } else if (data.res == '-1') {
+//            alert("手机号已注册,请更换");
+//        }else if (data.res == "-2"){
+//            alert("手机号码参数不正确::");
+//        }else if (data.res == "-3"){
+//            alert("email格式不正确");
+//        }else if (data.res == "-4"){
+//            alert("电话号码不能一样");
+//        }else if (data.res == "-5"){
+//            alert("名称不能一样");
+//        }else if (data.res == "-7"){
+//            alert("上传文件有问题");
+//        }else if (data.res == "-8"){
+//            alert("不能注册");
+//        }
+//        else{
+//            alert("错误:"+data);
+//        }
 
         if (!isPhoneNum($phone_rj) || !isPhoneNum($phone_1) || !isPhoneNum($phone_2)){
-            return ['res' => -2];
+           // return ['res' => -2];
+           return $this->error("手机号码参数不正确");
         }
 
         if (!isEmail($email_rj)){
-            return ['res' => -3];
+           // return ['res' => -3];
+            return $this->error("email格式不正确");
         }
 
         if ($phone_rj == $phone_2 || $phone_rj == $phone_2 || $phone_1 == $phone_2){
-            return ['res' => -4];
+           // return ['res' => -4];
+            return $this->error("电话号码不能一样");
         }
 
         if ($name_rj == $name_1 || $name_rj == $name_2 || $name_1 == $name_2){
-            return ['res' => -5];
+          //  return ['res' => -5];
+            return $this->error("名称不能一样");
         }
 
         $blackList = Black::where('phone','=',$phone_rj)->find();
         if ($blackList){
-            return ["res" => -8];
+           // return ["res" => -8];
+            return $this->error("不能注册");
         }
        // Log::error("进来ssssssssssssssssssssssssssssssssssssssss了");
         $id_card = ['up_img_WU_FILE_0', 'up_img_WU_FILE_1'];
@@ -189,19 +216,25 @@ class Register extends Controller
         $files = $this->request->file();
         foreach($id_card as $val){
 
-
             if (empty($files)){
-                return ["res" => -7];
+                Log::error("上传文件有问题11111111111111111");
+               return $this->error("上传文件有问题");
+
+               // return ["res" => -7];
             }
 
             if (!array_key_exists($val,$files)){
-                return ["res" => -7];
+                Log::error("上传文件有问题22222222222");
+                return $this->error("上传文件有问题");
+               // return ["res" => -7];
             }
 
             $file =  $files[$val];
             if (empty($file)){
                // return json_encode(["res" => -2]);
-               return ["res" => -7];
+             //  return ["res" => -7];
+                Log::error("上传文件有问题33333333");
+                return $this->error("上传文件有问题");
             }
 
            // Log::error("文件::".$val);
@@ -226,14 +259,16 @@ class Register extends Controller
                 // 上传失败获取错误信息
                 Log::error(ROOT_PATH."文件::".$val);
                 //return json_encode(["res" => -2]);
-                return ["res" => -2];
+               // return ["res" => -2];
+                return $this->error("手机号码参数不正确");
             }
         }
 
         $phone = Borrower::where("phone", '=', $phone_rj)->find();
         if (!empty($phone)) {
            // return json_encode(["res" => -1]);
-            return ["res" => -1];
+           // return ["res" => -1];
+            return $this->error("手机号已注册,请更换");
         }
 
 
@@ -256,8 +291,9 @@ class Register extends Controller
         Session::set("name", $name_rj);
         Session::set("bBorrower", $borrower);
         Session::delete('loaner');
-       // return json_encode(["res" => 1]);
-        return ["res" => 1];
+
+       return $this->redirect("Index/index");
+        //return ["res" => 1];
     }
 }
 

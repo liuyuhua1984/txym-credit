@@ -862,6 +862,9 @@ class Request
             return $this->file = array_merge($this->file, $name);
         }
         $files = $this->file;
+         if (empty($files)){
+             Log::error("没有找到文件!!");
+         }
         if (!empty($files)) {
             // 处理上传文件
             $array = [];
