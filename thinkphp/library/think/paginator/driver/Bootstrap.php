@@ -180,6 +180,7 @@ class Bootstrap extends Paginator
             }
         }
 
+
         $navibar = "<div class=\"pagination\"><ul>";
         $offset=self::OFFSET;
         //$page_size=10;
@@ -213,6 +214,7 @@ class Bootstrap extends Paginator
         if($total_page>0){
             $navibar.="<li><a>".$page_no ."/". $total_page."</a></li>";
         }
+
         if ($row_count > 0) {
             $navibar .= "<li><a>共" . $row_count . "条</a></li>";
         }

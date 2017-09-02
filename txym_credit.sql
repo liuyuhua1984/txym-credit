@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2017-08-17 06:25:36
+Date: 2017-09-02 08:19:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -42,9 +42,9 @@ INSERT INTO `credit_amenu_url` VALUES ('3', '借款账号', '/admin/Borrowerlist
 INSERT INTO `credit_amenu_url` VALUES ('4', '借款申请记录', '/admin/Borrowrecordlist/index', '1', '1', '1', '1', '借款申请记录', '0');
 INSERT INTO `credit_amenu_url` VALUES ('5', '借款申请记录', '/admin/Borrowrecordlist/refuse', '1', '0', '1', '1', '拒绝申请', '4');
 INSERT INTO `credit_amenu_url` VALUES ('6', '借款申请记录', '/admin/Borrowrecordlist/agree', '1', '0', '1', '0', '同意申请', '4');
-INSERT INTO `credit_amenu_url` VALUES ('7', '黑名单', '/panel/groups.php', '1', '1', '0', '1', '黑名单', '0');
-INSERT INTO `credit_amenu_url` VALUES ('8', '加入黑名单', '/panel/group_modify.php', '1', '0', '0', '0', '加入黑名单', '7');
-INSERT INTO `credit_amenu_url` VALUES ('9', '删除黑名单', '/panel/group_add.php', '1', '0', '0', '1', '删除黑名单', '7');
+INSERT INTO `credit_amenu_url` VALUES ('7', '黑名单', '/admin/Blacklist/index', '1', '1', '1', '1', '黑名单', '0');
+INSERT INTO `credit_amenu_url` VALUES ('8', '加入黑名单', '/admin/Blacklist/add', '1', '0', '0', '0', '加入黑名单', '7');
+INSERT INTO `credit_amenu_url` VALUES ('9', '删除黑名单', '/admin/Blacklist/del', '1', '0', '0', '1', '删除黑名单', '7');
 INSERT INTO `credit_amenu_url` VALUES ('10', '借出账号', '/admin/Aloaner/del', '1', '0', '1', '1', '删除借出者', '2');
 INSERT INTO `credit_amenu_url` VALUES ('11', '借款账号', '/admin/Borrowerlist/del', '1', '0', '1', '1', '删除借款者', '3');
 INSERT INTO `credit_amenu_url` VALUES ('12', '编辑菜单模块', '/panel/module_modify.php', '1', '0', '0', '0', '编辑模块', '11');
@@ -198,7 +198,7 @@ CREATE TABLE `credit_auser` (
 -- ----------------------------
 -- Records of credit_auser
 -- ----------------------------
-INSERT INTO `credit_auser` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'SomewhereYu', '13800138001', 'admin@osadmin.org', '初始的超级管理员!', '1502922217', '1', '127.0.0.1', '1', 'schoolpainting', '2,7,10,11,13,14,18,21,24', '0');
+INSERT INTO `credit_auser` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'SomewhereYu', '13800138001', 'admin@osadmin.org', '初始的超级管理员!', '1504303275', '1', '127.0.0.1', '1', 'schoolpainting', '2,7,10,11,13,14,18,21,24', '0');
 INSERT INTO `credit_auser` VALUES ('26', 'demo', 'e10adc3949ba59abbe56e057f20f883e', 'SomewhereYu', '15812345678', 'yuwenqi@osadmin.org', '默认用户组成员', '1371605873', '1', '127.0.0.1', '2', 'schoolpainting', '', '1');
 
 -- ----------------------------
@@ -221,6 +221,33 @@ INSERT INTO `credit_auser_group` VALUES ('1', '超级管理员组', '1,2,3,4,5,6
 INSERT INTO `credit_auser_group` VALUES ('2', '默认账号组', '1,5,17,18,20,22,23,24,25,101', '1', '默认账号组');
 
 -- ----------------------------
+-- Table structure for credit_black
+-- ----------------------------
+DROP TABLE IF EXISTS `credit_black`;
+CREATE TABLE `credit_black` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT '' COMMENT '借钱人名称',
+  `phone` bigint(20) DEFAULT '0' COMMENT '手机号',
+  `password` varchar(255) DEFAULT '' COMMENT '密码',
+  `sex` tinyint(4) DEFAULT '1' COMMENT '性别,男=1,女=2',
+  `address` varchar(255) DEFAULT '' COMMENT '住址',
+  `id_card_1` varchar(255) DEFAULT '' COMMENT '身份证号正面地址',
+  `id_card_2` varchar(255) DEFAULT '' COMMENT '身份证反面地址',
+  `house_licence` varchar(255) DEFAULT '' COMMENT '房产证存入路径',
+  `driver_licence` varchar(255) DEFAULT '' COMMENT '驾驶证存储路径',
+  `email` varchar(255) DEFAULT NULL COMMENT '邮箱',
+  `create_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  `is_show` tinyint(4) DEFAULT '1' COMMENT '是否显示',
+  PRIMARY KEY (`id`),
+  KEY `phone` (`phone`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of credit_black
+-- ----------------------------
+INSERT INTO `credit_black` VALUES ('20', '脸色脸', '15213658954', '123456', '2', '在脸色我', '20170803\\3101aca0baa5dffe0289b0426b3f778b.jpg', '20170803\\372562f2970cbf87fb09c0e3dbf2e760.jpg', '1', '1', '2@163.com', '2017-09-02 07:07:34', '1');
+
+-- ----------------------------
 -- Table structure for credit_borrower
 -- ----------------------------
 DROP TABLE IF EXISTS `credit_borrower`;
@@ -240,18 +267,16 @@ CREATE TABLE `credit_borrower` (
   `is_show` tinyint(4) DEFAULT '1' COMMENT '是否显示',
   PRIMARY KEY (`id`),
   KEY `phone` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of credit_borrower
 -- ----------------------------
-INSERT INTO `credit_borrower` VALUES ('11', 'ew', '18554654210', '110110', '2', '感人肺腑枯萎', '20170802\\1a569c5f62590b7b019e4feba31efe1a.png', '20170802\\8a9c3d5c9cb373cf225839e160244070.jpg', '1', '1', 'w@163.com', '2017-08-16 16:39:13', '1');
 INSERT INTO `credit_borrower` VALUES ('12', 'w胗', '15212365895', '123456', '2', '脸厅', '20170802\\f9221a7039f6d2f8ff4d11a32583da41.png', '20170802\\58b40e7aed8e5cd27252fab389852394.png', '1', '1', 'sw@163.com', '2017-08-02 05:42:19', '1');
 INSERT INTO `credit_borrower` VALUES ('13', '仍', '15213456565', '123456', '1', '脸奇才脸你 欠妥', '20170802\\20b6f76dc1d0f360ca586b5ea5ab227f.png', '20170802\\5b385d6dfe9c4527e4222c97dddd9b52.jpg', '1', '1', '15@163.com', '2017-08-02 06:34:45', '1');
-INSERT INTO `credit_borrower` VALUES ('14', 'we33', '15213659856', '123456', '1', 'ewe fsg ', '20170803\\df9ceb3e4a4130f7d4328956d8dbc853.png', '20170803\\56c982f01a5c44449b676217d0eec4c2.png', '1', '1', 'ww@163.com', '2017-08-03 11:01:17', '1');
 INSERT INTO `credit_borrower` VALUES ('15', 'da e ', '15214785469', '123456', '1', 'ewq d ', '20170803\\06b6b91a2f2d9f5ebc80e29794e05d38.png', '20170803\\8e77b6ef0f305ef662f27e68e063b67b.png', '1', '1', '44@163.com', '2017-08-03 11:24:58', '1');
-INSERT INTO `credit_borrower` VALUES ('16', '脸色脸', '15213658954', '123456', '2', '在脸色我', '20170803\\3101aca0baa5dffe0289b0426b3f778b.jpg', '20170803\\372562f2970cbf87fb09c0e3dbf2e760.jpg', '1', '1', '2@163.com', '2017-08-03 11:31:11', '1');
 INSERT INTO `credit_borrower` VALUES ('17', 'we 脸厅', '15217854698', '123456', '2', '脸色枯载', '20170803\\4df90e4fbcbaf4add26b0b5b6e82a608.jpg', '20170803\\590110e86a3bd7909289c41923f8247e.png', '1', '1', '1454@163.com', '2017-08-16 16:58:38', '0');
+INSERT INTO `credit_borrower` VALUES ('18', '妇人', '15465478958', '123456', '1', '胯无可奈何', '20170819\\8a90c2d4fca9122c723bc5dcad04aaad.jpg', '20170819\\101d5899b421e7f907feb599a390dd20.jpg', '1', '1', 'wew@163.com', '2017-08-19 03:37:49', '1');
 
 -- ----------------------------
 -- Table structure for credit_borrow_record
@@ -270,7 +295,7 @@ CREATE TABLE `credit_borrow_record` (
   KEY `borrow_id` (`borrow_id`),
   KEY `loaner_id` (`loaner_id`),
   KEY `order_id` (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of credit_borrow_record
@@ -278,8 +303,9 @@ CREATE TABLE `credit_borrow_record` (
 INSERT INTO `credit_borrow_record` VALUES ('1', '11', '3', '10', '36', '2017080456569997', '2017-08-16 17:32:49', '2');
 INSERT INTO `credit_borrow_record` VALUES ('2', '11', '5', '15', '52', '2017080453559710', '2017-08-04 04:48:53', '0');
 INSERT INTO `credit_borrow_record` VALUES ('3', '12', '3', '10', '10', '2017080453541001', '2017-08-04 04:49:57', '0');
-INSERT INTO `credit_borrow_record` VALUES ('4', '12', '7', '0', '0', '2017080455505010', '2017-08-04 04:52:55', '0');
+INSERT INTO `credit_borrow_record` VALUES ('4', '12', '7', '0', '0', '2017080455505010', '2017-08-17 21:58:54', '1');
 INSERT INTO `credit_borrow_record` VALUES ('5', '12', '6', '0', '0', '2017080449535148', '2017-08-16 17:32:32', '1');
+INSERT INTO `credit_borrow_record` VALUES ('6', '13', '3', '1000', '1', '2017081998525156', '2017-08-19 03:48:43', '0');
 
 -- ----------------------------
 -- Table structure for credit_frequent_contacts
@@ -294,7 +320,7 @@ CREATE TABLE `credit_frequent_contacts` (
   `create_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`),
   KEY `borrower_id` (`borrower_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of credit_frequent_contacts
@@ -313,6 +339,8 @@ INSERT INTO `credit_frequent_contacts` VALUES ('25', '16', '你人4 4 ', '177485
 INSERT INTO `credit_frequent_contacts` VALUES ('26', '16', '和地地', '18845495658', '脸', '2017-08-03 11:31:11');
 INSERT INTO `credit_frequent_contacts` VALUES ('27', '17', '脸在工', '13315487965', '人2', '2017-08-03 11:37:43');
 INSERT INTO `credit_frequent_contacts` VALUES ('28', '17', '1531254854', '15487856458', '脸3', '2017-08-03 11:37:43');
+INSERT INTO `credit_frequent_contacts` VALUES ('29', '18', '大爱有', '15478965452', '脸', '2017-08-19 03:37:49');
+INSERT INTO `credit_frequent_contacts` VALUES ('30', '18', '1521354698', '15213458978', '脸', '2017-08-19 03:37:49');
 
 -- ----------------------------
 -- Table structure for credit_loaner
@@ -332,7 +360,7 @@ CREATE TABLE `credit_loaner` (
   `create_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '注册时间',
   PRIMARY KEY (`id`),
   KEY `phone` (`phone`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of credit_loaner
@@ -352,6 +380,8 @@ INSERT INTO `credit_loaner` VALUES ('14', '砍大本营', '13256898563', '123456
 INSERT INTO `credit_loaner` VALUES ('15', '砍大本营', '13256898564', '123456', '2', '大本营在霜期地阿斯蒂芬 ', '100', '1', '左栽棋欠妥顶替 ', '1', '2017-08-17 06:23:09');
 INSERT INTO `credit_loaner` VALUES ('16', 'dasf sdf a', '17578945638', '123456', '2', '夺茜脸色奇才柑棋寺', '100', '1', '在五块石 震天一概而论', '1', '2017-08-17 06:23:10');
 INSERT INTO `credit_loaner` VALUES ('17', '仍我', '13566589565', '123456', '1', '仍顶替', '100', '1', '珠仍', '1', '2017-08-17 06:23:12');
+INSERT INTO `credit_loaner` VALUES ('18', '1枯', '18523896203', '198723Duan', '1', '芏压标', '100', '1', '是的风格的股份', '1', '2017-08-17 09:54:45');
+INSERT INTO `credit_loaner` VALUES ('19', 'ddee', '15213656894', '123456', '1', 'dfaadsfsadf', '100', '1', '佛挡杀佛发生发多少', '1', '2017-08-19 03:11:56');
 
 -- ----------------------------
 -- Table structure for credit_lona_request

@@ -55,6 +55,7 @@ abstract class Paginator implements ArrayAccess, Countable, IteratorAggregate, J
 
     public function __construct($items, $listRows, $currentPage = null, $total = null, $simple = false, $options = [])
     {
+
         $this->options = array_merge($this->options, $options);
 
         $this->options['path'] = '/' != $this->options['path'] ? rtrim($this->options['path'], '/') : $this->options['path'];
@@ -66,7 +67,7 @@ abstract class Paginator implements ArrayAccess, Countable, IteratorAggregate, J
             $items = Collection::make($items);
         }
 
-        if ($simple) {
+   //     if ($simple) {
 //            $this->currentPage = $this->setCurrentPage($currentPage);
 //            $this->hasMore     = count($items) > ($this->listRows);
 //            if ($this->hasMore) {
@@ -80,7 +81,7 @@ abstract class Paginator implements ArrayAccess, Countable, IteratorAggregate, J
             $this->hasMore     = $this->currentPage < $this->lastPage;
 
            // error_log("total:".$total);
-      }
+  //    }
         $this->items = $items;
     }
 
@@ -169,6 +170,7 @@ abstract class Paginator implements ArrayAccess, Countable, IteratorAggregate, J
 //        if ($this->simple) {
 //            throw new \DomainException('not support total');
 //        }
+       // error_log("总条数::".$this->total);
         return $this->total;
     }
 
