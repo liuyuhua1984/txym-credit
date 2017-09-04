@@ -29,6 +29,7 @@ use app\home\model\FrequentContacts;
 class Register extends Controller
 {
 
+    private $contact = ["父母","亲戚","朋友","同事"];
 
     public function openLoanerRegister()
     {
@@ -39,6 +40,7 @@ class Register extends Controller
     {
         return $this->fetch("reg-j");
     }
+
 
     /**
      *借出者注册
@@ -100,6 +102,12 @@ class Register extends Controller
         return ["res" => 1];
 
     }
+//<option value="1" selected="selected">父母</option>
+//<option value="2">亲戚</option>
+//<option value="3">朋友</option>
+//<option value="4">同事</option>
+
+
 
     /**
      * 　 x-requested-with  XMLHttpRequest
@@ -138,7 +146,7 @@ class Register extends Controller
         $name_2 = $this->request->param("name_2");//联系人1名称
         $contact_2 = $this->request->param("contact_2");//联系人1关系
 
-
+        error_log("::contact_1".$contact_1);
 
         $phone_rj =  preg_replace('/\s/','',$phone_rj);
 
@@ -153,6 +161,18 @@ class Register extends Controller
         $name_2 =  preg_replace('/\s/','',$name_2);
         $contact_2 =  preg_replace('/\s/','',$contact_2);
 
+        if ($contact_1 < 0 || $contact_1 > count($this->contact)){
+            $contact_1 = 0;
+        }
+
+
+        $contact_1 = $this->contact[$contact_1];
+
+        if ($contact_2 < 0 || $contact_2 > count($this->contact)){
+            $contact_2 = 0;
+        }
+
+        $contact_2 = $this->contact[$contact_2];
 
         $sex = $this->request->param("sex");//性别 男=1,女=2
         $house= $this->request->param("house");//有=1,无=2

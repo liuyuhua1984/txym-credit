@@ -91,7 +91,13 @@
                     </div>
                     <div class="mui-input-row">
                         <label>关系：</label>
-                        <input id="contact_1"  name="contact_1"  type="text" class="mui-input" placeholder="" maxlength="10">
+                        
+  								 <select id="contact_1"  name="contact_1">
+									<option value="0" selected="selected">父母</option>
+									<option value="1">亲戚</option>
+									<option value="2">朋友</option>
+									<option value="3">同事</option>
+								</select> 
                     </div>
                 </div>
             </div>
@@ -110,7 +116,12 @@
                     </div>
                     <div class="mui-input-row">
                         <label>关系：</label>
-                        <input id="contact_2" name="contact_2" type="text" class="mui-input" placeholder="" maxlength="10">
+                       	<select id="contact_2" name="contact_2" >
+									<option value="0" selected="selected">父母</option>
+									<option value="1">亲戚</option>
+									<option value="2">朋友</option>
+									<option value="3">同事</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -188,8 +199,7 @@
             {id: "phone_2", msg: "联系人2,请输入正确的手机号码", cb: checkMobile},
             {id: "name_1", msg: "联系人1,请输入正确的姓名!", cb: null},
             {id: "name_2", msg: "联系人2,请输入正确的姓名!", cb: null},
-            {id: "contact_1", msg: "联系人1,请输入正确的关系!", cb: null},
-            {id: "contact_2", msg: "联系人2,请输入正确的关系!", cb: null},
+
         ];
 
         for (var i = 0; i < arr.length; i++) {
